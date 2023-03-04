@@ -26,9 +26,9 @@ const BurgerIngredientsList = (props) => {
                         .filter((item) => {
                             return item.type === string;
                         })
-                        .map(({ id, image, name, price }) => {
+                        .map(({ _id, image, name, price }) => {
                             return (
-                                <li key={id}>
+                                <li key={_id}>
                                     <BurgerItem
                                         image={image}
                                         name={name}
