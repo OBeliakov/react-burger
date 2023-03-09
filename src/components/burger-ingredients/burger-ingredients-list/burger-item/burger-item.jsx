@@ -10,7 +10,7 @@ const BurgerItem = ({ image, price, name }) => {
     return (
         <div className={`${burgerItem.card} mb-10 ml-3 mr-3`}>
             <Counter count={1} extraClass={burgerItem.counter} />
-            <img className="ml-4 mr-4" src={image} alt="" />
+            <img className="ml-4 mr-4" src={image} alt={name} />
             <p className={`${burgerItem.price} mt-1 mb-1`}>
                 <span className="text text_type_digits-default mr-2">
                     {price}
