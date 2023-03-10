@@ -40,12 +40,6 @@ const App = () => {
             });
     };
 
-    const onEscClick = (e) => {
-        if (e.key === "Escape") {
-            onHandleModal(false);
-        }
-    };
-
     const onHandleModal = (flag, type = "") => {
         if (flag) {
             if (type === "ingredients") {
@@ -78,11 +72,7 @@ const App = () => {
     useEffect(() => {
         getIngredientsData();
 
-        document.addEventListener("keydown", onEscClick);
-
-        return () => {
-            document.removeEventListener("keydown", onEscClick);
-        };
+        
     }, []);
 
     const { ingredientsData, loading, error } = state;

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import { createPortal } from "react-dom";
 import ModalHeader from "./modal-header/modal-header";
 import ModalOverlay from "./modal-overlay/modal-overlay";
@@ -11,6 +11,20 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
     const handleClick = () => {
         closeModal(false);
     };
+
+    const onEscClick = (e) => {
+        if (e.key === "Escape") {
+            closeModal(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("keydown", onEscClick);
+
+        return () => {
+            document.removeEventListener("keydown", onEscClick);
+        };
+    }, []);
 
     return createPortal(
         <>
