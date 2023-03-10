@@ -4,7 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import OrderingInfo from "./ordering-info/ordering-info";
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = ({ data, openModal }) => {
     const bunData = data.find((item) => item.type === "bun");
     const otherData = data.filter((item) => item.type !== "bun");
     const finalPrice = otherData.reduce((acc, item) => acc + item.price, 0);
@@ -29,13 +29,14 @@ const BurgerConstructor = ({ data }) => {
                 thumbnail={image}
                 extraClass="ml-2"
             />
-            <OrderingInfo finalPrice={finalPrice} />
+            <OrderingInfo openModal={openModal} finalPrice={finalPrice} />
         </div>
     );
 };
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object),
+    openModal: PropTypes.func,
 };
 
 export default BurgerConstructor;

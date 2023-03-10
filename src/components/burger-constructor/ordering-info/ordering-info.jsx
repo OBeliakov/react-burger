@@ -6,7 +6,7 @@ import {
 import orderingInfo from "./ordering-info.module.css";
 import PropTypes from "prop-types";
 
-const OrderingInfo = ({ finalPrice }) => {
+const OrderingInfo = ({ finalPrice, openModal }) => {
     return (
         <div className={`${orderingInfo.ordering_info} mt-10`}>
             <span className="text text_type_digits-medium mr-2">
@@ -18,6 +18,7 @@ const OrderingInfo = ({ finalPrice }) => {
                 type="primary"
                 size="large"
                 extraClass="ml-10 mr-3"
+                onClick={() => openModal(true, "order")}
             >
                 Оформить заказ
             </Button>
@@ -27,6 +28,7 @@ const OrderingInfo = ({ finalPrice }) => {
 
 OrderingInfo.propTypes = {
     finalPrice: PropTypes.number,
+    openModal: PropTypes.func,
 };
 
 export default OrderingInfo;
