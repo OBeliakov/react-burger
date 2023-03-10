@@ -5,6 +5,7 @@ import app from "./app.module.css";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 
 const App = () => {
     const [state, setState] = useState({
@@ -71,8 +72,6 @@ const App = () => {
 
     useEffect(() => {
         getIngredientsData();
-
-        
     }, []);
 
     const { ingredientsData, loading, error } = state;
@@ -107,13 +106,24 @@ const App = () => {
                             <p>Загрузка данных...</p>
                         )}
                         {ingredientId && modal.ingredientsModal && (
-                            <IngredientDetails
-                                currentIngredient={currentIngredient}
-                                closeModal={onHandleModal}
-                            />
+                            <Modal
+                                modalTitle="Детали ингредиента"
+                                closeModal={handleModal}
+                                className="pt-10 pl-10 pb-15 pr-10"
+                            >
+                                <IngredientDetails
+                                    currentIngredient={currentIngredient}
+                                    closeModal={onHandleModal}
+                                />
+                            </Modal>
                         )}
                         {modal.orderModal && (
-                            <OrderDetails closeModal={onHandleModal} />
+                            <Modal
+                                className="pt-15 pl-25 pb-30 pr-10"
+                                closeModal={handleModal}
+                            >
+                                <OrderDetails closeModal={onHandleModal} />
+                            </Modal>
                         )}
                     </main>
                 </>

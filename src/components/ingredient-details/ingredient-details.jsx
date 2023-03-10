@@ -1,11 +1,8 @@
 import React from "react";
 import ingredientDetailsStyle from "./ingredient-details.module.css";
-import Modal from "../modal/modal";
 import PropTypes from "prop-types";
 
-const IngredientDetails = ({ currentIngredient, closeModal }) => {
-    const modalTitle = `Детали ингредиента`;
-
+const IngredientDetails = ({ currentIngredient }) => {
     const generateMarkup = (element) => {
         const { image, name, calories, carbohydrates, proteins, fat } = element;
 
@@ -59,20 +56,11 @@ const IngredientDetails = ({ currentIngredient, closeModal }) => {
 
     const modalBody = generateMarkup(currentIngredient);
 
-    return (
-        <Modal
-            modalTitle={modalTitle}
-            className="pt-10 pl-10 pb-15 pr-10"
-            closeModal={closeModal}
-        >
-            {modalBody}
-        </Modal>
-    );
+    return modalBody;
 };
 
 IngredientDetails.propTypes = {
     currentIngredient: PropTypes.object,
-    closeModal: PropTypes.func,
 };
 
 export default IngredientDetails;
