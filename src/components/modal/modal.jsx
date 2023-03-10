@@ -28,23 +28,24 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
 
     return createPortal(
         <>
-            <div className={`${modalStyles.modal} ${className}`}>
-                <ModalHeader>
-                    {modalTitle && (
-                        <h2 className="text text_type_main-large">
-                            {modalTitle}
-                        </h2>
-                    )}
-                    <button
-                        className={modalStyles.close_btn}
-                        onClick={handleClick}
-                    >
-                        <CloseIcon />
-                    </button>
-                </ModalHeader>
-                {children}
-            </div>
-            <ModalOverlay closeModal={handleClick} />
+            <ModalOverlay closeModal={handleClick}>
+                <div className={`${modalStyles.modal} ${className}`}>
+                    <ModalHeader>
+                        {modalTitle && (
+                            <h2 className="text text_type_main-large">
+                                {modalTitle}
+                            </h2>
+                        )}
+                        <button
+                            className={modalStyles.close_btn}
+                            onClick={handleClick}
+                        >
+                            <CloseIcon />
+                        </button>
+                    </ModalHeader>
+                    {children}
+                </div>
+            </ModalOverlay>
         </>,
         modalRoot
     );
