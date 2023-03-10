@@ -4,7 +4,7 @@ import ModalHeader from "./modal-header/modal-header";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import PropTypes from "prop-types";
 const modalRoot = document.getElementById("burger-modals");
 
 const Modal = ({ modalTitle, className, closeModal, children }) => {
@@ -49,6 +49,13 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
         </>,
         modalRoot
     );
+};
+
+Modal.propTypes = {
+    modalTitle: PropTypes.string,
+    className: PropTypes.string,
+    closeModal: PropTypes.func,
+    children: PropTypes.node,
 };
 
 export default Modal;

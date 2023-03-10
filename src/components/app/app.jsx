@@ -70,16 +70,14 @@ const App = () => {
         setType(type);
     };
 
-    useEffect(() => {
-        getIngredientsData();
-    }, []);
+    useEffect(getIngredientsData, []);
 
     const { ingredientsData, loading, error } = state;
     const currentIngredient = ingredientsData.find(
         (item) => item._id === ingredientId
     );
 
-    const filteredItems = [...ingredientsData].filter(
+    const filteredItems = ingredientsData.filter(
         (item) => item.type === ingredientType
     );
 
