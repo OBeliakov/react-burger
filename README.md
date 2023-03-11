@@ -1,1 +1,1 @@
-# react-burger
+Stellar burger - build your own awesome burger!

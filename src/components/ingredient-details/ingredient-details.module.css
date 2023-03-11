@@ -1,0 +1,16 @@
+.ingredient_card {
+    text-align: center;
+}
+
+.ingredient_image {
+    width: 480px;
+    height: 240px;
+}
+
+.nutrients_list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
