@@ -20,7 +20,7 @@ const App = () => {
     });
 
     const [ingredientType, setType] = useState("bun");
-    const [currentIngredient, setActiveIngredient] = useState("");
+    const [currentIngredient, setActiveIngredient] = useState({});
     const _apiUrl = "https://norma.nomoreparties.space/api/ingredients";
 
     const getIngredientsData = () => {
@@ -105,7 +105,7 @@ const App = () => {
                         ) : (
                             <p>Загрузка данных...</p>
                         )}
-                        {currentIngredient && modal.ingredientsModal && (
+                        {modal.ingredientsModal && (
                             <Modal
                                 modalTitle="Детали ингредиента"
                                 closeModal={handleModal}
