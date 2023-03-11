@@ -26,7 +26,12 @@ const App = () => {
     const getIngredientsData = () => {
         setState({ ...state, loading: true });
         fetch(_apiUrl)
-            .then((res) => res.json())
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка ${res.status}`);
+            })
             .then((res) => {
                 const ingredientsData = res.data;
                 setState({

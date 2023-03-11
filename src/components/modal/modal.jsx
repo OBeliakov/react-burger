@@ -8,17 +8,23 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("burger-modals");
 
 const Modal = ({ modalTitle, className, closeModal, children }) => {
-    const handleClick = () => {
+    const handleCloseModal = () => {
         closeModal(false);
     };
 
-    const onEscClick = (e) => {
-        if (e.key === "Escape") {
-            closeModal(false);
+    const handleOverlayClick = (e) => {
+        if (e.target === e.currentTarget) {
+            handleCloseModal();
         }
     };
 
     useEffect(() => {
+        const onEscClick = (e) => {
+            if (e.key === "Escape") {
+                handleCloseModal();
+            }
+        };
+
         document.addEventListener("keydown", onEscClick);
 
         return () => {
@@ -28,7 +34,7 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
 
     return createPortal(
         <>
-            <ModalOverlay closeModal={handleClick}>
+            <ModalOverlay handleCloseModal={handleOverlayClick}>
                 <div className={`${modalStyles.modal} ${className}`}>
                     <ModalHeader>
                         {modalTitle && (
@@ -38,7 +44,7 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
                         )}
                         <button
                             className={modalStyles.close_btn}
-                            onClick={handleClick}
+                            onClick={handleCloseModal}
                         >
                             <CloseIcon />
                         </button>
@@ -54,7 +60,7 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
 Modal.propTypes = {
     modalTitle: PropTypes.string,
     className: PropTypes.string,
-    closeModal: PropTypes.func,
+    closeModal: PropTypes.func.isRequired,
     children: PropTypes.node,
 };
 

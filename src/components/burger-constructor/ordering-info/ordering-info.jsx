@@ -28,7 +28,7 @@ const OrderingInfo = ({ finalPrice, openModal }) => {
 
 OrderingInfo.propTypes = {
     finalPrice: PropTypes.number,
-    openModal: PropTypes.func,
+    openModal: PropTypes.func.isRequired,
 };
 
 export default OrderingInfo;

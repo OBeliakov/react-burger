@@ -2,11 +2,11 @@ import React from "react";
 import modalOverlayStyles from "./modal-overlay.module.css";
 import PropTypes from "prop-types";
 
-const ModalOverlay = ({ closeModal, children }) => {
+const ModalOverlay = ({ handleCloseModal, children }) => {
     return (
         <div
             className={modalOverlayStyles.overlay}
-            onClick={closeModal}
+            onClick={handleCloseModal}
             aria-hidden="true"
         >
             {children}
@@ -15,7 +15,7 @@ const ModalOverlay = ({ closeModal, children }) => {
 };
 
 ModalOverlay.propTypes = {
-    closeModal: PropTypes.func,
+    handleCloseModal: PropTypes.func.isRequired,
     children: PropTypes.node,
 };
 

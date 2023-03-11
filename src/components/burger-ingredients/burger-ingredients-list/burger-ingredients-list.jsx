@@ -68,8 +68,8 @@ const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
 
 BurgerIngredientsList.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-    getActiveIngredient: PropTypes.func,
-    openModal: PropTypes.func,
+    getActiveIngredient: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredientsList;

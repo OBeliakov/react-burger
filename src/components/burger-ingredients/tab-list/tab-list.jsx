@@ -31,7 +31,7 @@ const TabList = ({ getActiveType }) => {
 };
 
 TabList.propTypes = {
-    getActiveType: PropTypes.func,
+    getActiveType: PropTypes.func.isRequired,
 };
 
 export default TabList;
