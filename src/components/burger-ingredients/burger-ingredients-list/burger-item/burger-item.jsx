@@ -6,7 +6,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
-const BurgerItem = ({ image, price, name }) => {
+const BurgerItem = ({ ingredient }) => {
+    const { image, price, name } = ingredient;
     return (
         <div className={`${burgerItem.card} mb-10 ml-3 mr-3`}>
             <Counter count={1} extraClass={burgerItem.counter} />
@@ -25,9 +26,7 @@ const BurgerItem = ({ image, price, name }) => {
 };
 
 BurgerItem.propTypes = {
-    image: PropTypes.string,
-    price: PropTypes.number,
-    name: PropTypes.string,
+    ingredient: PropTypes.object.isRequired,
 };
 
 export default BurgerItem;

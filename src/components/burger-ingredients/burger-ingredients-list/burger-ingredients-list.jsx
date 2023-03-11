@@ -17,8 +17,8 @@ const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
         return <h3 className="text text_type_main-medium mb-6">{title}</h3>;
     };
 
-    const handleClick = (id) => {
-        getActiveIngredient(id);
+    const handleClick = (item) => {
+        getActiveIngredient(item);
         openModal(true, "ingredients");
     };
 
@@ -37,18 +37,14 @@ const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
                                 .filter((item) => {
                                     return item.type === string;
                                 })
-                                .map(({ _id, image, name, price }) => {
+                                .map((item) => {
                                     return (
                                         <li
-                                            key={_id}
-                                            onClick={() => handleClick(_id)}
+                                            key={item._id}
+                                            onClick={() => handleClick(item)}
                                             aria-hidden="true"
                                         >
-                                            <BurgerItem
-                                                image={image}
-                                                name={name}
-                                                price={price}
-                                            />
+                                            <BurgerItem ingredient={item} />
                                         </li>
                                     );
                                 })}

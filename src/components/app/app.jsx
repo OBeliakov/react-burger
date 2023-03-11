@@ -20,7 +20,7 @@ const App = () => {
     });
 
     const [ingredientType, setType] = useState("bun");
-    const [ingredientId, setActiveIngredient] = useState("");
+    const [currentIngredient, setActiveIngredient] = useState("");
     const _apiUrl = "https://norma.nomoreparties.space/api/ingredients";
 
     const getIngredientsData = () => {
@@ -67,8 +67,8 @@ const App = () => {
         }
     };
 
-    const getActiveIngredient = (ingredientId) => {
-        setActiveIngredient(ingredientId);
+    const getActiveIngredient = (item) => {
+        setActiveIngredient(item);
     };
 
     const getActiveType = (type) => {
@@ -78,9 +78,6 @@ const App = () => {
     useEffect(getIngredientsData, []);
 
     const { ingredientsData, loading, error } = state;
-    const currentIngredient = ingredientsData.find(
-        (item) => item._id === ingredientId
-    );
 
     const filteredItems = ingredientsData.filter(
         (item) => item.type === ingredientType
@@ -108,7 +105,7 @@ const App = () => {
                         ) : (
                             <p>Загрузка данных...</p>
                         )}
-                        {ingredientId && modal.ingredientsModal && (
+                        {currentIngredient && modal.ingredientsModal && (
                             <Modal
                                 modalTitle="Детали ингредиента"
                                 closeModal={handleModal}
