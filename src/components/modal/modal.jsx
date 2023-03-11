@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import ModalHeader from "./modal-header/modal-header";
 import ModalOverlay from "./modal-overlay/modal-overlay";
@@ -33,26 +33,24 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
     }, []);
 
     return createPortal(
-        <>
-            <ModalOverlay handleCloseModal={handleOverlayClick}>
-                <div className={`${modalStyles.modal} ${className}`}>
-                    <ModalHeader>
-                        {modalTitle && (
-                            <h2 className="text text_type_main-large">
-                                {modalTitle}
-                            </h2>
-                        )}
-                        <button
-                            className={modalStyles.close_btn}
-                            onClick={handleCloseModal}
-                        >
-                            <CloseIcon />
-                        </button>
-                    </ModalHeader>
-                    {children}
-                </div>
-            </ModalOverlay>
-        </>,
+        <ModalOverlay handleCloseModal={handleOverlayClick}>
+            <div className={`${modalStyles.modal} ${className}`}>
+                <ModalHeader>
+                    {modalTitle && (
+                        <h2 className="text text_type_main-large">
+                            {modalTitle}
+                        </h2>
+                    )}
+                    <button
+                        className={modalStyles.close_btn}
+                        onClick={handleCloseModal}
+                    >
+                        <CloseIcon />
+                    </button>
+                </ModalHeader>
+                {children}
+            </div>
+        </ModalOverlay>,
         modalRoot
     );
 };
