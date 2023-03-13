@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import OrderingInfo from "./ordering-info/ordering-info";
+import { IngredientsDataContext } from "../services/appContext";
 
-const BurgerConstructor = ({ data, openModal }) => {
-    const bunData = data.find((item) => item.type === "bun");
-    const otherData = data.filter((item) => item.type !== "bun");
-    const finalPrice = otherData.reduce((acc, item) => acc + item.price, 0);
+const BurgerConstructor = ({ openModal, submitOrder }) => {
+    const ingredientsData = useContext(IngredientsDataContext);
+    const bunData = ingredientsData.find((item) => item.type === "bun");
+    const otherData = ingredientsData.filter((item) => item.type !== "bun");
+    const ingredientsPrice = otherData.reduce(
+        (acc, item) => acc + item.price,
+        0
+    );
+    
+    const finalPrice = ingredientsPrice + bunData.price * 2;
+
     const { image, name, price } = bunData;
 
     return (
@@ -29,13 +37,17 @@ const BurgerConstructor = ({ data, openModal }) => {
                 thumbnail={image}
                 extraClass="ml-2"
             />
-            <OrderingInfo openModal={openModal} finalPrice={finalPrice} />
+            <OrderingInfo
+                openModal={openModal}
+                finalPrice={finalPrice}
+                submitOrder={submitOrder}
+            />
         </div>
     );
 };
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    submitOrder: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired,
 };
 
