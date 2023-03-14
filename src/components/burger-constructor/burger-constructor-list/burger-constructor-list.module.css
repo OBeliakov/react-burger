@@ -1,8 +1,20 @@
 .list {
     list-style: none;
     padding-left: 0;
-    height: 463px;
+    min-height: 60px;
+    max-height: 480px;
     overflow-y: scroll;
     overflow-x: hidden;
     margin-left: -30px;
+    margin-bottom: 0;
+    transition: 0.3s ease min-height;
+}
+
+.list_empty {
+    min-height: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
 }
