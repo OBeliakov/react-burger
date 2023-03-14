@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import app from "./app.module.css";
@@ -6,6 +6,14 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import {
+    IngredientsDataContext,
+    ConstructorDataContext,
+} from "../services/appContext";
+
+const initialState = {
+    ingredients: [],
+};
 
 const App = () => {
     const [state, setState] = useState({
@@ -14,23 +22,70 @@ const App = () => {
         error: false,
     });
 
+    const reducer = (state, action) => {
+        if (action.type === "ADD") {
+            return {
+                ingredients: action.payload,
+            };
+        }
+
+        if (action.type === "REMOVE") {
+            return {
+                ingredients: action.payload,
+            };
+        }
+    };
+
     const [modal, handleModal] = useState({
         ingredientsModal: false,
         orderModal: false,
     });
 
-    const [ingredientType, setType] = useState("bun");
+    const [burgerConstructorState, updateBurgerConstructorState] = useReducer(
+        reducer,
+        initialState
+    );
+
     const [currentIngredient, setActiveIngredient] = useState({});
+    const [orderData, setOrderData] = useState({});
+
+    const getResponse = (res) => {
+        if (res.ok) {
+            return res.json();
+        }
+
+        return Promise.reject(`Ошибка ${res.status}`);
+    };
+
+    const submitOrder = (baseUrl, idArray) => {
+        return fetch(baseUrl, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                ingredients: idArray,
+            }),
+        })
+            .then((res) => {
+                return getResponse(res);
+            })
+            .then((data) => {
+                setOrderData(data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    };
+
     const _apiUrl = "https://norma.nomoreparties.space/api/ingredients";
 
     const getIngredientsData = () => {
         setState({ ...state, loading: true });
         fetch(_apiUrl)
             .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка ${res.status}`);
+                return getResponse(res);
             })
             .then((res) => {
                 const ingredientsData = res.data;
@@ -71,17 +126,10 @@ const App = () => {
         setActiveIngredient(item);
     };
 
-    const getActiveType = (type) => {
-        setType(type);
-    };
-
     useEffect(getIngredientsData, []);
 
     const { ingredientsData, loading, error } = state;
-
-    const filteredItems = ingredientsData.filter(
-        (item) => item.type === ingredientType
-    );
+    const { order } = orderData;
 
     return (
         <>
@@ -91,16 +139,28 @@ const App = () => {
                     <main className={app.main}>
                         {ingredientsData && !loading ? (
                             <>
-                                <BurgerIngredients
-                                    getActiveIngredient={getActiveIngredient}
-                                    data={filteredItems}
-                                    openModal={onHandleModal}
-                                    getActiveType={getActiveType}
-                                />
-                                <BurgerConstructor
-                                    openModal={onHandleModal}
-                                    data={ingredientsData}
-                                />
+                                <IngredientsDataContext.Provider
+                                    value={ingredientsData}
+                                >
+                                    <ConstructorDataContext.Provider
+                                        value={{
+                                            burgerConstructorState,
+                                            updateBurgerConstructorState,
+                                        }}
+                                    >
+                                        <BurgerIngredients
+                                            getActiveIngredient={
+                                                getActiveIngredient
+                                            }
+                                            openModal={onHandleModal}
+                                        />
+
+                                        <BurgerConstructor
+                                            openModal={onHandleModal}
+                                            submitOrder={submitOrder}
+                                        />
+                                    </ConstructorDataContext.Provider>
+                                </IngredientsDataContext.Provider>
                             </>
                         ) : (
                             <p>Загрузка данных...</p>
@@ -113,16 +173,15 @@ const App = () => {
                             >
                                 <IngredientDetails
                                     currentIngredient={currentIngredient}
-                                    closeModal={onHandleModal}
                                 />
                             </Modal>
                         )}
-                        {modal.orderModal && (
+                        {modal.orderModal && order && (
                             <Modal
                                 className="pt-15 pl-25 pb-30 pr-10"
                                 closeModal={handleModal}
                             >
-                                <OrderDetails closeModal={onHandleModal} />
+                                <OrderDetails orderNumber={order.number} />
                             </Modal>
                         )}
                     </main>

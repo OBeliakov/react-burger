@@ -1,9 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import burgerIngredientsList from "./burger-ingredients-list.module.css";
 import BurgerItem from "./burger-item/burger-item";
 import PropTypes from "prop-types";
+import { ConstructorDataContext } from "../../services/appContext";
 
 const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
+    const { burgerConstructorState, updateBurgerConstructorState } = useContext(
+        ConstructorDataContext
+    );
+
     const addTitle = (string) => {
         let title = "";
         if (string === "bun") {
@@ -19,6 +24,11 @@ const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
 
     const handleClick = (item) => {
         getActiveIngredient(item);
+        updateBurgerConstructorState({
+            type: "ADD",
+            payload: [...burgerConstructorState.ingredients, item],
+        });
+
         openModal(true, "ingredients");
     };
 

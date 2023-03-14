@@ -1,11 +1,12 @@
 import React from "react";
 import orderDetailsStyle from "./order-details.module.css";
 import confirmImagePath from "../../images/done.png";
+import PropTypes from "prop-types";
 
-const OrderDetails = () => {
+const OrderDetails = ({ orderNumber }) => {
     return (
         <div className={`${orderDetailsStyle.container} pt-15`}>
-            <p className="text text_type_digits-large pb-8">034536</p>
+            <p className="text text_type_digits-large pb-8">{orderNumber}</p>
             <p className="text text_type_main-medium pb-15">
                 идентификатор заказа
             </p>
@@ -22,6 +23,10 @@ const OrderDetails = () => {
             </p>
         </div>
     );
+};
+
+OrderDetails.propTypes = {
+    orderNumber: PropTypes.number,
 };
 
 export default OrderDetails;
