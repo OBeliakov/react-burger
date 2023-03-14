@@ -2,11 +2,18 @@ import React, { Fragment, useContext } from "react";
 import burgerIngredientsList from "./burger-ingredients-list.module.css";
 import BurgerItem from "./burger-item/burger-item";
 import PropTypes from "prop-types";
-import { ConstructorDataContext } from "../../services/appContext";
+import {
+    ConstructorDataContext,
+    IngredientsDataContext,
+} from "../../services/appContext";
 
-const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
+const BurgerIngredientsList = ({ data }) => {
     const { burgerConstructorState, updateBurgerConstructorState } = useContext(
         ConstructorDataContext
+    );
+
+    const { setActiveIngredient, onHandleModal } = useContext(
+        IngredientsDataContext
     );
 
     const addTitle = (string) => {
@@ -23,13 +30,13 @@ const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
     };
 
     const handleClick = (item) => {
-        getActiveIngredient(item);
+        setActiveIngredient(item);
         updateBurgerConstructorState({
             type: "ADD",
             payload: [...burgerConstructorState.ingredients, item],
         });
 
-        openModal(true, "ingredients");
+        onHandleModal(true, "ingredients");
     };
 
     const ingredientsType = data[0].type;
@@ -74,8 +81,6 @@ const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
 
 BurgerIngredientsList.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-    getActiveIngredient: PropTypes.func.isRequired,
-    openModal: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredientsList;

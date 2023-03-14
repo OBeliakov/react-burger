@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import burgerConstructorList from "./burger-constructor-list.module.css";
-import PropTypes from "prop-types";
 import {
     ConstructorElement,
     DragIcon,
@@ -51,10 +50,6 @@ const BurgerConstructorList = () => {
     );
 
     return elements;
-};
-
-BurgerConstructorList.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
 export default BurgerConstructorList;

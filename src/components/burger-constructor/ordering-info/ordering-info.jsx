@@ -5,16 +5,23 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderingInfo from "./ordering-info.module.css";
 import PropTypes from "prop-types";
-import { IngredientsDataContext } from "../../services/appContext";
+import {
+    IngredientsDataContext,
+    ConstructorDataContext,
+} from "../../services/appContext";
 
-const OrderingInfo = ({ finalPrice, openModal, submitOrder }) => {
+const OrderingInfo = ({ finalPrice }) => {
     const _orderUrl = "https://norma.nomoreparties.space/api/orders";
-    const ingredients = useContext(IngredientsDataContext);
+    const { onHandleModal } = useContext(IngredientsDataContext);
+    const {
+        burgerConstructorState: { ingredients },
+        submitOrder,
+    } = useContext(ConstructorDataContext);
     const idArray = ingredients.map((item) => item._id);
 
     const makeOrder = () => {
         submitOrder(_orderUrl, idArray);
-        openModal(true, "order");
+        onHandleModal(true, "order");
     };
 
     return (
@@ -38,8 +45,6 @@ const OrderingInfo = ({ finalPrice, openModal, submitOrder }) => {
 
 OrderingInfo.propTypes = {
     finalPrice: PropTypes.number,
-    submitOrder: PropTypes.func.isRequired,
-    openModal: PropTypes.func.isRequired,
 };
 
 export default OrderingInfo;

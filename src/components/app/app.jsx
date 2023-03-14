@@ -122,10 +122,6 @@ const App = () => {
         }
     };
 
-    const getActiveIngredient = (item) => {
-        setActiveIngredient(item);
-    };
-
     useEffect(getIngredientsData, []);
 
     const { ingredientsData, loading, error } = state;
@@ -140,25 +136,21 @@ const App = () => {
                         {ingredientsData && !loading ? (
                             <>
                                 <IngredientsDataContext.Provider
-                                    value={ingredientsData}
+                                    value={{
+                                        ingredientsData,
+                                        onHandleModal,
+                                        setActiveIngredient,
+                                    }}
                                 >
                                     <ConstructorDataContext.Provider
                                         value={{
                                             burgerConstructorState,
                                             updateBurgerConstructorState,
+                                            submitOrder,
                                         }}
                                     >
-                                        <BurgerIngredients
-                                            getActiveIngredient={
-                                                getActiveIngredient
-                                            }
-                                            openModal={onHandleModal}
-                                        />
-
-                                        <BurgerConstructor
-                                            openModal={onHandleModal}
-                                            submitOrder={submitOrder}
-                                        />
+                                        <BurgerIngredients />
+                                        <BurgerConstructor />
                                     </ConstructorDataContext.Provider>
                                 </IngredientsDataContext.Provider>
                             </>
