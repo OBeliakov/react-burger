@@ -1,27 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
     CurrencyIcon,
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderingInfo from "./ordering-info.module.css";
 import PropTypes from "prop-types";
-import {
-    IngredientsDataContext,
-    ConstructorDataContext,
-} from "../../services/appContext";
+import { useDispatch, useSelector } from "react-redux";
+import { OPEN_ORDER_MODAL, submitOrder } from "../../services/actions";
 
 const OrderingInfo = ({ finalPrice }) => {
     const _orderUrl = "https://norma.nomoreparties.space/api/orders";
-    const { onHandleModal } = useContext(IngredientsDataContext);
-    const {
-        burgerConstructorState: { ingredients },
-        submitOrder,
-    } = useContext(ConstructorDataContext);
-    const idArray = ingredients.map((item) => item._id);
+    const { constructorIngredients } = useSelector((store) => store);
+    const idArray = constructorIngredients.map((item) => item._id);
+    const dispatch = useDispatch();
 
     const makeOrder = () => {
-        submitOrder(_orderUrl, idArray);
-        onHandleModal(true, "order");
+        dispatch(submitOrder(_orderUrl, idArray));
+        dispatch({ type: OPEN_ORDER_MODAL });
     };
 
     return (

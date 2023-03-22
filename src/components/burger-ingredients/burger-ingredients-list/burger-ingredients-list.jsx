@@ -1,20 +1,19 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import burgerIngredientsList from "./burger-ingredients-list.module.css";
 import BurgerItem from "./burger-item/burger-item";
-import PropTypes from "prop-types";
 import {
-    ConstructorDataContext,
-    IngredientsDataContext,
-} from "../../services/appContext";
+    ADD_INGREDIENT,
+    SET_ACTIVE_INGREDIENT,
+    OPEN_INGREDIENTS_MODAL,
+} from "../../services/actions";
+import { useSelector, useDispatch } from "react-redux";
 
-const BurgerIngredientsList = ({ data }) => {
-    const { burgerConstructorState, updateBurgerConstructorState } = useContext(
-        ConstructorDataContext
+const BurgerIngredientsList = () => {
+    const { ingredientsData, constructorIngredients } = useSelector(
+        (store) => store
     );
 
-    const { setActiveIngredient, onHandleModal } = useContext(
-        IngredientsDataContext
-    );
+    const dispatch = useDispatch();
 
     const addTitle = (string) => {
         let title = "";
@@ -30,41 +29,36 @@ const BurgerIngredientsList = ({ data }) => {
     };
 
     const handleClick = (item) => {
-        setActiveIngredient(item);
-        updateBurgerConstructorState({
-            type: "ADD",
-            payload: [...burgerConstructorState.ingredients, item],
+        dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: item });
+        dispatch({
+            type: ADD_INGREDIENT,
+            payload: [...constructorIngredients, item],
         });
-
-        onHandleModal(true, "ingredients");
+        dispatch({ type: OPEN_INGREDIENTS_MODAL });
     };
 
-    const ingredientsType = data[0].type;
+    const ingredientsType = ingredientsData[0].type;
 
     const buildLayout = (string) => {
         return (
             <>
-                {data && ingredientsType ? (
+                {ingredientsData && string ? (
                     <>
-                        {addTitle(ingredientsType)}
+                        {addTitle(string)}
                         <ul
                             className={`${burgerIngredientsList.list} ml-0 pl-1 pr-1`}
                         >
-                            {data
-                                .filter((item) => {
-                                    return item.type === string;
-                                })
-                                .map((item) => {
-                                    return (
-                                        <li
-                                            key={item._id}
-                                            onClick={() => handleClick(item)}
-                                            aria-hidden="true"
-                                        >
-                                            <BurgerItem ingredient={item} />
-                                        </li>
-                                    );
-                                })}
+                            {ingredientsData.map((item) => {
+                                return (
+                                    <li
+                                        key={item._id}
+                                        onClick={() => handleClick(item)}
+                                        aria-hidden="true"
+                                    >
+                                        <BurgerItem ingredient={item} />
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </>
                 ) : null}
@@ -77,10 +71,6 @@ const BurgerIngredientsList = ({ data }) => {
             {buildLayout(ingredientsType)}
         </div>
     );
-};
-
-BurgerIngredientsList.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
 export default BurgerIngredientsList;

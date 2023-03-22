@@ -1,22 +1,28 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import TabList from "./tab-list/tab-list";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
-import { IngredientsDataContext } from "../services/appContext";
+import { useSelector } from "react-redux";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = () => {
-    const [ingredientType, setType] = useState("bun");
-    const { ingredientsData } = useContext(IngredientsDataContext);
-    const filteredItems = ingredientsData.filter(
-        (item) => item.type === ingredientType
-    );
+    const { ingredientsModal } = useSelector((store) => store);
 
     return (
         <div>
             <h2 className="text text_type_main-large mt-10 mb-5">
                 Соберите бургер
             </h2>
-            <TabList getActiveType={setType} />
-            <BurgerIngredientsList data={filteredItems} />
+            <TabList />
+            <BurgerIngredientsList />
+            {ingredientsModal && (
+                <Modal
+                    modalTitle="Детали ингредиента"
+                    className="pt-10 pl-10 pb-15 pr-10"
+                >
+                    <IngredientDetails />
+                </Modal>
+            )}
         </div>
     );
 };

@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { createPortal } from "react-dom";
 import ModalHeader from "./modal-header/modal-header";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { CLOSE_MODAL } from "../services/actions";
 const modalRoot = document.getElementById("burger-modals");
 
-const Modal = ({ modalTitle, className, closeModal, children }) => {
+const Modal = ({ modalTitle, className, children }) => {
+    const dispatch = useDispatch();
     const handleCloseModal = () => {
-        closeModal(false);
+        dispatch({ type: CLOSE_MODAL });
     };
 
     const handleOverlayClick = (e) => {
@@ -58,7 +61,6 @@ const Modal = ({ modalTitle, className, closeModal, children }) => {
 Modal.propTypes = {
     modalTitle: PropTypes.string,
     className: PropTypes.string,
-    closeModal: PropTypes.func.isRequired,
     children: PropTypes.node,
 };
 

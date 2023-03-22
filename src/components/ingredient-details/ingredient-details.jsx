@@ -1,8 +1,10 @@
 import React from "react";
 import ingredientDetailsStyle from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ currentIngredient }) => {
+const IngredientDetails = () => {
+    const { currentIngredient } = useSelector((store) => store);
+
     const generateMarkup = (element) => {
         const { image, name, calories, carbohydrates, proteins, fat } = element;
 
@@ -57,10 +59,6 @@ const IngredientDetails = ({ currentIngredient }) => {
     const modalBody = generateMarkup(currentIngredient);
 
     return modalBody;
-};
-
-IngredientDetails.propTypes = {
-    currentIngredient: PropTypes.object.isRequired,
 };
 
 export default IngredientDetails;

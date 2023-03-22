@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import tabList from "./tab-list.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 
-const TabList = ({ getActiveType }) => {
+const TabList = () => {
     const [current, setCurrent] = useState("bun");
 
     const handleClick = (value) => {
         setCurrent(value);
-        getActiveType(value);
     };
 
     return (
@@ -28,10 +26,6 @@ const TabList = ({ getActiveType }) => {
             </Tab>
         </div>
     );
-};
-
-TabList.propTypes = {
-    getActiveType: PropTypes.func.isRequired,
 };
 
 export default TabList;

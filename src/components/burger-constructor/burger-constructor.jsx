@@ -1,20 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import OrderingInfo from "./ordering-info/ordering-info";
-import {
-    IngredientsDataContext,
-    ConstructorDataContext,
-} from "../services/appContext";
+import { useSelector } from "react-redux";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
-    const { burgerConstructorState } = useContext(ConstructorDataContext);
-    const { ingredientsData } = useContext(IngredientsDataContext);
-    const { ingredients } = burgerConstructorState;
-
+    const { constructorIngredients, orderModal, ingredientsData, orderFailed } =
+        useSelector((store) => store);
     const bunData = ingredientsData.find((item) => item.type === "bun");
     const finalPrice =
-        ingredients.reduce((accum, item) => accum + item.price, 0) +
+        constructorIngredients.reduce((accum, item) => accum + item.price, 0) +
         bunData.price * 2;
     const { image, name, price } = bunData;
 
@@ -38,6 +35,11 @@ const BurgerConstructor = () => {
                 extraClass="ml-2"
             />
             <OrderingInfo finalPrice={finalPrice} />
+            {orderModal && !orderFailed && (
+                <Modal className="pt-15 pl-25 pb-30 pr-10">
+                    <OrderDetails />
+                </Modal>
+            )}
         </div>
     );
 };
