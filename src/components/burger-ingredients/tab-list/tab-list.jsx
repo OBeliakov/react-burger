@@ -2,11 +2,10 @@ import React, { forwardRef } from "react";
 import tabList from "./tab-list.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const TabList = forwardRef(function TabList(
-    { current, scrollByTabClick },
-    ref
-) {
+const TabList = forwardRef(function TabList({ scrollByTabClick }, ref) {
+    const current = useSelector((store) => store.currentTab);
     const handleClick = (element) => {
         scrollByTabClick(element);
     };
@@ -40,7 +39,6 @@ const TabList = forwardRef(function TabList(
 });
 
 TabList.propTypes = {
-    current: PropTypes.string,
     scrollByTabClick: PropTypes.func.isRequired,
 };
 

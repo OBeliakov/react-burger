@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import TabList from "./tab-list/tab-list";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
 import burgerIngredients from "./burger-ingredients.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { SET_CURRENT_TAB } from "../services/actions";
 
 const BurgerIngredients = () => {
     const { ingredientsModal } = useSelector((store) => store);
     const listRef = useRef(null);
-
-    const [current, setCurrent] = useState("bun");
+    const dispatch = useDispatch();
 
     const tabRef = useRef(null);
     const bunOptions = { type: "bun", ref: useRef(null) };
@@ -24,7 +24,7 @@ const BurgerIngredients = () => {
         } = element;
 
         if (tabPos - current.getBoundingClientRect().top >= 0) {
-            setCurrent(type);
+            dispatch({ type: SET_CURRENT_TAB, payload: type });
         }
     };
 
@@ -69,11 +69,7 @@ const BurgerIngredients = () => {
             <h2 className="text text_type_main-large mt-10 mb-5">
                 Соберите бургер
             </h2>
-            <TabList
-                scrollByTabClick={scrollByTabClick}
-                current={current}
-                ref={tabRef}
-            />
+            <TabList scrollByTabClick={scrollByTabClick} ref={tabRef} />
             <div
                 ref={listRef}
                 className={`${burgerIngredients.container} custom-scroll pt-10`}

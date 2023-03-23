@@ -10,6 +10,7 @@ import {
     SET_ACTIVE_INGREDIENT,
     POST_ORDER_INFO_SUCCESS,
     POST_ORDER_INFO_FAILED,
+    SET_CURRENT_TAB,
 } from "./actions";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
     orderFailed: false,
     ingredientsModal: false,
     orderModal: false,
+    currentTab: "bun",
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -84,6 +86,11 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 orderFailed: true,
+            };
+        case SET_CURRENT_TAB:
+            return {
+                ...state,
+                currentTab: action.payload,
             };
         default:
             return state;

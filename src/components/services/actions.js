@@ -9,6 +9,7 @@ export const CLOSE_MODAL = "CLOSE_MODAL";
 export const SET_ACTIVE_INGREDIENT = "SET_ACTIVE_INGREDIENT";
 export const POST_ORDER_INFO_SUCCESS = "POST_ORDER_INFO_SUCCESS";
 export const POST_ORDER_INFO_FAILED = "POST_ORDER_INFO_FAILED";
+export const SET_CURRENT_TAB = "SET_CURRENT_TAB"
 
 export function getIngredients(url) {
     return function (dispatch) {
