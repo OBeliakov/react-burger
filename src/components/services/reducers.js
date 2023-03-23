@@ -11,6 +11,9 @@ import {
     POST_ORDER_INFO_SUCCESS,
     POST_ORDER_INFO_FAILED,
     SET_CURRENT_TAB,
+    ADD_BUN,
+    DECREASE_INGREDIENT,
+    INCREASE_INGREDIENT,
 } from "./actions";
 
 const initialState = {
@@ -24,6 +27,7 @@ const initialState = {
     ingredientsModal: false,
     orderModal: false,
     currentTab: "bun",
+    bun: null,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -92,6 +96,33 @@ export const rootReducer = (state = initialState, action) => {
                 ...state,
                 currentTab: action.payload,
             };
+        case ADD_BUN:
+            return {
+                ...state,
+                bun: action.payload,
+            };
+        case INCREASE_INGREDIENT: {
+            return {
+                ...state,
+                constructorIngredients: [...state.constructorIngredients].map(
+                    (item) =>
+                        item._id === action.id
+                            ? { ...item, qty: ++item.qty }
+                            : item
+                ),
+            };
+        }
+        case DECREASE_INGREDIENT: {
+            return {
+                ...state,
+                constructorIngredients: [...state.constructorIngredients].map(
+                    (item) =>
+                        item._id === action.id
+                            ? { ...item, qty: --item.qty }
+                            : item
+                ),
+            };
+        }
         default:
             return state;
     }

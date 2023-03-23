@@ -5,13 +5,13 @@ import {
     DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { REMOVE_INGREDIENT } from "../../services/actions";
+import { REMOVE_INGREDIENT, DECREASE_INGREDIENT } from "../../services/actions";
 
 const BurgerConstructorList = () => {
     const { constructorIngredients } = useSelector((store) => store);
     const dispatch = useDispatch();
 
-    const removeElement = (index) => {
+    const removeElement = (item, index) => {
         dispatch({
             type: REMOVE_INGREDIENT,
             payload: [
@@ -19,42 +19,45 @@ const BurgerConstructorList = () => {
                 ...constructorIngredients.slice(index + 1),
             ],
         });
+
+        dispatch({
+            type: DECREASE_INGREDIENT,
+            id: item._id,
+        });
     };
 
     const elements = (
         <>
-            <ul
-                className={`${burgerConstructorList.list} ${
-                    !constructorIngredients.length
-                        ? burgerConstructorList.list_empty
-                        : null
-                } : null custom-scroll`}
-            >
-                {!!constructorIngredients.length &&
-                    constructorIngredients.map(
-                        ({ _id, name, price, image }, index) => {
-                            return (
-                                <li className="mr-2 mb-4" key={_id}>
-                                    <div
-                                        className={
-                                            burgerConstructorList.container
+            <ul className={`${burgerConstructorList.list}  custom-scroll`}>
+                {constructorIngredients.length ? (
+                    constructorIngredients.map((item, index) => {
+                        const { name, price, image, key } = item;
+                        return (
+                            <li className="mb-4" key={key}>
+                                <div
+                                    className={burgerConstructorList.container}
+                                >
+                                    <DragIcon type="primary" />
+                                    <ConstructorElement
+                                        text={name}
+                                        price={price}
+                                        thumbnail={image}
+                                        extraClass="ml-3"
+                                        handleClose={() =>
+                                            removeElement(item, index)
                                         }
-                                    >
-                                        <DragIcon type="primary" />
-                                        <ConstructorElement
-                                            text={name}
-                                            price={price}
-                                            thumbnail={image}
-                                            extraClass="ml-3"
-                                            handleClose={() =>
-                                                removeElement(index)
-                                            }
-                                        />
-                                    </div>
-                                </li>
-                            );
-                        }
-                    )}
+                                    />
+                                </div>
+                            </li>
+                        );
+                    })
+                ) : (
+                    <li
+                        className={`${burgerConstructorList.empty} constructor-element mr-2 mb-4`}
+                    >
+                        Добавьте ингредиенты сюда
+                    </li>
+                )}
             </ul>
         </>
     );

@@ -5,6 +5,8 @@ import {
     ADD_INGREDIENT,
     SET_ACTIVE_INGREDIENT,
     OPEN_INGREDIENTS_MODAL,
+    ADD_BUN,
+    INCREASE_INGREDIENT,
 } from "../../services/actions";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -46,12 +48,27 @@ const BurgerIngredientsList = forwardRef(function BurgerIngredientsList(
 
     const handleClick = (item) => {
         dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: item });
-        dispatch({
-            type: ADD_INGREDIENT,
-            payload: [...constructorIngredients, { ...item, key: uuid() }],
-        });
+        if (item.type !== "bun") {
+            dispatch({
+                type: ADD_INGREDIENT,
+                payload: [...constructorIngredients, { ...item, key: uuid() }],
+            });
+            dispatch({
+                type: INCREASE_INGREDIENT,
+                id: item._id,
+            });
+        } else {
+            dispatch({
+                type: ADD_BUN,
+                payload: item,
+            });
+        }
         dispatch({ type: OPEN_INGREDIENTS_MODAL });
     };
+
+    const newData = ingredientsData.map((item) => {
+        return { ...item, qty: 0 };
+    });
 
     const buildLayout = (string, ref) => {
         return (
@@ -62,7 +79,7 @@ const BurgerIngredientsList = forwardRef(function BurgerIngredientsList(
                         <ul
                             className={`${burgerIngredientsList.list} ml-0 pl-1 pr-1`}
                         >
-                            {ingredientsData
+                            {newData
                                 .filter((item) => {
                                     return item.type === ingredientsType;
                                 })

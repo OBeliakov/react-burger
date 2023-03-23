@@ -3,7 +3,7 @@
     padding-left: 0;
     min-height: 60px;
     max-height: 480px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     margin-left: -30px;
     margin-bottom: 0;
@@ -17,4 +17,12 @@
 .container {
     display: flex;
     align-items: center;
+}
+
+.empty {
+    margin-left: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 536px;
 }

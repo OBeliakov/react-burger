@@ -9,7 +9,10 @@ export const CLOSE_MODAL = "CLOSE_MODAL";
 export const SET_ACTIVE_INGREDIENT = "SET_ACTIVE_INGREDIENT";
 export const POST_ORDER_INFO_SUCCESS = "POST_ORDER_INFO_SUCCESS";
 export const POST_ORDER_INFO_FAILED = "POST_ORDER_INFO_FAILED";
-export const SET_CURRENT_TAB = "SET_CURRENT_TAB"
+export const SET_CURRENT_TAB = "SET_CURRENT_TAB";
+export const ADD_BUN = "ADD_BUN";
+export const DECREASE_INGREDIENT = "DECREASE_INGREDIENT";
+export const INCREASE_INGREDIENT = "INCREASE_INGREDIENT";
 
 export function getIngredients(url) {
     return function (dispatch) {

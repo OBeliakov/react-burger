@@ -43,14 +43,13 @@ const BurgerIngredients = () => {
         findScrollableEl(mainOptions, type);
     };
 
-    const handleScroll = () => {
-        const tabsBottomPos = tabRef.current.getBoundingClientRect().bottom;
-        setCurrentElement(tabsBottomPos, bunOptions);
-        setCurrentElement(tabsBottomPos, sauceOptions);
-        setCurrentElement(tabsBottomPos, mainOptions);
-    };
-
     useEffect(() => {
+        const handleScroll = () => {
+            const tabsBottomPos = tabRef.current.getBoundingClientRect().bottom;
+            setCurrentElement(tabsBottomPos, bunOptions);
+            setCurrentElement(tabsBottomPos, sauceOptions);
+            setCurrentElement(tabsBottomPos, mainOptions);
+        };
         const listNode = listRef.current;
         listNode.addEventListener("scroll", handleScroll);
 
