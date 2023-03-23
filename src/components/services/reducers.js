@@ -14,9 +14,9 @@ import {
 
 const initialState = {
     ingredientsData: [],
-    constructorIngredients: [],
     loading: true,
     error: false,
+    constructorIngredients: [],
     currentIngredient: {},
     order: {},
     orderFailed: false,

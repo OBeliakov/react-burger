@@ -7,8 +7,9 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
-    const { constructorIngredients, orderModal, ingredientsData, orderFailed } =
-        useSelector((store) => store);
+    const { constructorIngredients, orderModal, ingredientsData } = useSelector(
+        (store) => store
+    );
     const bunData = ingredientsData.find((item) => item.type === "bun");
     const finalPrice =
         constructorIngredients.reduce((accum, item) => accum + item.price, 0) +
@@ -35,7 +36,7 @@ const BurgerConstructor = () => {
                 extraClass="ml-2"
             />
             <OrderingInfo finalPrice={finalPrice} />
-            {orderModal && !orderFailed && (
+            {orderModal && (
                 <Modal className="pt-15 pl-25 pb-30 pr-10">
                     <OrderDetails />
                 </Modal>

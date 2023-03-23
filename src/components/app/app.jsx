@@ -13,7 +13,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getIngredients(_apiUrl));
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
