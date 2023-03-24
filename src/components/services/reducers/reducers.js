@@ -129,7 +129,7 @@ export const rootReducer = (state = initialState, action) => {
         case DRAG_BUN_INGREDIENT: {
             return {
                 ...state,
-                bun: action.item,
+                bun: action.payload,
             };
         }
         case DRAG_CONSTRUCTOR_INGREDIENTS: {

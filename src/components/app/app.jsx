@@ -8,6 +8,7 @@ import {
     DRAG_CONSTRUCTOR_INGREDIENTS,
     DRAG_BUN_INGREDIENT,
     INCREASE_INGREDIENT,
+    SET_ACTIVE_INGREDIENT,
 } from "../services/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
@@ -24,6 +25,10 @@ const App = () => {
     }, []);
 
     const onDropHandler = (item) => {
+        dispatch({
+            type: SET_ACTIVE_INGREDIENT,
+            currentIngredient: item,
+        });
         if (item.type !== "bun") {
             dispatch({
                 type: DRAG_CONSTRUCTOR_INGREDIENTS,
@@ -34,7 +39,10 @@ const App = () => {
                 id: item._id,
             });
         } else {
-            dispatch({ type: DRAG_BUN_INGREDIENT, item });
+            dispatch({
+                type: DRAG_BUN_INGREDIENT,
+                payload: { ...item, qty: ++item.qty },
+            });
         }
     };
 

@@ -57,7 +57,7 @@ const BurgerConstructor = ({ onDrop }) => {
             return (
                 <div
                     ref={ref}
-                    className={`  ${
+                    className={`${
                         overDirection
                             ? `${burgerConstructor.hovered_block} ${burgerConstructor.bun_container}`
                             : ""
