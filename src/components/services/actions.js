@@ -13,6 +13,8 @@ export const SET_CURRENT_TAB = "SET_CURRENT_TAB";
 export const ADD_BUN = "ADD_BUN";
 export const DECREASE_INGREDIENT = "DECREASE_INGREDIENT";
 export const INCREASE_INGREDIENT = "INCREASE_INGREDIENT";
+export const DRAG_CONSTRUCTOR_INGREDIENTS = "DRAG_CONSTRUCTOR_INGREDIENTS";
+export const DRAG_BUN_INGREDIENT = "DRAG_BUN_INGREDIENT";
 
 export function getIngredients(url) {
     return function (dispatch) {

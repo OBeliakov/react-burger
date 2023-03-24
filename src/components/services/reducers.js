@@ -14,6 +14,8 @@ import {
     ADD_BUN,
     DECREASE_INGREDIENT,
     INCREASE_INGREDIENT,
+    DRAG_CONSTRUCTOR_INGREDIENTS,
+    DRAG_BUN_INGREDIENT,
 } from "./actions";
 
 const initialState = {
@@ -121,6 +123,21 @@ export const rootReducer = (state = initialState, action) => {
                             ? { ...item, qty: --item.qty }
                             : item
                 ),
+            };
+        }
+        case DRAG_BUN_INGREDIENT: {
+            return {
+                ...state,
+                bun: action.item,
+            };
+        }
+        case DRAG_CONSTRUCTOR_INGREDIENTS: {
+            return {
+                ...state,
+                constructorIngredients: [
+                    ...state.constructorIngredients,
+                    action.item,
+                ],
             };
         }
         default:

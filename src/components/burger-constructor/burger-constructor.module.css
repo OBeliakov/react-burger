@@ -5,3 +5,12 @@
     width: 100%;
     min-width: 536px;
 }
+
+.hovered_block {
+    border: 1px dashed lightgray;
+}
+
+.bun_container {
+    /* border-radius: var(--top-constructor-item-border-radius); */
+    display: flex;
+}
