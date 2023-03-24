@@ -60,7 +60,7 @@ const BurgerIngredientsList = forwardRef(function BurgerIngredientsList(
         } else {
             dispatch({
                 type: ADD_BUN,
-                payload: item,
+                payload: { ...item, qty: ++item.qty },
             });
         }
         dispatch({ type: OPEN_INGREDIENTS_MODAL });
