@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { v4 as uuid } from "uuid";
 
 const App = () => {
     const { ingredientsData, loading, error } = useSelector((store) => store);
@@ -24,7 +25,10 @@ const App = () => {
 
     const onDropHandler = (item) => {
         if (item.type !== "bun") {
-            dispatch({ type: DRAG_CONSTRUCTOR_INGREDIENTS, item });
+            dispatch({
+                type: DRAG_CONSTRUCTOR_INGREDIENTS,
+                item: { ...item, key: uuid() },
+            });
             dispatch({
                 type: INCREASE_INGREDIENT,
                 id: item._id,

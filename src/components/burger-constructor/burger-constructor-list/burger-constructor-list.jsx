@@ -1,18 +1,12 @@
 import React from "react";
 import burgerConstructorList from "./burger-constructor-list.module.css";
-import {
-    ConstructorElement,
-    DragIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { REMOVE_INGREDIENT, DECREASE_INGREDIENT } from "../../services/actions";
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
+import BurgerConstructorListItem from "./burger-constructor-list-item/burger-contructor-list-item";
+import { SORT_INGREDIENTS_ON_DRAG } from "../../services/actions";
 
 const BurgerConstructorList = ({ onDrop }) => {
-    const { constructorIngredients } = useSelector((store) => store);
-    const dispatch = useDispatch();
-
     const [{ isOver }, dropRef] = useDrop({
         accept: ["main", "sauce"],
         drop(itemId) {
@@ -23,18 +17,18 @@ const BurgerConstructorList = ({ onDrop }) => {
         }),
     });
 
-    const removeElement = (item, index) => {
-        dispatch({
-            type: REMOVE_INGREDIENT,
-            payload: [
-                ...constructorIngredients.slice(0, index),
-                ...constructorIngredients.slice(index + 1),
-            ],
-        });
+    const { constructorIngredients } = useSelector((store) => store);
 
+    const dispatch = useDispatch();
+
+    const moveIngredient = (dragIdx, hoverIdx) => {
+        const dragIngredient = constructorIngredients[dragIdx];
+        const newArr = [...constructorIngredients];
+        newArr.splice(dragIdx, 1);
+        newArr.splice(hoverIdx, 0, dragIngredient);
         dispatch({
-            type: DECREASE_INGREDIENT,
-            id: item._id,
+            type: SORT_INGREDIENTS_ON_DRAG,
+            payload: newArr,
         });
     };
 
@@ -48,23 +42,13 @@ const BurgerConstructorList = ({ onDrop }) => {
                     }`}
                 >
                     {constructorIngredients.map((item, index) => {
-                        const { name, price, image, key } = item;
                         return (
-                            <li className="mt-4 mb-4" key={key}>
-                                <div
-                                    className={burgerConstructorList.container}
-                                >
-                                    <DragIcon type="primary" />
-                                    <ConstructorElement
-                                        text={name}
-                                        price={price}
-                                        thumbnail={image}
-                                        extraClass="ml-3"
-                                        handleClose={() =>
-                                            removeElement(item, index)
-                                        }
-                                    />
-                                </div>
+                            <li key={item.key}>
+                                <BurgerConstructorListItem
+                                    moveIngredient={moveIngredient}
+                                    item={item}
+                                    index={index}
+                                />
                             </li>
                         );
                     })}

@@ -16,6 +16,7 @@ import {
     INCREASE_INGREDIENT,
     DRAG_CONSTRUCTOR_INGREDIENTS,
     DRAG_BUN_INGREDIENT,
+    SORT_INGREDIENTS_ON_DRAG,
 } from "./actions";
 
 const initialState = {
@@ -138,6 +139,12 @@ export const rootReducer = (state = initialState, action) => {
                     ...state.constructorIngredients,
                     action.item,
                 ],
+            };
+        }
+        case SORT_INGREDIENTS_ON_DRAG: {
+            return {
+                ...state,
+                constructorIngredients: action.payload,
             };
         }
         default:

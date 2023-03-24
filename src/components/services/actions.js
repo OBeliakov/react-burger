@@ -15,6 +15,7 @@ export const DECREASE_INGREDIENT = "DECREASE_INGREDIENT";
 export const INCREASE_INGREDIENT = "INCREASE_INGREDIENT";
 export const DRAG_CONSTRUCTOR_INGREDIENTS = "DRAG_CONSTRUCTOR_INGREDIENTS";
 export const DRAG_BUN_INGREDIENT = "DRAG_BUN_INGREDIENT";
+export const SORT_INGREDIENTS_ON_DRAG = "SORT_INGREDIENTS_ON_DRAG";
 
 export function getIngredients(url) {
     return function (dispatch) {
