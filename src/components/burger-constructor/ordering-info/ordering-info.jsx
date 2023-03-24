@@ -6,7 +6,7 @@ import {
 import orderingInfo from "./ordering-info.module.css";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { OPEN_ORDER_MODAL, submitOrder } from "../../services/actions";
+import { OPEN_ORDER_MODAL, submitOrder } from "../../services/actions/actions";
 
 const OrderingInfo = ({ finalPrice }) => {
     const _orderUrl = "https://norma.nomoreparties.space/api/orders";

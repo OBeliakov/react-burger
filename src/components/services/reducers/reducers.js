@@ -17,7 +17,7 @@ import {
     DRAG_CONSTRUCTOR_INGREDIENTS,
     DRAG_BUN_INGREDIENT,
     SORT_INGREDIENTS_ON_DRAG,
-} from "./actions";
+} from "../actions/actions";
 
 const initialState = {
     ingredientsData: [],

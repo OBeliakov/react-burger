@@ -8,7 +8,7 @@ import {
     DRAG_CONSTRUCTOR_INGREDIENTS,
     DRAG_BUN_INGREDIENT,
     INCREASE_INGREDIENT,
-} from "../services/actions";
+} from "../services/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";

@@ -7,7 +7,7 @@ import {
     OPEN_INGREDIENTS_MODAL,
     ADD_BUN,
     INCREASE_INGREDIENT,
-} from "../../services/actions";
+} from "../../services/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";

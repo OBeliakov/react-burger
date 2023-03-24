@@ -6,7 +6,10 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { CLOSE_MODAL, SET_ACTIVE_INGREDIENT } from "../services/actions";
+import {
+    CLOSE_MODAL,
+    SET_ACTIVE_INGREDIENT,
+} from "../services/actions/actions";
 const modalRoot = document.getElementById("burger-modals");
 
 const Modal = ({ modalTitle, className, children }) => {

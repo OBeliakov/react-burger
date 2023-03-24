@@ -8,7 +8,7 @@ import {
 import {
     REMOVE_INGREDIENT,
     DECREASE_INGREDIENT,
-} from "../../../services/actions";
+} from "../../../services/actions/actions";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 

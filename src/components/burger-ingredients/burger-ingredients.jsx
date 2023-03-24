@@ -5,7 +5,7 @@ import burgerIngredients from "./burger-ingredients.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { SET_CURRENT_TAB } from "../services/actions";
+import { SET_CURRENT_TAB } from "../services/actions/actions";
 
 const BurgerIngredients = () => {
     const { ingredientsModal } = useSelector((store) => store);
