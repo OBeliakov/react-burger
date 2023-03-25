@@ -10,7 +10,11 @@ import { OPEN_ORDER_MODAL, submitOrder } from "../../services/actions/actions";
 
 const OrderingInfo = ({ finalPrice }) => {
     const _orderUrl = "https://norma.nomoreparties.space/api/orders";
-    const { constructorIngredients, bun } = useSelector((store) => store);
+    const constructorIngredients = useSelector(
+        (store) => store.constructorIngredients
+    );
+    const bun = useSelector((store) => store.bun);
+
     const ingredientsIdArray = constructorIngredients.map((item) => item._id);
     const resultIdArr = bun
         ? [bun._id, ...ingredientsIdArray, bun._id]

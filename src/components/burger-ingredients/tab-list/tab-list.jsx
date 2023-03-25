@@ -9,33 +9,24 @@ const TabList = forwardRef(function TabList({ scrollByTabClick }, ref) {
     const handleClick = (element) => {
         scrollByTabClick(element);
     };
-    {
-        return (
-            <div className={`${tabList.tab_list}`} ref={ref}>
-                <Tab
-                    value="bun"
-                    active={current === "bun"}
-                    onClick={handleClick}
-                >
-                    Булки
-                </Tab>
-                <Tab
-                    value="sauce"
-                    active={current === "sauce"}
-                    onClick={handleClick}
-                >
-                    Соусы
-                </Tab>
-                <Tab
-                    value="main"
-                    active={current === "main"}
-                    onClick={handleClick}
-                >
-                    Начинки
-                </Tab>
-            </div>
-        );
-    }
+
+    return (
+        <div className={`${tabList.tab_list}`} ref={ref}>
+            <Tab value="bun" active={current === "bun"} onClick={handleClick}>
+                Булки
+            </Tab>
+            <Tab
+                value="sauce"
+                active={current === "sauce"}
+                onClick={handleClick}
+            >
+                Соусы
+            </Tab>
+            <Tab value="main" active={current === "main"} onClick={handleClick}>
+                Начинки
+            </Tab>
+        </div>
+    );
 });
 
 TabList.propTypes = {

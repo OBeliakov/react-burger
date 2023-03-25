@@ -16,7 +16,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { v4 as uuid } from "uuid";
 
 const App = () => {
-    const { ingredientsData, loading, error } = useSelector((store) => store);
+    const ingredientsData = useSelector((store) => store.ingredientsData);
+    const loading = useSelector((store) => store.loading);
+    const error = useSelector((store) => store.error);
     const dispatch = useDispatch();
     const _apiUrl = "https://norma.nomoreparties.space/api/ingredients";
 

@@ -3,7 +3,7 @@ import ingredientDetailsStyle from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
 const IngredientDetails = () => {
-    const { currentIngredient } = useSelector((store) => store);
+    const currentIngredient = useSelector((store) => store.currentIngredient);
 
     const generateMarkup = (element) => {
         const { image, name, calories, carbohydrates, proteins, fat } = element;

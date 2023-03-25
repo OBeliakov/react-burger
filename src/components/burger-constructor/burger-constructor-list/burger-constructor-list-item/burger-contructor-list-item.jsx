@@ -59,7 +59,9 @@ const BurgerConstructorListItem = ({ item, index, moveIngredient }) => {
         },
     });
 
-    const { constructorIngredients } = useSelector((store) => store);
+    const constructorIngredients = useSelector(
+        (store) => store.constructorIngredients
+    );
 
     const dispatch = useDispatch();
 

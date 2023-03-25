@@ -10,7 +10,11 @@ import { useDrag } from "react-dnd";
 
 const BurgerItem = ({ ingredient }) => {
     const { image, price, name } = ingredient;
-    const { constructorIngredients, bun } = useSelector((store) => store);
+    const constructorIngredients = useSelector(
+        (store) => store.constructorIngredients
+    );
+
+    const bun = useSelector((store) => store.bun);
 
     const currentElAmount = constructorIngredients.filter((item) => {
         return item._id === ingredient._id;

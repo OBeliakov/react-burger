@@ -17,7 +17,9 @@ const BurgerConstructorList = ({ onDrop }) => {
         }),
     });
 
-    const { constructorIngredients } = useSelector((store) => store);
+    const constructorIngredients = useSelector(
+        (store) => store.constructorIngredients
+    );
 
     const dispatch = useDispatch();
 

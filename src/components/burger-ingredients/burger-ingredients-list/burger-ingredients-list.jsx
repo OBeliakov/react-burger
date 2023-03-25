@@ -16,9 +16,10 @@ const BurgerIngredientsList = forwardRef(function BurgerIngredientsList(
     { ingredientsType },
     ref
 ) {
-    const { ingredientsData, constructorIngredients } = useSelector(
-        (store) => store
+    const constructorIngredients = useSelector(
+        (store) => store.constructorIngredients
     );
+    const ingredientsData = useSelector((store) => store.ingredientsData);
 
     const dispatch = useDispatch();
 

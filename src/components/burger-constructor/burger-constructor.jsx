@@ -10,9 +10,10 @@ import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
 
 const BurgerConstructor = ({ onDrop }) => {
-    const { constructorIngredients, orderModal } = useSelector(
-        (store) => store
+    const constructorIngredients = useSelector(
+        (store) => store.constructorIngredients
     );
+    const orderModal = useSelector((store) => store.orderModal);
     const bunData = useSelector((store) => store.bun);
     const bunsPrice = bunData ? bunData.price * 2 : 0;
     const finalPrice =

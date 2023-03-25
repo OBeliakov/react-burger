@@ -8,7 +8,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { SET_CURRENT_TAB } from "../services/actions/actions";
 
 const BurgerIngredients = () => {
-    const { ingredientsModal } = useSelector((store) => store);
+    const ingredientsModal = useSelector((store) => store.ingredientsModal);
     const listRef = useRef(null);
     const dispatch = useDispatch();
 
