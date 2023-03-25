@@ -71,11 +71,6 @@ const BurgerConstructorListItem = ({ item, index, moveIngredient }) => {
                 ...constructorIngredients.slice(index + 1),
             ],
         });
-
-        dispatch({
-            type: DECREASE_INGREDIENT,
-            id: _id,
-        });
     };
 
     dragRef(dropRef(ref));

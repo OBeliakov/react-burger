@@ -11,9 +11,10 @@ import { useDrag } from "react-dnd";
 const BurgerItem = ({ ingredient }) => {
     const { image, price, name } = ingredient;
     const { constructorIngredients, bun } = useSelector((store) => store);
-    const currentEl = constructorIngredients.find((item) => {
+
+    const currentElAmount = constructorIngredients.filter((item) => {
         return item._id === ingredient._id;
-    });
+    }).length;
 
     const [{ isDrag }, dragRef] = useDrag({
         type: ingredient.type,
@@ -23,7 +24,7 @@ const BurgerItem = ({ ingredient }) => {
         }),
     });
 
-    const counter = currentEl ? currentEl.qty : 0;
+    const counter = currentElAmount ? currentElAmount : 0;
 
     const renderCounter = () => {
         if (ingredient.type !== "bun") {

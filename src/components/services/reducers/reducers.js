@@ -12,7 +12,6 @@ import {
     POST_ORDER_INFO_FAILED,
     SET_CURRENT_TAB,
     ADD_BUN,
-    DECREASE_INGREDIENT,
     INCREASE_INGREDIENT,
     DRAG_CONSTRUCTOR_INGREDIENTS,
     DRAG_BUN_INGREDIENT,
@@ -111,17 +110,6 @@ export const rootReducer = (state = initialState, action) => {
                     (item) =>
                         item._id === action.id
                             ? { ...item, qty: ++item.qty }
-                            : item
-                ),
-            };
-        }
-        case DECREASE_INGREDIENT: {
-            return {
-                ...state,
-                constructorIngredients: [...state.constructorIngredients].map(
-                    (item) =>
-                        item._id === action.id
-                            ? { ...item, qty: --item.qty }
                             : item
                 ),
             };
