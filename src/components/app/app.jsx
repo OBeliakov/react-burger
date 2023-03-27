@@ -1,87 +1,52 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import app from "./app.module.css";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
+import {
+    getIngredients,
+    DRAG_CONSTRUCTOR_INGREDIENTS,
+    DRAG_BUN_INGREDIENT,
+    INCREASE_INGREDIENT,
+    SET_ACTIVE_INGREDIENT,
+} from "../services/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { v4 as uuid } from "uuid";
 
 const App = () => {
-    const [state, setState] = useState({
-        ingredientsData: [],
-        loading: true,
-        error: false,
-    });
-
-    const [modal, handleModal] = useState({
-        ingredientsModal: false,
-        orderModal: false,
-    });
-
-    const [ingredientType, setType] = useState("bun");
-    const [currentIngredient, setActiveIngredient] = useState({});
+    const ingredientsData = useSelector((store) => store.ingredientsData);
+    const loading = useSelector((store) => store.loading);
+    const error = useSelector((store) => store.error);
+    const dispatch = useDispatch();
     const _apiUrl = "https://norma.nomoreparties.space/api/ingredients";
 
-    const getIngredientsData = () => {
-        setState({ ...state, loading: true });
-        fetch(_apiUrl)
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка ${res.status}`);
-            })
-            .then((res) => {
-                const ingredientsData = res.data;
-                setState({
-                    ...state,
-                    ingredientsData,
-                    loading: false,
-                });
-            })
-            .catch((err) => {
-                setState({ ...state, error: true, loading: false });
-                console.log(err.message);
-            });
-    };
+    useEffect(() => {
+        dispatch(getIngredients(_apiUrl));
+    }, []);
 
-    const onHandleModal = (flag, type = "") => {
-        if (flag) {
-            if (type === "ingredients") {
-                handleModal({
-                    ...modal,
-                    ingredientsModal: true,
-                });
-            } else if (type === "order") {
-                handleModal({
-                    ...modal,
-                    orderModal: true,
-                });
-            }
+    const onDropHandler = (item) => {
+        dispatch({
+            type: SET_ACTIVE_INGREDIENT,
+            currentIngredient: item,
+        });
+        if (item.type !== "bun") {
+            dispatch({
+                type: DRAG_CONSTRUCTOR_INGREDIENTS,
+                item: { ...item, key: uuid() },
+            });
+            dispatch({
+                type: INCREASE_INGREDIENT,
+                id: item._id,
+            });
         } else {
-            handleModal({
-                ingredientsModal: false,
-                orderModal: false,
+            dispatch({
+                type: DRAG_BUN_INGREDIENT,
+                payload: { ...item, qty: ++item.qty },
             });
         }
     };
-
-    const getActiveIngredient = (item) => {
-        setActiveIngredient(item);
-    };
-
-    const getActiveType = (type) => {
-        setType(type);
-    };
-
-    useEffect(getIngredientsData, []);
-
-    const { ingredientsData, loading, error } = state;
-
-    const filteredItems = ingredientsData.filter(
-        (item) => item.type === ingredientType
-    );
 
     return (
         <>
@@ -91,39 +56,13 @@ const App = () => {
                     <main className={app.main}>
                         {ingredientsData && !loading ? (
                             <>
-                                <BurgerIngredients
-                                    getActiveIngredient={getActiveIngredient}
-                                    data={filteredItems}
-                                    openModal={onHandleModal}
-                                    getActiveType={getActiveType}
-                                />
-                                <BurgerConstructor
-                                    openModal={onHandleModal}
-                                    data={ingredientsData}
-                                />
+                                <DndProvider backend={HTML5Backend}>
+                                    <BurgerIngredients />
+                                    <BurgerConstructor onDrop={onDropHandler} />
+                                </DndProvider>
                             </>
                         ) : (
                             <p>Загрузка данных...</p>
-                        )}
-                        {modal.ingredientsModal && (
-                            <Modal
-                                modalTitle="Детали ингредиента"
-                                closeModal={handleModal}
-                                className="pt-10 pl-10 pb-15 pr-10"
-                            >
-                                <IngredientDetails
-                                    currentIngredient={currentIngredient}
-                                    closeModal={onHandleModal}
-                                />
-                            </Modal>
-                        )}
-                        {modal.orderModal && (
-                            <Modal
-                                className="pt-15 pl-25 pb-30 pr-10"
-                                closeModal={handleModal}
-                            >
-                                <OrderDetails closeModal={onHandleModal} />
-                            </Modal>
                         )}
                     </main>
                 </>

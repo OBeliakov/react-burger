@@ -1,41 +1,88 @@
-import React, { Fragment } from "react";
+import React, { forwardRef, Fragment } from "react";
 import burgerIngredientsList from "./burger-ingredients-list.module.css";
 import BurgerItem from "./burger-item/burger-item";
+import {
+    ADD_INGREDIENT,
+    SET_ACTIVE_INGREDIENT,
+    OPEN_INGREDIENTS_MODAL,
+    ADD_BUN,
+    INCREASE_INGREDIENT,
+} from "../../services/actions/actions";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { v4 as uuid } from "uuid";
 
-const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
+const BurgerIngredientsList = forwardRef(function BurgerIngredientsList(
+    { ingredientsType },
+    ref
+) {
+    const constructorIngredients = useSelector(
+        (store) => store.constructorIngredients
+    );
+    const ingredientsData = useSelector((store) => store.ingredientsData);
+
+    const dispatch = useDispatch();
+
     const addTitle = (string) => {
         let title = "";
-        if (string === "bun") {
-            title = "Булки";
-        } else if (string === "sauce") {
-            title = "Соусы";
-        } else {
-            title = "Начинки";
+
+        switch (string) {
+            case "bun":
+                title = "Булки";
+                break;
+            case "sauce":
+                title = "Соусы";
+                break;
+            case "main":
+                title = "Начинки";
+                break;
+            default:
+                title = "";
         }
 
-        return <h3 className="text text_type_main-medium mb-6">{title}</h3>;
+        return (
+            <h3 ref={ref} className="text text_type_main-medium mb-6">
+                {title}
+            </h3>
+        );
     };
 
     const handleClick = (item) => {
-        getActiveIngredient(item);
-        openModal(true, "ingredients");
+        dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: item });
+        if (item.type !== "bun") {
+            dispatch({
+                type: ADD_INGREDIENT,
+                payload: [...constructorIngredients, { ...item, key: uuid() }],
+            });
+            dispatch({
+                type: INCREASE_INGREDIENT,
+                id: item._id,
+            });
+        } else {
+            dispatch({
+                type: ADD_BUN,
+                payload: { ...item, qty: ++item.qty },
+            });
+        }
+        dispatch({ type: OPEN_INGREDIENTS_MODAL });
     };
 
-    const ingredientsType = data[0].type;
+    const newData = ingredientsData.map((item) => {
+        return { ...item, qty: 0 };
+    });
 
-    const buildLayout = (string) => {
+    const buildLayout = (string, ref) => {
         return (
             <>
-                {data && ingredientsType ? (
+                {ingredientsData && string ? (
                     <>
-                        {addTitle(ingredientsType)}
+                        {addTitle(string, ref)}
                         <ul
                             className={`${burgerIngredientsList.list} ml-0 pl-1 pr-1`}
                         >
-                            {data
+                            {newData
                                 .filter((item) => {
-                                    return item.type === string;
+                                    return item.type === ingredientsType;
                                 })
                                 .map((item) => {
                                     return (
@@ -55,17 +102,11 @@ const BurgerIngredientsList = ({ data, getActiveIngredient, openModal }) => {
         );
     };
 
-    return (
-        <div className={`${burgerIngredientsList.container} custom-scroll`}>
-            {buildLayout(ingredientsType)}
-        </div>
-    );
-};
+    return <div>{buildLayout(ingredientsType, ref)}</div>;
+});
 
 BurgerIngredientsList.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-    getActiveIngredient: PropTypes.func.isRequired,
-    openModal: PropTypes.func.isRequired,
+    ingredientsType: PropTypes.string,
 };
 
 export default BurgerIngredientsList;

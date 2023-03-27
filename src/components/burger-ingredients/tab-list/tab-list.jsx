@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { forwardRef } from "react";
 import tabList from "./tab-list.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const TabList = ({ getActiveType }) => {
-    const [current, setCurrent] = useState("bun");
-
-    const handleClick = (value) => {
-        setCurrent(value);
-        getActiveType(value);
+const TabList = forwardRef(function TabList({ scrollByTabClick }, ref) {
+    const current = useSelector((store) => store.currentTab);
+    const handleClick = (element) => {
+        scrollByTabClick(element);
     };
 
     return (
-        <div className={`${tabList.tab_list} mb-10`}>
+        <div className={`${tabList.tab_list}`} ref={ref}>
             <Tab value="bun" active={current === "bun"} onClick={handleClick}>
                 Булки
             </Tab>
@@ -28,10 +27,10 @@ const TabList = ({ getActiveType }) => {
             </Tab>
         </div>
     );
-};
+});
 
 TabList.propTypes = {
-    getActiveType: PropTypes.func.isRequired,
+    scrollByTabClick: PropTypes.func.isRequired,
 };
 
 export default TabList;
