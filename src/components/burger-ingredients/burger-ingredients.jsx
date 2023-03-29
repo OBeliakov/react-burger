@@ -2,13 +2,10 @@ import React, { useEffect, useRef } from "react";
 import TabList from "./tab-list/tab-list";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
 import burgerIngredients from "./burger-ingredients.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import { useDispatch } from "react-redux";
 import { SET_CURRENT_TAB } from "../services/actions/actions";
 
 const BurgerIngredients = () => {
-    const ingredientsModal = useSelector((store) => store.ingredientsModal);
     const listRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -77,14 +74,6 @@ const BurgerIngredients = () => {
                 {buildListLayout(sauceOptions)}
                 {buildListLayout(mainOptions)}
             </div>
-            {ingredientsModal && (
-                <Modal
-                    modalTitle="Детали ингредиента"
-                    className="pt-10 pl-10 pb-15 pr-10"
-                >
-                    <IngredientDetails />
-                </Modal>
-            )}
         </div>
     );
 };

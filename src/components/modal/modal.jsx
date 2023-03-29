@@ -12,11 +12,12 @@ import {
 } from "../services/actions/actions";
 const modalRoot = document.getElementById("burger-modals");
 
-const Modal = ({ modalTitle, className, children }) => {
+const Modal = ({ modalTitle, className, children, onClose }) => {
     const dispatch = useDispatch();
     const handleCloseModal = () => {
         dispatch({ type: CLOSE_MODAL });
         dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
+        onClose();
     };
 
     const handleOverlayClick = (e) => {
@@ -66,6 +67,7 @@ Modal.propTypes = {
     modalTitle: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.node,
+    onClose: PropTypes.func,
 };
 
 export default Modal;

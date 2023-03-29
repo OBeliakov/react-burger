@@ -1,24 +1,20 @@
 import React, { useEffect } from "react";
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import app from "./app.module.css";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import { getIngredients } from "../services/actions/actions";
+import { useDispatch } from "react-redux";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import {
-    getIngredients,
-    DRAG_CONSTRUCTOR_INGREDIENTS,
-    DRAG_BUN_INGREDIENT,
-    INCREASE_INGREDIENT,
-    SET_ACTIVE_INGREDIENT,
-} from "../services/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { v4 as uuid } from "uuid";
+    ConstructorPage,
+    SignInPage,
+    RegisterPage,
+    ForgotPasswordPage,
+    ResetPasswordPage,
+    ProfilePage,
+    NotFoundPage,
+} from "../../pages";
+import IngredientsDetails from "../../components/ingredient-details/ingredient-details";
+import Modal from "../../components/modal/modal";
 
 const App = () => {
-    const ingredientsData = useSelector((store) => store.ingredientsData);
-    const loading = useSelector((store) => store.loading);
-    const error = useSelector((store) => store.error);
     const dispatch = useDispatch();
     const _apiUrl = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -26,47 +22,51 @@ const App = () => {
         dispatch(getIngredients(_apiUrl));
     }, []);
 
-    const onDropHandler = (item) => {
-        dispatch({
-            type: SET_ACTIVE_INGREDIENT,
-            currentIngredient: item,
-        });
-        if (item.type !== "bun") {
-            dispatch({
-                type: DRAG_CONSTRUCTOR_INGREDIENTS,
-                item: { ...item, key: uuid() },
-            });
-            dispatch({
-                type: INCREASE_INGREDIENT,
-                id: item._id,
-            });
-        } else {
-            dispatch({
-                type: DRAG_BUN_INGREDIENT,
-                payload: { ...item, qty: ++item.qty },
-            });
-        }
+    const location = useLocation();
+    const navigate = useNavigate();
+    const background = location.state && location.state.background;
+
+    const handleModalClose = () => {
+        navigate(-1);
     };
 
     return (
         <>
-            <AppHeader />
-            {!error ? (
-                <>
-                    <main className={app.main}>
-                        {ingredientsData && !loading ? (
-                            <>
-                                <DndProvider backend={HTML5Backend}>
-                                    <BurgerIngredients />
-                                    <BurgerConstructor onDrop={onDropHandler} />
-                                </DndProvider>
-                            </>
-                        ) : (
-                            <p>Загрузка данных...</p>
-                        )}
-                    </main>
-                </>
-            ) : null}
+            <Routes location={background || location}>
+                <Route path="/" element={<ConstructorPage />} />
+                <Route
+                    path="/ingredients/:ingredientId"
+                    element={<IngredientsDetails />}
+                />
+                <Route path="/registration/login" element={<SignInPage />} />
+                <Route path="/registration" element={<RegisterPage />} />
+                <Route
+                    path="registration/forgot-password"
+                    element={<ForgotPasswordPage />}
+                />
+                <Route
+                    path="registration/reset-password"
+                    element={<ResetPasswordPage />}
+                />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="*" element={<NotFoundPage />}></Route>
+            </Routes>
+            {background && (
+                <Routes>
+                    <Route
+                        path="/ingredients/:ingredientId"
+                        element={
+                            <Modal
+                                onClose={handleModalClose}
+                                modalTitle="Детали ингредиента"
+                                className="pt-10 pl-10 pb-15 pr-10"
+                            >
+                                <IngredientsDetails />
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
         </>
     );
 };

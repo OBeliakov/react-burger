@@ -1,9 +1,15 @@
 import React from "react";
 import ingredientDetailsStyle from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const IngredientDetails = () => {
-    const currentIngredient = useSelector((store) => store.currentIngredient);
+    const { ingredientId } = useParams();
+    const ingredientsData = useSelector((store) => store.ingredientsData);
+    const currentOpened = useSelector((store) => store.currentIngredient);
+    const currentIngredient = ingredientId
+        ? ingredientsData.find((item) => item._id === ingredientId)
+        : currentOpened;
 
     const generateMarkup = (element) => {
         const { image, name, calories, carbohydrates, proteins, fat } = element;
@@ -56,7 +62,7 @@ const IngredientDetails = () => {
         );
     };
 
-    const modalBody = generateMarkup(currentIngredient);
+    const modalBody = currentIngredient && generateMarkup(currentIngredient);
 
     return modalBody;
 };

@@ -6,35 +6,45 @@ import {
     ListIcon,
     ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from "react-router-dom";
 
 const AppHeader = () => {
+    const linkActiveClass = `${appHeader.link_active} ${appHeader.link} ml pb-4 pt-4 pl-5 pr-5 text text_type_main-default`;
+    const linkClass = ` ${appHeader.link} ml pb-4 pt-4 pl-5 pr-5 text text_type_main-default`;
+
     return (
         <header className={appHeader.header}>
             <nav className={appHeader.nav}>
-                <a
-                    href="/#"
-                    className={`${appHeader.link_active} pb-4 pt-4 pl-5 pr-5 text text_type_main-default`}
+                <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                        isActive ? `${linkActiveClass}` : `${linkClass}`
+                    }
                 >
                     <BurgerIcon type="primary" />
                     <span className="ml-2">Конструктор</span>
-                </a>
-                <a
-                    href="/#"
-                    className={`${appHeader.link} ml-2 pb-4 pt-4 pl-5 pr-5 text text_type_main-default`}
+                </NavLink>
+                <NavLink
+                    to="/orders"
+                    className={({ isActive }) =>
+                        isActive ? `${linkActiveClass}` : `${linkClass}`
+                    }
                 >
                     <ListIcon type="secondary" />
                     <span className="ml-2">Лента заказов</span>
-                </a>
-                <a href="/#" className={appHeader.logo}>
+                </NavLink>
+                <NavLink to="/" className={appHeader.logo}>
                     <Logo />
-                </a>
-                <a
-                    href="/#"
-                    className={`${appHeader.link} pb-4 pt-4 pl-5 pr-5 text text_type_main-default`}
+                </NavLink>
+                <NavLink
+                    to="/profile"
+                    className={({ isActive }) =>
+                        isActive ? `${linkActiveClass}` : `${linkClass}`
+                    }
                 >
                     <ProfileIcon type="secondary" />
                     <span className="ml-2">Личный кабинет</span>
-                </a>
+                </NavLink>
             </nav>
         </header>
     );
