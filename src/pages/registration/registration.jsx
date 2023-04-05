@@ -1,34 +1,79 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import {
     Input,
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+    registerUser,
+    setUser,
+} from "../../components/services/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { _apiBase } from "../../components/services/constants";
 
 export const RegisterPage = () => {
+    const [formValues, setFormValues] = useState({
+        name: "",
+        password: "",
+        email: "",
+    });
+
+    const navigate = useNavigate();
+
+    const changeInputValue = (e) => {
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    };
+
+    const _registerUrl = `${_apiBase}/auth/register`;
+
+    const dispatch = useDispatch();
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        dispatch(registerUser(_registerUrl, formValues));
+    };
+
+    const formSuccess = useSelector((store) => store.registerFormSuccess);
+
+    if (formSuccess) {
+        navigate("/", {
+            replace: true,
+        });
+    }
+
     return (
         <>
             <AppHeader />
             <div className={styles.form_container}>
                 <h1 className="text text_type_main-medium">Регистрация</h1>
-                <form action="" className={styles.form}>
-                    <Input type="text" extraClass="mt-6" placeholder="Имя" />
+                <form onSubmit={submitForm} action="" className={styles.form}>
                     <Input
+                        name="name"
+                        type="text"
+                        extraClass="mt-6"
+                        placeholder="Имя"
+                        onChange={changeInputValue}
+                    />
+                    <Input
+                        name="email"
                         type="email"
                         extraClass="mt-6"
                         placeholder="E-mail"
+                        onChange={changeInputValue}
                     />
                     <Input
+                        name="password"
                         type="password"
                         icon={"ShowIcon"}
                         placeholder="Password"
                         extraClass="mt-6"
+                        onChange={changeInputValue}
                     />
                     <Button
                         extraClass="mt-6"
-                        htmlType="button"
+                        htmlType="submit"
                         type="primary"
                         size="medium"
                     >
@@ -41,7 +86,7 @@ export const RegisterPage = () => {
                     </p>
                     <Link
                         className={`${styles.form_info_link} text text_type_main-default ml-2`}
-                        to="login"
+                        to="/login"
                     >
                         Войти
                     </Link>

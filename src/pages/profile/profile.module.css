@@ -28,3 +28,9 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.logout_btn {
+    background-color: transparent;
+    color: #8585ad;
+    border-style: none;
+}

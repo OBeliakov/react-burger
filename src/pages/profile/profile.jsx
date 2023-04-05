@@ -5,12 +5,27 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import AppHeader from "../../components/app-header/app-header";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./profile.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../components/services/actions/actions";
+import { _apiBase } from "../../components/services/constants";
 
 export const ProfilePage = () => {
     const linkActiveClass = `${styles.active} ${styles.nav_link}  text text_type_main-medium`;
     const linkClass = `${styles.nav_link} text text_type_main-medium`;
+    const user = useSelector((store) => store.userInfo);
+    const { name, email } = user;
+
+    const _logOutUrl = `${_apiBase}/auth/logout`;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const signOut = () => {
+        dispatch(logOut(_logOutUrl));
+        navigate("/login", { replace: true });
+    };
+
     return (
         <>
             <AppHeader />
@@ -42,17 +57,12 @@ export const ProfilePage = () => {
                                 </NavLink>
                             </li>
                             <li className="pb-5 pt-5">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? `${linkActiveClass}`
-                                            : `${linkClass}`
-                                    }
-                                    to="/logout"
+                                <button
+                                    className={`${styles.logout_btn} text text_type_main-medium`}
+                                    onClick={signOut}
                                 >
-                                    {" "}
                                     Выход
-                                </NavLink>
+                                </button>
                             </li>
                         </ul>
                     </nav>
@@ -67,14 +77,14 @@ export const ProfilePage = () => {
                         extraClass="mb-6"
                         placeholder="Имя"
                         icon={"EditIcon"}
-                        value="Марк"
+                        value={name}
                     />
                     <Input
                         type="email"
                         extraClass="mb-6"
                         placeholder="E-mail"
                         icon={"EditIcon"}
-                        value="mail@stellar.burgers"
+                        value={email}
                     />
                     <Input
                         type="password"
@@ -82,6 +92,7 @@ export const ProfilePage = () => {
                         placeholder="Пароль"
                         value="******"
                         extraClass="mb-6"
+                        readOnly
                     />
                     <div className={styles.buttons}>
                         <Button

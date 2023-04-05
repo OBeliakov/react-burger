@@ -13,10 +13,11 @@ import {
 } from "../../pages";
 import IngredientsDetails from "../../components/ingredient-details/ingredient-details";
 import Modal from "../../components/modal/modal";
+import { _apiBase } from "../services/constants";
 
 const App = () => {
     const dispatch = useDispatch();
-    const _apiUrl = "https://norma.nomoreparties.space/api/ingredients";
+    const _apiUrl = `${_apiBase}/ingredients`;
 
     useEffect(() => {
         dispatch(getIngredients(_apiUrl));
@@ -38,16 +39,13 @@ const App = () => {
                     path="/ingredients/:ingredientId"
                     element={<IngredientsDetails />}
                 />
-                <Route path="/registration/login" element={<SignInPage />} />
-                <Route path="/registration" element={<RegisterPage />} />
+                <Route path="/login" element={<SignInPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route
-                    path="registration/forgot-password"
+                    path="/forgot-password"
                     element={<ForgotPasswordPage />}
                 />
-                <Route
-                    path="registration/reset-password"
-                    element={<ResetPasswordPage />}
-                />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="*" element={<NotFoundPage />}></Route>
             </Routes>

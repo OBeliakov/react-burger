@@ -1,13 +1,38 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import {
     Input,
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { passwordReset } from "../../components/services/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { _apiBase } from "../../components/services/constants";
 
 export const ForgotPasswordPage = () => {
+    const [formValues, setFormValues] = useState({ email: "" });
+    const navigate = useNavigate();
+
+    const changeInputValue = (e) => {
+        setFormValues({ ...formValues, email: e.target.value });
+    };
+
+    const _forgotPwdUrl = `${_apiBase}/password-reset`;
+
+    const dispatch = useDispatch();
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        dispatch(passwordReset(_forgotPwdUrl, formValues.email));
+    };
+
+    const formSuccess = useSelector((store) => store.resetFormSuccess);
+
+    if (formSuccess) {
+        navigate("/reset-password", { replace: true });
+    }
+
     return (
         <>
             <AppHeader />
@@ -15,17 +40,19 @@ export const ForgotPasswordPage = () => {
                 <h1 className="text text_type_main-medium">
                     Восстановление пароля
                 </h1>
-                <form action="" className={styles.form}>
+                <form action="#" onSubmit={submitForm} className={styles.form}>
                     <Input
                         type="email"
                         extraClass="mt-6"
                         placeholder="Укажите E-mail"
+                        value={formValues.email}
+                        onChange={changeInputValue}
                     />
                     <Button
                         extraClass="mt-6"
-                        htmlType="button"
                         type="primary"
                         size="medium"
+                        htmlType="submit"
                     >
                         Восстановить
                     </Button>
@@ -36,7 +63,7 @@ export const ForgotPasswordPage = () => {
                     </p>
                     <Link
                         className={`${styles.form_info_link} text text_type_main-default ml-2`}
-                        to="/registration/login"
+                        to="/login"
                     >
                         Войти
                     </Link>

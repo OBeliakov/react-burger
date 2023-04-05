@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import {
     ADD_INGREDIENT,
     REMOVE_INGREDIENT,
@@ -16,6 +17,16 @@ import {
     DRAG_CONSTRUCTOR_INGREDIENTS,
     DRAG_BUN_INGREDIENT,
     SORT_INGREDIENTS_ON_DRAG,
+    RESET_FORM_FAILED,
+    RESET_FORM_SUCCESS,
+    UPDATE_FORM_FAILED,
+    UPDATE_FORM_SUCCESS,
+    REGISTER_FORM_SUCCESS,
+    REGISTER_FORM_FAILED,
+    LOGIN_FORM_SUCCESS,
+    LOGIN_FORM_FAILED,
+    SET_USER_FAILED,
+    SET_USER_SUCCESS,
 } from "../actions/actions";
 
 const initialState = {
@@ -30,6 +41,21 @@ const initialState = {
     orderModal: false,
     currentTab: "bun",
     bun: null,
+    resetFormFailed: false,
+    resetFormSuccess: false,
+    updateFormFailed: false,
+    updateFormSuccess: false,
+    registerFormSuccess: false,
+    registerFormFailed: false,
+    loginFormSuccess: false,
+    loginFormFailed: false,
+    userInfo: {
+        email: "",
+        name: "",
+        password: "",
+    },
+    userInfoFailed: false,
+    userInfoSuccess: false,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -133,6 +159,63 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 constructorIngredients: action.payload,
+            };
+        }
+        case RESET_FORM_SUCCESS: {
+            return {
+                ...state,
+                resetFormSuccess: true,
+            };
+        }
+        case RESET_FORM_FAILED:
+            return {
+                ...state,
+                resetFormFailed: true,
+            };
+        case UPDATE_FORM_SUCCESS: {
+            return {
+                ...state,
+                updateFormSuccess: true,
+            };
+        }
+        case UPDATE_FORM_FAILED:
+            return {
+                ...state,
+                updateFormFailed: true,
+            };
+        case REGISTER_FORM_SUCCESS:
+            return {
+                ...state,
+                userInfo: action.payload,
+                registerFormSuccess: true,
+            };
+        case REGISTER_FORM_FAILED:
+            return {
+                ...state,
+                registerFormFailed: true,
+            };
+        case LOGIN_FORM_SUCCESS:
+            return {
+                ...state,
+                userInfo: action.payload,
+                loginFormSuccess: true,
+            };
+        case LOGIN_FORM_FAILED:
+            return {
+                ...state,
+                loginFormFailed: true,
+            };
+        case SET_USER_FAILED: {
+            return {
+                ...state,
+                userInfoFailed: true,
+            };
+        }
+        case SET_USER_SUCCESS: {
+            return {
+                ...state,
+                userInfoSucces: true,
+                userInfo: action.payload,
             };
         }
         default:
