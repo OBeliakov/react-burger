@@ -94,8 +94,6 @@ export const passwordReset = (url, email) => {
             body: JSON.stringify({ email }),
         })
             .then((res) => {
-                console.log(res);
-
                 return checkResponse(res);
             })
             .then(() => {
@@ -119,8 +117,6 @@ export const passwordUpdate = (url, form) => {
             body: JSON.stringify(form),
         })
             .then((res) => {
-                console.log(res);
-
                 return checkResponse(res, dispatch, {
                     type: UPDATE_FORM_FAILED,
                 });

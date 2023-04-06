@@ -6,6 +6,7 @@ import { ForgotPasswordPage } from "./registration/forgot-password";
 import { SignInPage } from "./registration/sign-in";
 import { ProfilePage } from "./profile";
 import { NotFoundPage } from "./not-found-page";
+import { OrderPage } from "./orders";
 
 export {
     ConstructorPage,
@@ -16,4 +17,5 @@ export {
     SignInPage,
     ProfilePage,
     NotFoundPage,
+    OrderPage,
 };

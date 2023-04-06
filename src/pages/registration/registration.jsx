@@ -7,7 +7,7 @@ import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../components/services/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { _apiBase } from "../../components/services/constants";
 
 export const RegisterPage = () => {
@@ -32,13 +32,9 @@ export const RegisterPage = () => {
         dispatch(registerUser(_registerUrl, formValues));
     };
 
-    const formSuccess = useSelector((store) => store.registerFormSuccess);
-
-    if (formSuccess) {
-        navigate("/", {
-            replace: true,
-        });
-    }
+    navigate("/", {
+        replace: true,
+    });
 
     return (
         <>

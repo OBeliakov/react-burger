@@ -16,6 +16,8 @@ const OrderingInfo = ({ finalPrice }) => {
     );
     const bun = useSelector((store) => store.bun);
 
+    const user = useSelector((store) => store.userInfo);
+
     const ingredientsIdArray = constructorIngredients.map((item) => item._id);
     const resultIdArr = bun
         ? [bun._id, ...ingredientsIdArray, bun._id]
@@ -23,8 +25,12 @@ const OrderingInfo = ({ finalPrice }) => {
     const dispatch = useDispatch();
 
     const makeOrder = () => {
-        dispatch(submitOrder(_orderUrl, resultIdArr));
-        dispatch({ type: OPEN_ORDER_MODAL });
+        if (user) {
+            dispatch(submitOrder(_orderUrl, resultIdArr));
+            dispatch({ type: OPEN_ORDER_MODAL });
+        } else {
+            alert("Вы должны быть авторизованы!");
+        }
     };
 
     return (

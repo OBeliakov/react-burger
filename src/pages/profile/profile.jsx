@@ -126,17 +126,26 @@ export const ProfilePage = () => {
                         onChange={changeInputValue}
                     />
                     <div className={styles.buttons}>
-                        <Button
-                            htmlType="button"
-                            type="secondary"
-                            size="medium"
-                            onClick={handleReset}
-                        >
-                            Отмена
-                        </Button>
-                        <Button htmlType="submit" type="primary" size="medium">
-                            Сохранить
-                        </Button>
+                        {(formValues.name !== user.name ||
+                            formValues.email !== user.email) && (
+                            <>
+                                <Button
+                                    htmlType="button"
+                                    type="secondary"
+                                    size="medium"
+                                    onClick={handleReset}
+                                >
+                                    Отмена
+                                </Button>
+                                <Button
+                                    htmlType="submit"
+                                    type="primary"
+                                    size="medium"
+                                >
+                                    Сохранить
+                                </Button>
+                            </>
+                        )}
                     </div>
                 </form>
             </div>

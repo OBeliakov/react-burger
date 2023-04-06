@@ -10,6 +10,7 @@ import {
     ResetPasswordPage,
     ProfilePage,
     NotFoundPage,
+    OrderPage,
 } from "../../pages";
 import IngredientsDetails from "../../components/ingredient-details/ingredient-details";
 import Modal from "../../components/modal/modal";
@@ -59,6 +60,11 @@ const App = () => {
                     path="/profile"
                     element={<Authorized component={<ProfilePage />} />}
                 />
+                <Route
+                    path="/profile/orders"
+                    element={<Authorized component={<OrderPage />} />}
+                />
+
                 <Route
                     path="/ingredients/:ingredientId"
                     element={<IngredientsDetails />}

@@ -7,7 +7,7 @@ import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { passwordReset } from "../../components/services/actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { _apiBase } from "../../components/services/constants";
 
 export const ForgotPasswordPage = () => {

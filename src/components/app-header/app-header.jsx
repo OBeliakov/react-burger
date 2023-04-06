@@ -25,7 +25,7 @@ const AppHeader = () => {
                     <span className="ml-2">Конструктор</span>
                 </NavLink>
                 <NavLink
-                    to="/orders"
+                    to="/profile/orders"
                     className={({ isActive }) =>
                         isActive ? `${linkActiveClass}` : `${linkClass}`
                     }
