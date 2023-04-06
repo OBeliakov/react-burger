@@ -1,9 +1,9 @@
-export const checkResponse = (res, dispatch = null, obj = null) => {
+export const checkResponse = async (res, dispatch = null, obj = null) => {
     if (res.ok) {
         return res.json();
     }
 
     dispatch && obj && dispatch(obj);
-
-    return Promise.reject(`Ошибка ${res.status}`);
+    const error = await res.json();
+    return Promise.reject(error);
 };

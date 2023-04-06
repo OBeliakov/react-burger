@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import {
     ADD_INGREDIENT,
     REMOVE_INGREDIENT,
@@ -27,6 +26,9 @@ import {
     LOGIN_FORM_FAILED,
     SET_USER_FAILED,
     SET_USER_SUCCESS,
+    AUTH_CHECK,
+    LOGOUT_FORM_SUCCESS,
+    LOGOUT_FORM_FAILED,
 } from "../actions/actions";
 
 const initialState = {
@@ -49,13 +51,12 @@ const initialState = {
     registerFormFailed: false,
     loginFormSuccess: false,
     loginFormFailed: false,
-    userInfo: {
-        email: "",
-        name: "",
-        password: "",
-    },
+    userInfo: null,
     userInfoFailed: false,
     userInfoSuccess: false,
+    isAuthChecked: false,
+    logoutFormSuccess: false,
+    logoutFormFailed: false,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -165,57 +166,88 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 resetFormSuccess: true,
+                resetFormFailed: false,
             };
         }
         case RESET_FORM_FAILED:
             return {
                 ...state,
                 resetFormFailed: true,
+                resetFormSuccess: false,
             };
         case UPDATE_FORM_SUCCESS: {
             return {
                 ...state,
                 updateFormSuccess: true,
+                updateFormFailed: false,
             };
         }
         case UPDATE_FORM_FAILED:
             return {
                 ...state,
                 updateFormFailed: true,
+                updateFormSuccess: false,
             };
         case REGISTER_FORM_SUCCESS:
             return {
                 ...state,
                 userInfo: action.payload,
                 registerFormSuccess: true,
+                registerFormFailed: false,
             };
         case REGISTER_FORM_FAILED:
             return {
                 ...state,
                 registerFormFailed: true,
+                registerFormSuccess: false,
             };
         case LOGIN_FORM_SUCCESS:
             return {
                 ...state,
                 userInfo: action.payload,
                 loginFormSuccess: true,
+                loginFormFailed: false,
             };
         case LOGIN_FORM_FAILED:
             return {
                 ...state,
                 loginFormFailed: true,
+                loginFormSuccess: false,
             };
         case SET_USER_FAILED: {
             return {
                 ...state,
                 userInfoFailed: true,
+                userInfoSucces: false,
             };
         }
         case SET_USER_SUCCESS: {
             return {
                 ...state,
                 userInfoSucces: true,
+                userInfoFailed: false,
                 userInfo: action.payload,
+            };
+        }
+        case AUTH_CHECK: {
+            return {
+                ...state,
+                isAuthChecked: action.payload,
+            };
+        }
+        case LOGOUT_FORM_SUCCESS: {
+            return {
+                ...state,
+                logoutFormSuccess: true,
+                logoutFormFailed: false,
+                userInfo: null,
+            };
+        }
+        case LOGOUT_FORM_FAILED: {
+            return {
+                ...state,
+                logoutFormFailed: true,
+                logoutFormSuccess: false,
             };
         }
         default:

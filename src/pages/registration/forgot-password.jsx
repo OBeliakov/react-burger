@@ -5,18 +5,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { passwordReset } from "../../components/services/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { _apiBase } from "../../components/services/constants";
 
 export const ForgotPasswordPage = () => {
     const [formValues, setFormValues] = useState({ email: "" });
-    const navigate = useNavigate();
 
     const changeInputValue = (e) => {
         setFormValues({ ...formValues, email: e.target.value });
     };
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const _forgotPwdUrl = `${_apiBase}/password-reset`;
 
@@ -25,13 +26,8 @@ export const ForgotPasswordPage = () => {
     const submitForm = (e) => {
         e.preventDefault();
         dispatch(passwordReset(_forgotPwdUrl, formValues.email));
+        navigate("/reset-password", { state: { from: location } });
     };
-
-    const formSuccess = useSelector((store) => store.resetFormSuccess);
-
-    if (formSuccess) {
-        navigate("/reset-password", { replace: true });
-    }
 
     return (
         <>

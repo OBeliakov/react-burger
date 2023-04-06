@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 const NotFoundPage = () => {
     return (
         <div className={styles.container}>
-            <h1 className="mb-4 mt-4 text text_type_main-large">
-                Этой страницы не существует
-            </h1>
-            <div className="mt-20 mb-20">
+            <div className="mb-4 mt-4">
                 <Logo />
             </div>
+            <h1 className="mt-20 mb-20 text text_type_main-large">
+                Этой страницы не существует
+            </h1>
+
             <div className={`${styles.info} mt-10`}>
                 <p className="mr-2 text text_type_main-default">
                     Не нашли того что искали?

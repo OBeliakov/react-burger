@@ -1,22 +1,33 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
     Input,
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordUpdate } from "../../components/services/actions/actions";
 import { _apiBase } from "../../components/services/constants";
 
 export const ResetPasswordPage = () => {
     const [formValues, setFormValues] = useState({ password: "", token: "" });
-    const navigate = useNavigate();
-
     const changeInputValue = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
+    const formSuccess = useSelector((store) => store.updateFormSuccess);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pathname = location && location.state;
+
+    useEffect(() => {
+        if (!pathname) {
+            navigate("/", {
+                replace: true,
+            });
+        }
+    });
 
     const _resetPwdUrl = `${_apiBase}/password-reset/reset`;
 
@@ -25,15 +36,13 @@ export const ResetPasswordPage = () => {
     const submitForm = (e) => {
         e.preventDefault();
         dispatch(passwordUpdate(_resetPwdUrl, formValues));
+        if (formSuccess) {
+            navigate("/", {
+                replace: true,
+            });
+        }
     };
 
-    const formSuccess = useSelector((store) => store.updateFormSuccess);
-
-    if (formSuccess) {
-        navigate("/", {
-            replace: true,
-        });
-    }
     return (
         <>
             <AppHeader />
@@ -56,7 +65,7 @@ export const ResetPasswordPage = () => {
                         type="text"
                         extraClass="mt-6"
                         placeholder="Введите код из письма"
-                        value={formValues.code}
+                        value={formValues.token}
                         onChange={changeInputValue}
                     />
                     <Button

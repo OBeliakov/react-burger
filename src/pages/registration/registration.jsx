@@ -6,10 +6,7 @@ import {
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
-import {
-    registerUser,
-    setUser,
-} from "../../components/services/actions/actions";
+import { registerUser } from "../../components/services/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { _apiBase } from "../../components/services/constants";
 
@@ -54,6 +51,7 @@ export const RegisterPage = () => {
                         type="text"
                         extraClass="mt-6"
                         placeholder="Имя"
+                        value={formValues.name}
                         onChange={changeInputValue}
                     />
                     <Input
@@ -61,14 +59,16 @@ export const RegisterPage = () => {
                         type="email"
                         extraClass="mt-6"
                         placeholder="E-mail"
+                        value={formValues.email}
                         onChange={changeInputValue}
                     />
                     <Input
                         name="password"
                         type="password"
                         icon={"ShowIcon"}
-                        placeholder="Password"
+                        placeholder="Пароль"
                         extraClass="mt-6"
+                        value={formValues.password}
                         onChange={changeInputValue}
                     />
                     <Button

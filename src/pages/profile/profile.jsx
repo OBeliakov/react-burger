@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import {
     Input,
     Button,
@@ -8,22 +8,49 @@ import AppHeader from "../../components/app-header/app-header";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../../components/services/actions/actions";
+import {
+    logOut,
+    updateUserData,
+} from "../../components/services/actions/actions";
 import { _apiBase } from "../../components/services/constants";
 
 export const ProfilePage = () => {
     const linkActiveClass = `${styles.active} ${styles.nav_link}  text text_type_main-medium`;
     const linkClass = `${styles.nav_link} text text_type_main-medium`;
     const user = useSelector((store) => store.userInfo);
-    const { name, email } = user;
-
-    const _logOutUrl = `${_apiBase}/auth/logout`;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const _logOutUrl = `${_apiBase}/auth/logout`;
+    const [formValues, setFormValues] = useState({
+        name: user.name,
+        email: user.email,
+        password: "",
+    });
 
     const signOut = () => {
         dispatch(logOut(_logOutUrl));
         navigate("/login", { replace: true });
+    };
+
+    const changeInputValue = (e) => {
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    };
+
+    const _updateUserUrl = `${_apiBase}/auth/user`;
+
+    const changeUserData = (e) => {
+        e.preventDefault();
+        dispatch(updateUserData(_updateUserUrl, formValues));
+    };
+
+    const handleReset = () => {
+        setFormValues({
+            ...formValues,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+        });
     };
 
     return (
@@ -71,20 +98,24 @@ export const ProfilePage = () => {
                         данные
                     </p>
                 </div>
-                <form className={styles.user_info}>
+                <form onSubmit={changeUserData} className={styles.user_info}>
                     <Input
                         type="text"
+                        name="name"
                         extraClass="mb-6"
                         placeholder="Имя"
                         icon={"EditIcon"}
-                        value={name}
+                        value={formValues.name}
+                        onChange={changeInputValue}
                     />
                     <Input
                         type="email"
+                        name="email"
                         extraClass="mb-6"
                         placeholder="E-mail"
                         icon={"EditIcon"}
-                        value={email}
+                        value={formValues.email}
+                        onChange={changeInputValue}
                     />
                     <Input
                         type="password"
@@ -92,17 +123,18 @@ export const ProfilePage = () => {
                         placeholder="Пароль"
                         value="******"
                         extraClass="mb-6"
-                        readOnly
+                        onChange={changeInputValue}
                     />
                     <div className={styles.buttons}>
                         <Button
                             htmlType="button"
                             type="secondary"
                             size="medium"
+                            onClick={handleReset}
                         >
                             Отмена
                         </Button>
-                        <Button htmlType="button" type="primary" size="medium">
+                        <Button htmlType="submit" type="primary" size="medium">
                             Сохранить
                         </Button>
                     </div>

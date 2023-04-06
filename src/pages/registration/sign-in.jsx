@@ -5,9 +5,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser, setUser } from "../../components/services/actions/actions";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../components/services/actions/actions";
 import { _apiBase } from "../../components/services/constants";
 
 export const SignInPage = () => {
@@ -29,14 +29,6 @@ export const SignInPage = () => {
         dispatch(loginUser(_loginUrl, formValues));
     };
 
-    const formSuccess = useSelector((store) => store.loginFormSuccess);
-    const navigate = useNavigate();
-
-    if (formSuccess) {
-        navigate("/", {
-            replace: true,
-        });
-    }
     const { email, password } = formValues;
     return (
         <>
@@ -56,7 +48,7 @@ export const SignInPage = () => {
                         type="password"
                         name="password"
                         icon={"ShowIcon"}
-                        placeholder="Password"
+                        placeholder="Пароль"
                         extraClass="mt-6"
                         value={password}
                         onChange={changeInputValue}

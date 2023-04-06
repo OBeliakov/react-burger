@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getIngredients } from "../services/actions/actions";
+import { getIngredients, checkUserAuth } from "../services/actions/actions";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -14,6 +14,7 @@ import {
 import IngredientsDetails from "../../components/ingredient-details/ingredient-details";
 import Modal from "../../components/modal/modal";
 import { _apiBase } from "../services/constants";
+import { UnAuthorized, Authorized } from "../protected-route";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getIngredients(_apiUrl));
+        dispatch(checkUserAuth());
     }, []);
 
     const location = useLocation();
@@ -36,17 +38,31 @@ const App = () => {
             <Routes location={background || location}>
                 <Route path="/" element={<ConstructorPage />} />
                 <Route
+                    path="/login"
+                    element={<UnAuthorized component={<SignInPage />} />}
+                />
+                <Route
+                    path="/register"
+                    element={<UnAuthorized component={<RegisterPage />} />}
+                />
+                <Route
+                    path="/forgot-password"
+                    element={
+                        <UnAuthorized component={<ForgotPasswordPage />} />
+                    }
+                />
+                <Route
+                    path="/reset-password"
+                    element={<UnAuthorized component={<ResetPasswordPage />} />}
+                />
+                <Route
+                    path="/profile"
+                    element={<Authorized component={<ProfilePage />} />}
+                />
+                <Route
                     path="/ingredients/:ingredientId"
                     element={<IngredientsDetails />}
                 />
-                <Route path="/login" element={<SignInPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route
-                    path="/forgot-password"
-                    element={<ForgotPasswordPage />}
-                />
-                <Route path="/reset-password" element={<ResetPasswordPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
                 <Route path="*" element={<NotFoundPage />}></Route>
             </Routes>
             {background && (

@@ -10,7 +10,7 @@ export const refreshToken = () => {
         body: JSON.stringify({
             token: localStorage.getItem("refreshToken"),
         }),
-    }).then(checkResponse);
+    }).then((res) => checkResponse(res));
 };
 
 export const fetchWithRefresh = async (url, options) => {
