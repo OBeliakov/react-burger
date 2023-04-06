@@ -50,11 +50,10 @@ export function getIngredients(url) {
                     ingredientsData: res.data,
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: GET_INGREDIENTS_FAILED,
                 });
-                console.log(err.message);
             });
     };
 }
@@ -79,9 +78,8 @@ export function submitOrder(_orderUrl, idArray) {
             .then((data) => {
                 dispatch({ type: POST_ORDER_INFO_SUCCESS, order: data.order });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({ type: POST_ORDER_INFO_FAILED });
-                console.log(err.message);
             });
     };
 }
@@ -100,14 +98,13 @@ export const passwordReset = (url, email) => {
 
                 return checkResponse(res);
             })
-            .then((data) => {
+            .then(() => {
                 dispatch({
                     type: RESET_FORM_SUCCESS,
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({ type: RESET_FORM_FAILED });
-                console.log(err.message);
             });
     };
 };
@@ -128,15 +125,13 @@ export const passwordUpdate = (url, form) => {
                     type: UPDATE_FORM_FAILED,
                 });
             })
-            .then((data) => {
-
+            .then(() => {
                 dispatch({
                     type: UPDATE_FORM_SUCCESS,
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({ type: UPDATE_FORM_FAILED });
-                console.log(err.message);
             });
     };
 };
@@ -160,9 +155,8 @@ export const registerUser = (url, form) => {
                 dispatch({ type: SET_USER_SUCCESS, payload: data.user });
                 dispatch({ type: AUTH_CHECK, payload: true });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({ type: REGISTER_FORM_FAILED });
-                console.log(err.message);
             });
     };
 };
@@ -186,9 +180,8 @@ export const loginUser = (url, form) => {
                 dispatch({ type: SET_USER_SUCCESS, payload: data.user });
                 dispatch({ type: AUTH_CHECK, payload: true });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({ type: LOGIN_FORM_FAILED });
-                console.log(err.message);
             });
     };
 };
@@ -213,9 +206,8 @@ export const logOut = (url) => {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({ type: LOGOUT_FORM_FAILED });
-                console.log(err.message);
             });
     };
 };
@@ -235,7 +227,7 @@ export const getUser = () => {
                     payload: data.user,
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({ type: SET_USER_FAILED });
             });
     };
@@ -273,15 +265,16 @@ export const updateUserData = (url, form) => {
             }
         )
             .then((data) => {
-                console.log(data);
                 dispatch({
                     type: SET_USER_SUCCESS,
                     payload: data.user,
                 });
                 dispatch({ type: AUTH_CHECK, payload: true });
             })
-            .catch((err) => {
-                console.log(err.message);
+            .catch(() => {
+                dispatch({
+                    type: SET_USER_FAILED,
+                });
             });
     };
 };

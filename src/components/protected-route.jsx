@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import Preloader from "../images/Gear-0.2s-200px.svg";
+import styles from "./protected-route.module.css";
 
 export const ProtectedRoute = ({ unAuthorized = false, component }) => {
     const isAuthChecked = useSelector((store) => store.isAuthChecked);
@@ -9,7 +11,14 @@ export const ProtectedRoute = ({ unAuthorized = false, component }) => {
     const location = useLocation();
 
     if (!isAuthChecked) {
-        return <div>loading...</div>;
+        return (
+            <div className={styles.container}>
+                <img src={Preloader} alt="" />
+                <p className="text text_type_main-medium mt-2">
+                    Let us load it for you
+                </p>
+            </div>
+        );
     }
 
     if (user && unAuthorized) {
