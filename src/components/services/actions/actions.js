@@ -39,11 +39,7 @@ export function getIngredients(url) {
             type: GET_INGREDIENTS,
         });
         fetch(url)
-            .then((res) => {
-                return checkResponse(res, dispatch, {
-                    type: GET_INGREDIENTS_FAILED,
-                });
-            })
+            .then(checkResponse)
             .then((res) => {
                 dispatch({
                     type: GET_INGREDIENTS_SUCCESS,
@@ -65,17 +61,13 @@ export function submitOrder(_orderUrl, idArray) {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: localStorage.getItem("accessToken")
+                Authorization: localStorage.getItem("accessToken"),
             },
             body: JSON.stringify({
                 ingredients: idArray,
             }),
         })
-            .then((res) => {
-                return checkResponse(res, dispatch, {
-                    type: POST_ORDER_INFO_FAILED,
-                });
-            })
+            .then(checkResponse)
             .then((data) => {
                 dispatch({ type: POST_ORDER_INFO_SUCCESS, order: data.order });
             })
@@ -117,11 +109,7 @@ export const passwordUpdate = (url, form) => {
             },
             body: JSON.stringify(form),
         })
-            .then((res) => {
-                return checkResponse(res, dispatch, {
-                    type: UPDATE_FORM_FAILED,
-                });
-            })
+            .then(checkResponse)
             .then(() => {
                 dispatch({
                     type: UPDATE_FORM_SUCCESS,

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { getIngredients, checkUserAuth } from "../services/actions/actions";
 import { useDispatch } from "react-redux";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import {
     ConstructorPage,
     SignInPage,
@@ -27,12 +27,8 @@ const App = () => {
     }, []);
 
     const location = useLocation();
-    const navigate = useNavigate();
-    const background = location.state && location.state.background;
 
-    const handleModalClose = () => {
-        navigate(-1);
-    };
+    const background = location.state && location.state.background;
 
     return (
         <>
@@ -77,7 +73,6 @@ const App = () => {
                         path="/ingredients/:ingredientId"
                         element={
                             <Modal
-                                onClose={handleModalClose}
                                 modalTitle="Детали ингредиента"
                                 className="pt-10 pl-10 pb-15 pr-10"
                             >

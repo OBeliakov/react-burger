@@ -10,13 +10,16 @@ import {
     CLOSE_MODAL,
     SET_ACTIVE_INGREDIENT,
 } from "../services/actions/actions";
+import { useNavigate } from "react-router-dom";
 const modalRoot = document.getElementById("burger-modals");
 
-const Modal = ({ modalTitle, className, children, onClose }) => {
+const Modal = ({ modalTitle, className, children }) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleCloseModal = () => {
         dispatch({ type: CLOSE_MODAL });
         dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
+        navigate(-1);
     };
 
     const handleOverlayClick = (e) => {
