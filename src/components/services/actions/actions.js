@@ -65,6 +65,7 @@ export function submitOrder(_orderUrl, idArray) {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
+                Authorization: localStorage.getItem("accessToken")
             },
             body: JSON.stringify({
                 ingredients: idArray,

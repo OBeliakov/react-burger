@@ -30,11 +30,10 @@ export const RegisterPage = () => {
     const submitForm = (e) => {
         e.preventDefault();
         dispatch(registerUser(_registerUrl, formValues));
+        navigate("/", {
+            replace: true,
+        });
     };
-
-    navigate("/", {
-        replace: true,
-    });
 
     return (
         <>

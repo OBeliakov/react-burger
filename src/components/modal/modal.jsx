@@ -17,7 +17,6 @@ const Modal = ({ modalTitle, className, children, onClose }) => {
     const handleCloseModal = () => {
         dispatch({ type: CLOSE_MODAL });
         dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
-        onClose();
     };
 
     const handleOverlayClick = (e) => {

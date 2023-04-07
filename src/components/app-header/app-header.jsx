@@ -38,6 +38,7 @@ const AppHeader = () => {
                 </NavLink>
                 <NavLink
                     to="/profile"
+                    end
                     className={({ isActive }) =>
                         isActive ? `${linkActiveClass}` : `${linkClass}`
                     }
