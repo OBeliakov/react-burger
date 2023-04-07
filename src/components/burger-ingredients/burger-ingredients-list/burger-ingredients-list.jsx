@@ -4,10 +4,10 @@ import BurgerItem from "./burger-item/burger-item";
 import {
     ADD_INGREDIENT,
     SET_ACTIVE_INGREDIENT,
-    OPEN_INGREDIENTS_MODAL,
     ADD_BUN,
     INCREASE_INGREDIENT,
-} from "../../services/actions/actions";
+} from "../../services/actions/ingredientsActions";
+import { OPEN_INGREDIENTS_MODAL } from "../../services/actions/modalActions";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
@@ -17,9 +17,11 @@ const BurgerIngredientsList = forwardRef(function BurgerIngredientsList(
     ref
 ) {
     const constructorIngredients = useSelector(
-        (store) => store.constructorIngredients
+        (store) => store.ingredientsReducer.constructorIngredients
     );
-    const ingredientsData = useSelector((store) => store.ingredientsData);
+    const ingredientsData = useSelector(
+        (store) => store.ingredientsReducer.ingredientsData
+    );
 
     const dispatch = useDispatch();
 

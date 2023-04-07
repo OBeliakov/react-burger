@@ -1,24 +1,6 @@
-import { fetchWithRefresh } from "../auth";
 import { checkResponse } from "../utils";
+import { fetchWithRefresh } from "../auth";
 import { API_BASE } from "../constants";
-
-export const ADD_INGREDIENT = "ADD_INGREDIENT";
-export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
-export const GET_INGREDIENTS = "GET_INGREDIENTS";
-export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
-export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
-export const OPEN_INGREDIENTS_MODAL = "OPEN_INGREDIENTS_MODAL";
-export const OPEN_ORDER_MODAL = "OPEN_ORDER_MODAL";
-export const CLOSE_MODAL = "CLOSE_MODAL";
-export const SET_ACTIVE_INGREDIENT = "SET_ACTIVE_INGREDIENT";
-export const POST_ORDER_INFO_SUCCESS = "POST_ORDER_INFO_SUCCESS";
-export const POST_ORDER_INFO_FAILED = "POST_ORDER_INFO_FAILED";
-export const SET_CURRENT_TAB = "SET_CURRENT_TAB";
-export const ADD_BUN = "ADD_BUN";
-export const INCREASE_INGREDIENT = "INCREASE_INGREDIENT";
-export const DRAG_CONSTRUCTOR_INGREDIENTS = "DRAG_CONSTRUCTOR_INGREDIENTS";
-export const DRAG_BUN_INGREDIENT = "DRAG_BUN_INGREDIENT";
-export const SORT_INGREDIENTS_ON_DRAG = "SORT_INGREDIENTS_ON_DRAG";
 export const RESET_FORM_FAILED = "RESET_FORM_FAILED";
 export const RESET_FORM_SUCCESS = "RESET_FORM_SUCCESS";
 export const UPDATE_FORM_FAILED = "UPDATE_FORM_FAILED";
@@ -32,50 +14,6 @@ export const LOGOUT_FORM_FAILED = "LOGOUT_FORM_FAILED";
 export const SET_USER_SUCCESS = "SET_USER_SUCCESS";
 export const SET_USER_FAILED = "SET_USER_FAILED";
 export const AUTH_CHECK = "AUTH_CHECK";
-
-export function getIngredients(url) {
-    return function (dispatch) {
-        dispatch({
-            type: GET_INGREDIENTS,
-        });
-        fetch(url)
-            .then(checkResponse)
-            .then((res) => {
-                dispatch({
-                    type: GET_INGREDIENTS_SUCCESS,
-                    ingredientsData: res.data,
-                });
-            })
-            .catch(() => {
-                dispatch({
-                    type: GET_INGREDIENTS_FAILED,
-                });
-            });
-    };
-}
-
-export function submitOrder(_orderUrl, idArray) {
-    return function (dispatch) {
-        fetch(_orderUrl, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("accessToken"),
-            },
-            body: JSON.stringify({
-                ingredients: idArray,
-            }),
-        })
-            .then(checkResponse)
-            .then((data) => {
-                dispatch({ type: POST_ORDER_INFO_SUCCESS, order: data.order });
-            })
-            .catch(() => {
-                dispatch({ type: POST_ORDER_INFO_FAILED });
-            });
-    };
-}
 
 export const passwordReset = (url, email) => {
     return async function (dispatch) {

@@ -6,8 +6,10 @@ import Preloader from "../images/Gear-0.2s-200px.svg";
 import styles from "./protected-route.module.css";
 
 export const ProtectedRoute = ({ unAuthorized = false, component }) => {
-    const isAuthChecked = useSelector((store) => store.isAuthChecked);
-    const user = useSelector((store) => store.userInfo);
+    const isAuthChecked = useSelector(
+        (store) => store.formReducer.isAuthChecked
+    );
+    const user = useSelector((store) => store.formReducer.userInfo);
     const location = useLocation();
 
     if (!isAuthChecked) {

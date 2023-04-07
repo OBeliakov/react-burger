@@ -9,16 +9,18 @@ import {
     DRAG_CONSTRUCTOR_INGREDIENTS,
     INCREASE_INGREDIENT,
     DRAG_BUN_INGREDIENT,
-} from "../../components/services/actions/actions";
+} from "../../components/services/actions/ingredientsActions";
 import { v4 as uuid } from "uuid";
 import styles from "./constructor.module.css";
 import AppHeader from "../../components/app-header/app-header";
 
 const ConstructorPage = () => {
     const dispatch = useDispatch();
-    const ingredientsData = useSelector((store) => store.ingredientsData);
-    const loading = useSelector((store) => store.loading);
-    const error = useSelector((store) => store.error);
+    const ingredientsData = useSelector(
+        (store) => store.ingredientsReducer.ingredientsData
+    );
+    const loading = useSelector((store) => store.ingredientsReducer.loading);
+    const error = useSelector((store) => store.ingredientsReducer.error);
 
     const onDropHandler = (item) => {
         dispatch({

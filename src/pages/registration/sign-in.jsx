@@ -7,7 +7,7 @@ import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../components/services/actions/actions";
+import { loginUser } from "../../components/services/actions/formActions";
 import { API_BASE } from "../../components/services/constants";
 
 export const SignInPage = () => {

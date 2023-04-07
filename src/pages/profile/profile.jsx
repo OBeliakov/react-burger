@@ -7,12 +7,12 @@ import {
 import AppHeader from "../../components/app-header/app-header";
 import styles from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "../../components/services/actions/actions";
+import { updateUserData } from "../../components/services/actions/formActions";
 import { API_BASE } from "../../components/services/constants";
 import NavigationMenu from "../../components/navigation-menu/navigation-menu";
 
 export const ProfilePage = () => {
-    const user = useSelector((store) => store.userInfo);
+    const user = useSelector((store) => store.formReducer.userInfo);
     const dispatch = useDispatch();
 
     const [formValues, setFormValues] = useState({

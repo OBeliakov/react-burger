@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { getIngredients, checkUserAuth } from "../services/actions/actions";
+import { getIngredients } from "../services/actions/ingredientsActions";
+import { checkUserAuth } from "../services/actions/formActions";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {

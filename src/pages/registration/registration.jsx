@@ -6,7 +6,7 @@ import {
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "../../components/services/actions/actions";
+import { registerUser } from "../../components/services/actions/formActions";
 import { useDispatch } from "react-redux";
 import { API_BASE } from "../../components/services/constants";
 

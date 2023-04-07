@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 
 const IngredientDetails = () => {
     const { ingredientId } = useParams();
-    const ingredientsData = useSelector((store) => store.ingredientsData);
-    const currentOpened = useSelector((store) => store.currentIngredient);
+    const ingredientsData = useSelector((store) => store.ingredientsReducer.ingredientsData);
+    const currentOpened = useSelector((store) => store.ingredientsReducer.currentIngredient);
     const currentIngredient = ingredientId
         ? ingredientsData.find((item) => item._id === ingredientId)
         : currentOpened;

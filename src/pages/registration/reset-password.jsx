@@ -6,8 +6,8 @@ import {
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { passwordUpdate } from "../../components/services/actions/actions";
+import { useDispatch } from "react-redux";
+import { passwordUpdate } from "../../components/services/actions/formActions";
 import { API_BASE } from "../../components/services/constants";
 
 export const ResetPasswordPage = () => {
@@ -15,7 +15,6 @@ export const ResetPasswordPage = () => {
     const changeInputValue = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
-    const formSuccess = useSelector((store) => store.updateFormSuccess);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,11 +35,9 @@ export const ResetPasswordPage = () => {
     const submitForm = (e) => {
         e.preventDefault();
         dispatch(passwordUpdate(_resetPwdUrl, formValues));
-        if (formSuccess) {
-            navigate("/", {
-                replace: true,
-            });
-        }
+        navigate("/", {
+            replace: true,
+        });
     };
 
     return (
