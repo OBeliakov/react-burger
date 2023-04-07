@@ -8,7 +8,7 @@ import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../components/services/actions/actions";
 import { useDispatch } from "react-redux";
-import { _apiBase } from "../../components/services/constants";
+import { API_BASE } from "../../components/services/constants";
 
 export const RegisterPage = () => {
     const [formValues, setFormValues] = useState({
@@ -23,7 +23,7 @@ export const RegisterPage = () => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
 
-    const _registerUrl = `${_apiBase}/auth/register`;
+    const _registerUrl = `${API_BASE}/auth/register`;
 
     const dispatch = useDispatch();
 

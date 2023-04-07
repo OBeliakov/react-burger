@@ -1,6 +1,6 @@
 import { fetchWithRefresh } from "../auth";
 import { checkResponse } from "../utils";
-import { _apiBase } from "../constants";
+import { API_BASE } from "../constants";
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
@@ -199,7 +199,7 @@ export const logOut = (url) => {
 
 export const getUser = () => {
     return async function (dispatch) {
-        return await fetchWithRefresh(`${_apiBase}/auth/user`, {
+        return await fetchWithRefresh(`${API_BASE}/auth/user`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -238,17 +238,14 @@ export const checkUserAuth = () => {
 
 export const updateUserData = (url, form) => {
     return async function (dispatch) {
-        return await fetchWithRefresh(
-            "https://norma.nomoreparties.space/api/auth/user",
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: localStorage.getItem("accessToken"),
-                },
-                body: JSON.stringify(form),
-            }
-        )
+        return await fetchWithRefresh(`${API_BASE}/auth/user`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("accessToken"),
+            },
+            body: JSON.stringify(form),
+        })
             .then((data) => {
                 dispatch({
                     type: SET_USER_SUCCESS,

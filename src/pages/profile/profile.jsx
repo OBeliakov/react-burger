@@ -8,7 +8,7 @@ import AppHeader from "../../components/app-header/app-header";
 import styles from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../components/services/actions/actions";
-import { _apiBase } from "../../components/services/constants";
+import { API_BASE } from "../../components/services/constants";
 import NavigationMenu from "../../components/navigation-menu/navigation-menu";
 
 export const ProfilePage = () => {
@@ -25,7 +25,7 @@ export const ProfilePage = () => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
 
-    const _updateUserUrl = `${_apiBase}/auth/user`;
+    const _updateUserUrl = `${API_BASE}/auth/user`;
 
     const changeUserData = (e) => {
         e.preventDefault();

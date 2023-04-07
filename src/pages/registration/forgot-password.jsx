@@ -8,7 +8,7 @@ import AppHeader from "../../components/app-header/app-header";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { passwordReset } from "../../components/services/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { _apiBase } from "../../components/services/constants";
+import { API_BASE } from "../../components/services/constants";
 
 export const ForgotPasswordPage = () => {
     const [formValues, setFormValues] = useState({ email: "" });
@@ -19,7 +19,7 @@ export const ForgotPasswordPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const _forgotPwdUrl = `${_apiBase}/password-reset`;
+    const _forgotPwdUrl = `${API_BASE}/password-reset`;
 
     const dispatch = useDispatch();
 

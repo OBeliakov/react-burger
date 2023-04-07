@@ -4,13 +4,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { logOut } from "../services/actions/actions";
-import { _apiBase } from "../services/constants";
+import { API_BASE } from "../services/constants";
 
 const NavigationMenu = ({ desc }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const _logOutUrl = `${_apiBase}/auth/logout`;
+    const _logOutUrl = `${API_BASE}/auth/logout`;
 
     const signOut = () => {
         dispatch(logOut(_logOutUrl));
@@ -45,7 +45,7 @@ const NavigationMenu = ({ desc }) => {
                                         ? `${linkActiveClass}`
                                         : `${linkClass}`
                                 }
-                            to="/profile/orders"
+                                to="/profile/orders"
                             >
                                 История заказов
                             </NavLink>

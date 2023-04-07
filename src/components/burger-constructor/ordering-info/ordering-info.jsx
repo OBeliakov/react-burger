@@ -7,10 +7,10 @@ import orderingInfo from "./ordering-info.module.css";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { OPEN_ORDER_MODAL, submitOrder } from "../../services/actions/actions";
-import { _apiBase } from "../../services/constants";
+import { API_BASE } from "../../services/constants";
 
 const OrderingInfo = ({ finalPrice }) => {
-    const _orderUrl = `${_apiBase}/orders`;
+    const _orderUrl = `${API_BASE}/orders`;
     const constructorIngredients = useSelector(
         (store) => store.constructorIngredients
     );

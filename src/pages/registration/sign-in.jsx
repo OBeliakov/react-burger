@@ -8,7 +8,7 @@ import AppHeader from "../../components/app-header/app-header";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../components/services/actions/actions";
-import { _apiBase } from "../../components/services/constants";
+import { API_BASE } from "../../components/services/constants";
 
 export const SignInPage = () => {
     const [formValues, setFormValues] = useState({
@@ -20,7 +20,7 @@ export const SignInPage = () => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
 
-    const _loginUrl = `${_apiBase}/auth/login`;
+    const _loginUrl = `${API_BASE}/auth/login`;
 
     const dispatch = useDispatch();
 

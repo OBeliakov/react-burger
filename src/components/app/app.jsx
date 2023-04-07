@@ -14,12 +14,12 @@ import {
 } from "../../pages";
 import IngredientsDetails from "../../components/ingredient-details/ingredient-details";
 import Modal from "../../components/modal/modal";
-import { _apiBase } from "../services/constants";
+import { API_BASE } from "../services/constants";
 import { UnAuthorized, Authorized } from "../protected-route";
 
 const App = () => {
     const dispatch = useDispatch();
-    const _apiUrl = `${_apiBase}/ingredients`;
+    const _apiUrl = `${API_BASE}/ingredients`;
 
     useEffect(() => {
         dispatch(getIngredients(_apiUrl));

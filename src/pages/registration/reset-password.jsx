@@ -8,7 +8,7 @@ import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordUpdate } from "../../components/services/actions/actions";
-import { _apiBase } from "../../components/services/constants";
+import { API_BASE } from "../../components/services/constants";
 
 export const ResetPasswordPage = () => {
     const [formValues, setFormValues] = useState({ password: "", token: "" });
@@ -29,7 +29,7 @@ export const ResetPasswordPage = () => {
         }
     });
 
-    const _resetPwdUrl = `${_apiBase}/password-reset/reset`;
+    const _resetPwdUrl = `${API_BASE}/password-reset/reset`;
 
     const dispatch = useDispatch();
 

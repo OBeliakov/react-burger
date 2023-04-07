@@ -1,8 +1,8 @@
 import { checkResponse } from "./utils";
-import { _apiBase } from "./constants";
+import { API_BASE } from "./constants";
 
 export const refreshToken = () => {
-    return fetch(`${_apiBase}/auth/token`, {
+    return fetch(`${API_BASE}/auth/token`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
