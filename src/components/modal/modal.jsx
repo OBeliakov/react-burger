@@ -6,8 +6,8 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { SET_ACTIVE_INGREDIENT } from "../services/actions/ingredientsActions";
-import { CLOSE_MODAL } from "../services/actions/modalActions";
+import { SET_ACTIVE_INGREDIENT } from "../../services/actions/ingredientsActions";
+import { CLOSE_MODAL } from "../../services/actions/modalActions";
 import { useNavigate } from "react-router-dom";
 const modalRoot = document.getElementById("burger-modals");
 

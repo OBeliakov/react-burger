@@ -6,9 +6,9 @@ import {
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { passwordReset } from "../../components/services/actions/formActions";
+import { passwordReset } from "../../services/actions/formActions";
 import { useDispatch } from "react-redux";
-import { API_BASE } from "../../components/services/constants";
+import { API_BASE } from "../../services/constants";
 
 export const ForgotPasswordPage = () => {
     const [formValues, setFormValues] = useState({ email: "" });

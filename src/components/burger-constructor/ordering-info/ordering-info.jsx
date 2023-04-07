@@ -6,9 +6,9 @@ import {
 import orderingInfo from "./ordering-info.module.css";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { submitOrder } from "../../services/actions/orderActions";
-import { OPEN_ORDER_MODAL } from "../../services/actions/modalActions";
-import { API_BASE } from "../../services/constants";
+import { submitOrder } from "../../../services/actions/orderActions";
+import { OPEN_ORDER_MODAL } from "../../../services/actions/modalActions";
+import { API_BASE } from "../../../services/constants";
 
 const OrderingInfo = ({ finalPrice }) => {
     const _orderUrl = `${API_BASE}/orders`;

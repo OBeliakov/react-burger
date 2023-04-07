@@ -3,8 +3,8 @@ import styles from "./navigation-menu.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { logOut } from "../services/actions/formActions";
-import { API_BASE } from "../services/constants";
+import { logOut } from "../../services/actions/formActions";
+import { API_BASE } from "../../services/constants";
 
 const NavigationMenu = ({ desc }) => {
     const navigate = useNavigate();

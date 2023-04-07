@@ -6,9 +6,9 @@ import {
 import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "../../components/services/actions/formActions";
+import { registerUser } from "../../services/actions/formActions";
 import { useDispatch } from "react-redux";
-import { API_BASE } from "../../components/services/constants";
+import { API_BASE } from "../../services/constants";
 
 export const RegisterPage = () => {
     const [formValues, setFormValues] = useState({

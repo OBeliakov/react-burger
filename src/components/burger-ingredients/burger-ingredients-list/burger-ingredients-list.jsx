@@ -6,8 +6,8 @@ import {
     SET_ACTIVE_INGREDIENT,
     ADD_BUN,
     INCREASE_INGREDIENT,
-} from "../../services/actions/ingredientsActions";
-import { OPEN_INGREDIENTS_MODAL } from "../../services/actions/modalActions";
+} from "../../../services/actions/ingredientsActions";
+import { OPEN_INGREDIENTS_MODAL } from "../../../services/actions/modalActions";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";

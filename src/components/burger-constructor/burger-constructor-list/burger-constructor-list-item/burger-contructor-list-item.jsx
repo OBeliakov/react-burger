@@ -5,7 +5,7 @@ import {
     ConstructorElement,
     DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { REMOVE_INGREDIENT } from "../../../services/actions/ingredientsActions";
+import { REMOVE_INGREDIENT } from "../../../../services/actions/ingredientsActions";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 

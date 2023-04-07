@@ -7,8 +7,8 @@ import styles from "./registration.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { passwordUpdate } from "../../components/services/actions/formActions";
-import { API_BASE } from "../../components/services/constants";
+import { passwordUpdate } from "../../services/actions/formActions";
+import { API_BASE } from "../../services/constants";
 
 export const ResetPasswordPage = () => {
     const [formValues, setFormValues] = useState({ password: "", token: "" });

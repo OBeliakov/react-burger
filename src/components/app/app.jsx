@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { getIngredients } from "../services/actions/ingredientsActions";
-import { checkUserAuth } from "../services/actions/formActions";
+import { getIngredients } from "../../services/actions/ingredientsActions";
+import { checkUserAuth } from "../../services/actions/formActions";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
@@ -15,7 +15,7 @@ import {
 } from "../../pages";
 import IngredientsDetails from "../../components/ingredient-details/ingredient-details";
 import Modal from "../../components/modal/modal";
-import { API_BASE } from "../services/constants";
+import { API_BASE } from "../../services/constants";
 import { UnAuthorized, Authorized } from "../protected-route";
 
 const App = () => {

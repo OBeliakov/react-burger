@@ -9,7 +9,7 @@ import {
     DRAG_CONSTRUCTOR_INGREDIENTS,
     INCREASE_INGREDIENT,
     DRAG_BUN_INGREDIENT,
-} from "../../components/services/actions/ingredientsActions";
+} from "../../services/actions/ingredientsActions";
 import { v4 as uuid } from "uuid";
 import styles from "./constructor.module.css";
 import AppHeader from "../../components/app-header/app-header";

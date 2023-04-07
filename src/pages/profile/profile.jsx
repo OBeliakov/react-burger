@@ -7,8 +7,8 @@ import {
 import AppHeader from "../../components/app-header/app-header";
 import styles from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "../../components/services/actions/formActions";
-import { API_BASE } from "../../components/services/constants";
+import { updateUserData } from "../../services/actions/formActions";
+import { API_BASE } from "../../services/constants";
 import NavigationMenu from "../../components/navigation-menu/navigation-menu";
 
 export const ProfilePage = () => {
