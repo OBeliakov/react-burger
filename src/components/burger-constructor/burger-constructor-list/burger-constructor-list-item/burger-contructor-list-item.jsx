@@ -5,7 +5,7 @@ import {
     ConstructorElement,
     DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { REMOVE_INGREDIENT } from "../../../services/actions/actions";
+import { REMOVE_INGREDIENT } from "../../../../services/actions/ingredientsActions";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -57,7 +57,7 @@ const BurgerConstructorListItem = ({ item, index, moveIngredient }) => {
     });
 
     const constructorIngredients = useSelector(
-        (store) => store.constructorIngredients
+        (store) => store.ingredientsReducer.constructorIngredients
     );
 
     const dispatch = useDispatch();

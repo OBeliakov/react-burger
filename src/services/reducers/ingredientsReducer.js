@@ -4,19 +4,14 @@ import {
     GET_INGREDIENTS,
     GET_INGREDIENTS_SUCCESS,
     GET_INGREDIENTS_FAILED,
-    OPEN_INGREDIENTS_MODAL,
-    OPEN_ORDER_MODAL,
-    CLOSE_MODAL,
     SET_ACTIVE_INGREDIENT,
-    POST_ORDER_INFO_SUCCESS,
-    POST_ORDER_INFO_FAILED,
     SET_CURRENT_TAB,
     ADD_BUN,
     INCREASE_INGREDIENT,
     DRAG_CONSTRUCTOR_INGREDIENTS,
     DRAG_BUN_INGREDIENT,
     SORT_INGREDIENTS_ON_DRAG,
-} from "../actions/actions";
+} from "../actions/ingredientsActions";
 
 const initialState = {
     ingredientsData: [],
@@ -24,15 +19,11 @@ const initialState = {
     error: false,
     constructorIngredients: [],
     currentIngredient: {},
-    order: {},
-    orderFailed: false,
-    ingredientsModal: false,
-    orderModal: false,
     currentTab: "bun",
     bun: null,
 };
 
-export const rootReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_INGREDIENT:
             return {
@@ -62,37 +53,13 @@ export const rootReducer = (state = initialState, action) => {
                 loading: false,
                 error: true,
             };
-        case OPEN_INGREDIENTS_MODAL:
-            return {
-                ...state,
-                ingredientsModal: true,
-            };
-        case OPEN_ORDER_MODAL:
-            return {
-                ...state,
-                orderModal: true,
-            };
-        case CLOSE_MODAL:
-            return {
-                ...state,
-                ingredientsModal: false,
-                orderModal: false,
-            };
+
         case SET_ACTIVE_INGREDIENT:
             return {
                 ...state,
                 currentIngredient: action.currentIngredient,
             };
-        case POST_ORDER_INFO_SUCCESS:
-            return {
-                ...state,
-                order: action.order,
-            };
-        case POST_ORDER_INFO_FAILED:
-            return {
-                ...state,
-                orderFailed: true,
-            };
+
         case SET_CURRENT_TAB:
             return {
                 ...state,

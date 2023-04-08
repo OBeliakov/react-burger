@@ -31,3 +31,7 @@
     composes: link;
     color: #fff;
 }
+
+.link_active svg {
+    fill: #fff;
+}

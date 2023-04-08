@@ -6,14 +6,18 @@ import {
 import orderingInfo from "./ordering-info.module.css";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { OPEN_ORDER_MODAL, submitOrder } from "../../services/actions/actions";
+import { submitOrder } from "../../../services/actions/orderActions";
+import { OPEN_ORDER_MODAL } from "../../../services/actions/modalActions";
+import { API_BASE } from "../../../services/constants";
 
 const OrderingInfo = ({ finalPrice }) => {
-    const _orderUrl = "https://norma.nomoreparties.space/api/orders";
+    const _orderUrl = `${API_BASE}/orders`;
     const constructorIngredients = useSelector(
-        (store) => store.constructorIngredients
+        (store) => store.ingredientsReducer.constructorIngredients
     );
-    const bun = useSelector((store) => store.bun);
+    const bun = useSelector((store) => store.ingredientsReducer.bun);
+
+    const user = useSelector((store) => store.formReducer.userInfo);
 
     const ingredientsIdArray = constructorIngredients.map((item) => item._id);
     const resultIdArr = bun
@@ -22,8 +26,12 @@ const OrderingInfo = ({ finalPrice }) => {
     const dispatch = useDispatch();
 
     const makeOrder = () => {
-        dispatch(submitOrder(_orderUrl, resultIdArr));
-        dispatch({ type: OPEN_ORDER_MODAL });
+        if (user) {
+            dispatch(submitOrder(_orderUrl, resultIdArr));
+            dispatch({ type: OPEN_ORDER_MODAL });
+        } else {
+            alert("Вы должны быть авторизованы!");
+        }
     };
 
     return (

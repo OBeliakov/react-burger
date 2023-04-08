@@ -11,10 +11,10 @@ import PropTypes from "prop-types";
 
 const BurgerConstructor = ({ onDrop }) => {
     const constructorIngredients = useSelector(
-        (store) => store.constructorIngredients
+        (store) => store.ingredientsReducer.constructorIngredients
     );
-    const orderModal = useSelector((store) => store.orderModal);
-    const bunData = useSelector((store) => store.bun);
+    const orderModal = useSelector((store) => store.modalReducer.orderModal);
+    const bunData = useSelector((store) => store.ingredientsReducer.bun);
     const bunsPrice = bunData ? bunData.price * 2 : 0;
     const finalPrice =
         constructorIngredients.reduce((accum, item) => accum + item.price, 0) +

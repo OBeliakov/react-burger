@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
 import BurgerConstructorListItem from "./burger-constructor-list-item/burger-contructor-list-item";
-import { SORT_INGREDIENTS_ON_DRAG } from "../../services/actions/actions";
+import { SORT_INGREDIENTS_ON_DRAG } from "../../../services/actions/ingredientsActions";
 
 const BurgerConstructorList = ({ onDrop }) => {
     const [{ isOver }, dropRef] = useDrop({
@@ -18,7 +18,7 @@ const BurgerConstructorList = ({ onDrop }) => {
     });
 
     const constructorIngredients = useSelector(
-        (store) => store.constructorIngredients
+        (store) => store.ingredientsReducer.constructorIngredients
     );
 
     const dispatch = useDispatch();

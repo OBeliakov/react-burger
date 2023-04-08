@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 const TabList = forwardRef(function TabList({ scrollByTabClick }, ref) {
-    const current = useSelector((store) => store.currentTab);
+    const current = useSelector((store) => store.ingredientsReducer.currentTab);
     const handleClick = (element) => {
         scrollByTabClick(element);
     };
