@@ -2,11 +2,13 @@ import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import OrderingInfo from "./ordering-info/ordering-info";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import burgerConstructor from "./burger-constructor.module.css";
 import { useDrop } from "react-dnd";
+import { SET_ACTIVE_INGREDIENT } from "../../services/actions/ingredientsActions";
+import { CLOSE_MODAL } from "../../services/actions/modalActions";
 
 import {
   TConstructorIngredient,
@@ -20,6 +22,13 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
     // @ts-ignore
     (store) => store.ingredientsReducer.constructorIngredients
   );
+
+  const dispatch = useDispatch();
+
+  const handleCloseModal = () => {
+    dispatch({ type: CLOSE_MODAL });
+    dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
+  };
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const orderModal = useSelector((store) => store.modalReducer.orderModal);
@@ -97,7 +106,7 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
       {renderBun(bunData, "низ")}
       <OrderingInfo finalPrice={finalPrice} />
       {orderModal && (
-        <Modal className="pt-15 pl-25 pb-30 pr-10">
+        <Modal onClose={handleCloseModal} className="pt-15 pl-25 pb-30 pr-10">
           <OrderDetails />
         </Modal>
       )}

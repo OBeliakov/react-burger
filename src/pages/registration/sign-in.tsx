@@ -4,7 +4,6 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
-import AppHeader from "../../components/app-header/app-header";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../services/actions/formActions";
@@ -35,7 +34,6 @@ export const SignInPage = () => {
   const { email, password } = formValues;
   return (
     <>
-      <AppHeader />
       <div className={styles.form_container}>
         <h1 className="text text_type_main-medium">Вход</h1>
         <form action="" className={styles.form} onSubmit={submitForm}>

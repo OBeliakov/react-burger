@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { getIngredients } from "../../services/actions/ingredientsActions";
 import { checkUserAuth } from "../../services/actions/formActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
   ConstructorPage,
@@ -13,14 +13,27 @@ import {
   NotFoundPage,
   OrderPage,
 } from "../../pages";
+import AppHeader from "../app-header/app-header";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { API_BASE } from "../../services/constants";
 import { UnAuthorized, Authorized } from "../protected-route";
+import { SET_ACTIVE_INGREDIENT } from "../../services/actions/ingredientsActions";
+import { CLOSE_MODAL } from "../../services/actions/modalActions";
 
 const App = () => {
   const dispatch = useDispatch();
   const _apiUrl = `${API_BASE}/ingredients`;
+  const ingredientsModal = useSelector(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    (store) => store.modalReducer.ingredientsModal
+  );
+
+  const handleCloseModal = () => {
+    dispatch({ type: CLOSE_MODAL });
+    dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
+  };
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -37,6 +50,7 @@ const App = () => {
 
   return (
     <>
+      <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<ConstructorPage />} />
         <Route
@@ -75,12 +89,15 @@ const App = () => {
           <Route
             path="/ingredients/:ingredientId"
             element={
-              <Modal
-                modalTitle="Детали ингредиента"
-                className="pt-10 pl-10 pb-15 pr-10"
-              >
-                <IngredientsDetails />
-              </Modal>
+              ingredientsModal && (
+                <Modal
+                  onClose={handleCloseModal}
+                  modalTitle="Детали ингредиента"
+                  className="pt-10 pl-10 pb-15 pr-10"
+                >
+                  <IngredientsDetails />
+                </Modal>
+              )
             }
           />
         </Routes>

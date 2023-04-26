@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { createPortal } from "react-dom";
 import ModalHeader from "./modal-header/modal-header";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { SET_ACTIVE_INGREDIENT } from "../../services/actions/ingredientsActions";
-import { CLOSE_MODAL } from "../../services/actions/modalActions";
-import { useNavigate } from "react-router-dom";
 
 const modalRoot = document.getElementById("burger-modals") as HTMLElement;
 
@@ -15,31 +11,25 @@ type TModalProps = {
   modalTitle?: string;
   className: string;
   children: JSX.Element;
+  onClose: () => void;
 };
 
 const Modal = ({
   modalTitle,
   className,
+  onClose,
   children,
 }: TModalProps): JSX.Element | null => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const handleCloseModal = () => {
-    dispatch({ type: CLOSE_MODAL });
-    dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
-    navigate("/", { replace: true });
-  };
-
   const handleOverlayClick = (e: React.SyntheticEvent) => {
     if (e.target === e.currentTarget) {
-      handleCloseModal();
+      onClose();
     }
   };
 
   useEffect(() => {
     const onEscClick = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        handleCloseModal();
+        onClose();
       }
     };
 
@@ -58,15 +48,11 @@ const Modal = ({
             {modalTitle && (
               <h2 className="text text_type_main-large">{modalTitle}</h2>
             )}
-            <button
-              className={modalStyles.close_btn}
-              onClick={handleCloseModal}
-            >
+            <button className={modalStyles.close_btn} onClick={onClose}>
               <CloseIcon type="primary" />
             </button>
           </>
         </ModalHeader>
-
         {children}
       </div>
     </ModalOverlay>,

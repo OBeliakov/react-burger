@@ -9,6 +9,7 @@ import { submitOrder } from "../../../services/actions/orderActions";
 import { OPEN_ORDER_MODAL } from "../../../services/actions/modalActions";
 import { API_BASE } from "../../../services/constants";
 import { TIngredient } from "../../../utils/types/types";
+import { useNavigate } from "react-router-dom";
 
 const OrderingInfo = ({ finalPrice }: { finalPrice: number }): JSX.Element => {
   const _orderUrl = `${API_BASE}/orders`;
@@ -32,6 +33,8 @@ const OrderingInfo = ({ finalPrice }: { finalPrice: number }): JSX.Element => {
     : [...ingredientsIdArray];
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const makeOrder = () => {
     if (user) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -39,7 +42,9 @@ const OrderingInfo = ({ finalPrice }: { finalPrice: number }): JSX.Element => {
       dispatch(submitOrder(_orderUrl, resultIdArr));
       dispatch({ type: OPEN_ORDER_MODAL });
     } else {
-      alert("Вы должны быть авторизованы!");
+      navigate("/login", {
+        replace: true,
+      });
     }
   };
 

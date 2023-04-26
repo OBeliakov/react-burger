@@ -12,7 +12,6 @@ import {
 } from "../../services/actions/ingredientsActions";
 import { v4 as uuid } from "uuid";
 import styles from "./constructor.module.css";
-import AppHeader from "../../components/app-header/app-header";
 import { TIngredient } from "../../utils/types/types";
 
 const ConstructorPage = () => {
@@ -54,19 +53,16 @@ const ConstructorPage = () => {
   return (
     <>
       {!error ? (
-        <>
-          <AppHeader />
-          <main className={styles.main}>
-            {ingredientsData && !loading ? (
-              <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients />
-                <BurgerConstructor onDrop={onDropHandler} />
-              </DndProvider>
-            ) : (
-              <p>Загрузка данных...</p>
-            )}
-          </main>
-        </>
+        <main className={styles.main}>
+          {ingredientsData && !loading ? (
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients />
+              <BurgerConstructor onDrop={onDropHandler} />
+            </DndProvider>
+          ) : (
+            <p>Загрузка данных...</p>
+          )}
+        </main>
       ) : null}
     </>
   );

@@ -4,7 +4,6 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import AppHeader from "../../components/app-header/app-header";
 import styles from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../services/actions/formActions";
@@ -47,60 +46,57 @@ export const ProfilePage = () => {
   };
 
   return (
-    <>
-      <AppHeader />
-      <div className={styles.container}>
-        <NavigationMenu
-          desc="В этом разделе вы можете изменить свои персональные
+    <div className={styles.container}>
+      <NavigationMenu
+        desc="В этом разделе вы можете изменить свои персональные
                         данные"
+      />
+      <form onSubmit={changeUserData} className={styles.user_info}>
+        <Input
+          type="text"
+          name="name"
+          extraClass="mb-6"
+          placeholder="Имя"
+          icon={"EditIcon"}
+          value={formValues.name}
+          onChange={changeInputValue}
         />
-        <form onSubmit={changeUserData} className={styles.user_info}>
-          <Input
-            type="text"
-            name="name"
-            extraClass="mb-6"
-            placeholder="Имя"
-            icon={"EditIcon"}
-            value={formValues.name}
-            onChange={changeInputValue}
-          />
-          <Input
-            type="email"
-            name="email"
-            extraClass="mb-6"
-            placeholder="E-mail"
-            icon={"EditIcon"}
-            value={formValues.email}
-            onChange={changeInputValue}
-          />
-          <Input
-            type="password"
-            icon={"EditIcon"}
-            placeholder="Пароль"
-            value="******"
-            extraClass="mb-6"
-            onChange={changeInputValue}
-          />
-          <div className={styles.buttons}>
-            {(formValues.name !== user.name ||
-              formValues.email !== user.email) && (
-              <>
-                <Button
-                  htmlType="button"
-                  type="secondary"
-                  size="medium"
-                  onClick={handleReset}
-                >
-                  Отмена
-                </Button>
-                <Button htmlType="submit" type="primary" size="medium">
-                  Сохранить
-                </Button>
-              </>
-            )}
-          </div>
-        </form>
-      </div>
-    </>
+        <Input
+          type="email"
+          name="email"
+          extraClass="mb-6"
+          placeholder="E-mail"
+          icon={"EditIcon"}
+          value={formValues.email}
+          onChange={changeInputValue}
+        />
+        <Input
+          type="password"
+          icon={"EditIcon"}
+          placeholder="Пароль"
+          value="******"
+          extraClass="mb-6"
+          onChange={changeInputValue}
+        />
+        <div className={styles.buttons}>
+          {(formValues.name !== user.name ||
+            formValues.email !== user.email) && (
+            <>
+              <Button
+                htmlType="button"
+                type="secondary"
+                size="medium"
+                onClick={handleReset}
+              >
+                Отмена
+              </Button>
+              <Button htmlType="submit" type="primary" size="medium">
+                Сохранить
+              </Button>
+            </>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
