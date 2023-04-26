@@ -1,4 +1,4 @@
-import { checkResponse } from "../utils";
+import { getIngredientsRequest } from "../api";
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
@@ -13,23 +13,28 @@ export const DRAG_CONSTRUCTOR_INGREDIENTS = "DRAG_CONSTRUCTOR_INGREDIENTS";
 export const DRAG_BUN_INGREDIENT = "DRAG_BUN_INGREDIENT";
 export const SORT_INGREDIENTS_ON_DRAG = "SORT_INGREDIENTS_ON_DRAG";
 
-export function getIngredients(url) {
-    return function (dispatch) {
+export function getIngredients(url: string) {
+  return function (dispatch: any) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    dispatch({
+      type: GET_INGREDIENTS,
+    });
+    getIngredientsRequest(url)
+      .then((res) => {
         dispatch({
-            type: GET_INGREDIENTS,
+          type: GET_INGREDIENTS_SUCCESS,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          ingredientsData: res.data,
         });
-        fetch(url)
-            .then(checkResponse)
-            .then((res) => {
-                dispatch({
-                    type: GET_INGREDIENTS_SUCCESS,
-                    ingredientsData: res.data,
-                });
-            })
-            .catch(() => {
-                dispatch({
-                    type: GET_INGREDIENTS_FAILED,
-                });
-            });
-    };
+      })
+      .catch(() => {
+        dispatch({
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          type: GET_INGREDIENTS_FAILED,
+        });
+      });
+  };
 }

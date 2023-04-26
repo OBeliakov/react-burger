@@ -9,9 +9,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../services/actions/formActions";
 import { API_BASE } from "../../services/constants";
-import { TFormValues } from "../../utils/types/types";
-
-type TSignInForm = Omit<TFormValues, "name">;
+import { TSignInForm } from "../../utils/types/types";
 
 export const SignInPage = () => {
   const [formValues, setFormValues] = useState<TSignInForm>({

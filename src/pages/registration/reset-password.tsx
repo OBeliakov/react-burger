@@ -9,9 +9,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { passwordUpdate } from "../../services/actions/formActions";
 import { API_BASE } from "../../services/constants";
-import { TFormValues } from "../../utils/types/types";
-
-type TResetForm = Pick<TFormValues, "password"> & { token: string };
+import { TResetForm } from "../../utils/types/types";
 
 export const ResetPasswordPage = () => {
   const [formValues, setFormValues] = useState<TResetForm>({

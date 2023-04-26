@@ -9,9 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { passwordReset } from "../../services/actions/formActions";
 import { useDispatch } from "react-redux";
 import { API_BASE } from "../../services/constants";
-import { TFormValues } from "../../utils/types/types";
-
-type TEmail = Pick<TFormValues, "email">;
+import { TEmail } from "../../utils/types/types";
 
 export const ForgotPasswordPage = () => {
   const [formValues, setFormValues] = useState<TEmail>({ email: "" });
