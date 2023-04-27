@@ -12,6 +12,7 @@ export const INCREASE_INGREDIENT = "INCREASE_INGREDIENT";
 export const DRAG_CONSTRUCTOR_INGREDIENTS = "DRAG_CONSTRUCTOR_INGREDIENTS";
 export const DRAG_BUN_INGREDIENT = "DRAG_BUN_INGREDIENT";
 export const SORT_INGREDIENTS_ON_DRAG = "SORT_INGREDIENTS_ON_DRAG";
+export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
 
 export function getIngredients(url: string) {
   return function (dispatch: any) {

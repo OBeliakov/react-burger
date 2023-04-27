@@ -18,6 +18,7 @@ const OrderingInfo = ({ finalPrice }: { finalPrice: number }): JSX.Element => {
     // @ts-ignore
     (store) => store.ingredientsReducer.constructorIngredients
   );
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const bun = useSelector((store) => store.ingredientsReducer.bun);
@@ -37,10 +38,14 @@ const OrderingInfo = ({ finalPrice }: { finalPrice: number }): JSX.Element => {
 
   const makeOrder = () => {
     if (user) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      dispatch(submitOrder(_orderUrl, resultIdArr));
-      dispatch({ type: OPEN_ORDER_MODAL });
+      if (bun) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        dispatch(submitOrder(_orderUrl, resultIdArr));
+        dispatch({ type: OPEN_ORDER_MODAL });
+      } else {
+        alert("Добавьте булочку в заказ :)");
+      }
     } else {
       navigate("/login", {
         replace: true,
