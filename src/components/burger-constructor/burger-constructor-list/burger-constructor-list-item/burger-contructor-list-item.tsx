@@ -5,8 +5,8 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { REMOVE_INGREDIENT } from "../../../../services/actions/ingredientsActions";
-import { useDispatch, useSelector } from "react-redux";
+import { REMOVE_INGREDIENT } from "../../../../services/constants";
+import { useDispatch, useSelector } from "../../../hooks/hooks";
 
 import { TConstructorIngredient } from "../../../../utils/types/types";
 
@@ -80,8 +80,6 @@ const BurgerConstructorListItem = ({
   });
 
   const constructorIngredients = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredientsReducer.constructorIngredients
   );
 

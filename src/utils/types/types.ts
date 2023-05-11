@@ -1,3 +1,18 @@
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../../services/store";
+import { TAppActions } from "../../services/actions";
+
+export type AppThunk<TReturnType = void> = ThunkAction<
+  TReturnType,
+  RootState,
+  unknown,
+  TAppActions
+>;
+
+export type AppDispatch<TReturnType = void> = (
+  action: TAppActions | AppThunk<TReturnType>
+) => TReturnType;
+
 export type TIngredient = {
   calories: number;
   carbohydrates: number;
@@ -22,7 +37,7 @@ export type TDropType = {
 export type TFormValues = {
   name: string;
   email: string;
-  password: string;
+  password?: string;
 };
 
 export type TEmail = Pick<TFormValues, "email">;
@@ -66,4 +81,9 @@ export type TOrderResponse = {
   success: boolean;
   name: string;
   order: TOrder;
+};
+
+export type TIngredientsResponse = {
+  success: boolean;
+  data: TIngredient[];
 };

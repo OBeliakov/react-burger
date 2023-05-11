@@ -3,29 +3,24 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../components/hooks/hooks";
 import {
   SET_ACTIVE_INGREDIENT,
   DRAG_CONSTRUCTOR_INGREDIENTS,
   INCREASE_INGREDIENT,
   DRAG_BUN_INGREDIENT,
-} from "../../services/actions/ingredientsActions";
+} from "../../services/constants";
 import { v4 as uuid } from "uuid";
 import styles from "./constructor.module.css";
 import { TIngredient } from "../../utils/types/types";
 
 const ConstructorPage = () => {
   const dispatch = useDispatch();
+
   const ingredientsData = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredientsReducer.ingredientsData
   );
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const loading = useSelector((store) => store.ingredientsReducer.loading);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const error = useSelector((store) => store.ingredientsReducer.error);
 
   const onDropHandler = (item: TIngredient) => {

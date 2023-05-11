@@ -4,7 +4,7 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../hooks/hooks";
 import { useDrag } from "react-dnd";
 import { useLocation, Link } from "react-router-dom";
 import { TIngredient } from "../../../../utils/types/types";
@@ -16,12 +16,9 @@ type TIngredientProps = {
 const BurgerItem = ({ ingredient }: TIngredientProps): JSX.Element | null => {
   const { image, price, name } = ingredient;
   const constructorIngredients = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredientsReducer.constructorIngredients
   );
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
   const bun = useSelector((store) => store.ingredientsReducer.bun);
 
   const currentElAmount = constructorIngredients.filter((item: TIngredient) => {

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { getIngredients } from "../../services/actions/ingredientsActions";
 import { checkUserAuth } from "../../services/actions/formActions";
-import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
   ConstructorPage,
@@ -18,29 +17,23 @@ import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { API_BASE } from "../../services/constants";
 import { UnAuthorized, Authorized } from "../protected-route";
-import { SET_ACTIVE_INGREDIENT } from "../../services/actions/ingredientsActions";
-import { CLOSE_MODAL } from "../../services/actions/modalActions";
+import { SET_ACTIVE_INGREDIENT, CLOSE_MODAL } from "../../services/constants";
+import { useDispatch, useSelector } from "../hooks/hooks";
 
 const App = () => {
   const dispatch = useDispatch();
   const _apiUrl = `${API_BASE}/ingredients`;
   const ingredientsModal = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.modalReducer.ingredientsModal
   );
 
   const handleCloseModal = () => {
     dispatch({ type: CLOSE_MODAL });
-    dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
+    dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: null });
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(getIngredients(_apiUrl));
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(checkUserAuth());
   }, []);
 

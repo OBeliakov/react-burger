@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./navigation-menu.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../hooks/hooks";
 import { logOut } from "../../services/actions/formActions";
 import { API_BASE } from "../../services/constants";
 
@@ -12,8 +12,6 @@ const NavigationMenu = ({ desc }: { desc: string }) => {
   const _logOutUrl = `${API_BASE}/auth/logout`;
 
   const signOut = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(logOut(_logOutUrl));
     navigate("/login", { replace: true });
   };

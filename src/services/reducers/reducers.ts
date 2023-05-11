@@ -5,8 +5,8 @@ import { ingredientsReducer } from "./ingredientsReducer";
 import { modalReducer } from "./modalReducer";
 
 export const rootReducer = combineReducers({
-    formReducer,
-    orderReducer,
-    ingredientsReducer,
-    modalReducer,
+  formReducer,
+  orderReducer,
+  ingredientsReducer,
+  modalReducer,
 });

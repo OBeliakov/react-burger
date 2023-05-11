@@ -6,9 +6,9 @@ import {
   SET_ACTIVE_INGREDIENT,
   ADD_BUN,
   INCREASE_INGREDIENT,
-} from "../../../services/actions/ingredientsActions";
-import { OPEN_INGREDIENTS_MODAL } from "../../../services/actions/modalActions";
-import { useSelector, useDispatch } from "react-redux";
+  OPEN_INGREDIENTS_MODAL,
+} from "../../../services/constants";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { v4 as uuid } from "uuid";
 import { TIngredient } from "../../../utils/types/types";
 
@@ -20,13 +20,9 @@ type TIngredientsType = {
 const BurgerIngredientsList = forwardRef<TRef, TIngredientsType>(
   function BurgerIngredientsList({ ingredientsType }, ref) {
     const constructorIngredients = useSelector(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       (store) => store.ingredientsReducer.constructorIngredients
     );
     const ingredientsData = useSelector(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       (store) => store.ingredientsReducer.ingredientsData
     );
 

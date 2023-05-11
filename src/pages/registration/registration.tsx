@@ -6,7 +6,7 @@ import {
 import styles from "./registration.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/actions/formActions";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../components/hooks/hooks";
 import { API_BASE } from "../../services/constants";
 import { TFormValues } from "../../utils/types/types";
 
@@ -29,8 +29,6 @@ export const RegisterPage = () => {
 
   const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(registerUser(_registerUrl, formValues));
     navigate("/", {
       replace: true,
@@ -63,7 +61,7 @@ export const RegisterPage = () => {
           icon={"ShowIcon"}
           placeholder="Пароль"
           extraClass="mt-6"
-          value={formValues.password}
+          value={formValues.password || ""}
           onChange={changeInputValue}
         />
         <Button

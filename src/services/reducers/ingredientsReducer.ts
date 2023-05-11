@@ -1,3 +1,5 @@
+import { TConstructorIngredient, TIngredient } from "../../utils/types/types";
+import { TAppActions } from "../actions";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
@@ -12,19 +14,32 @@ import {
   DRAG_BUN_INGREDIENT,
   SORT_INGREDIENTS_ON_DRAG,
   CLEAR_CONSTRUCTOR,
-} from "../actions/ingredientsActions";
+} from "../constants";
 
-const initialState = {
+type TIngredientsState = {
+  ingredientsData: TIngredient[] | [];
+  loading: boolean;
+  error: boolean;
+  constructorIngredients: TConstructorIngredient[];
+  currentIngredient: TIngredient | null;
+  currentTab: string;
+  bun: TIngredient | null;
+};
+
+const initialState: TIngredientsState = {
   ingredientsData: [],
   loading: true,
   error: false,
   constructorIngredients: [],
-  currentIngredient: {},
+  currentIngredient: null,
   currentTab: "bun",
   bun: null,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (
+  state = initialState,
+  action: TAppActions
+): TIngredientsState => {
   switch (action.type) {
     case ADD_INGREDIENT:
       return {
@@ -74,8 +89,9 @@ export const ingredientsReducer = (state = initialState, action) => {
     case INCREASE_INGREDIENT: {
       return {
         ...state,
-        constructorIngredients: [...state.constructorIngredients].map((item) =>
-          item._id === action.id ? { ...item, qty: ++item.qty } : item
+        constructorIngredients: [...state.constructorIngredients].map(
+          (item: TConstructorIngredient) =>
+            item._id === action.id ? { ...item, qty: ++item.qty } : item
         ),
       };
     }

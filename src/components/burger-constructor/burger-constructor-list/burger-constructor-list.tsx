@@ -1,9 +1,9 @@
 import React from "react";
 import burgerConstructorList from "./burger-constructor-list.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/hooks";
 import { useDrop } from "react-dnd";
 import BurgerConstructorListItem from "./burger-constructor-list-item/burger-contructor-list-item";
-import { SORT_INGREDIENTS_ON_DRAG } from "../../../services/actions/ingredientsActions";
+import { SORT_INGREDIENTS_ON_DRAG } from "../../../services/constants";
 import { TConstructorIngredient, TDropType } from "../../../utils/types/types";
 
 const BurgerConstructorList = ({ onDrop }: TDropType) => {
@@ -18,8 +18,6 @@ const BurgerConstructorList = ({ onDrop }: TDropType) => {
   });
 
   const constructorIngredients = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredientsReducer.constructorIngredients
   );
 
