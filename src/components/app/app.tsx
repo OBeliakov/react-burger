@@ -11,6 +11,8 @@ import {
   ProfilePage,
   NotFoundPage,
   OrderPage,
+  FeedPage,
+  OrderCardPage,
 } from "../../pages";
 import AppHeader from "../app-header/app-header";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
@@ -19,6 +21,7 @@ import { API_BASE } from "../../services/constants";
 import { UnAuthorized, Authorized } from "../protected-route";
 import { SET_ACTIVE_INGREDIENT, CLOSE_MODAL } from "../../services/constants";
 import { useDispatch, useSelector } from "../hooks/hooks";
+import { BurgerCardExpanded } from "../burger-order-list/burger-order-expanded/burger-order-expanded";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ const App = () => {
   const ingredientsModal = useSelector(
     (store) => store.modalReducer.ingredientsModal
   );
+  const cardModal = useSelector((store) => store.modalReducer.cardModal);
 
   const handleCloseModal = () => {
     dispatch({ type: CLOSE_MODAL });
@@ -76,6 +80,8 @@ const App = () => {
           element={<IngredientsDetails />}
         />
         <Route path="*" element={<NotFoundPage />}></Route>
+        <Route path="/feed" element={<FeedPage />}></Route>
+        <Route path="/feed/feedId" element={<OrderCardPage />}></Route>
       </Routes>
       {background && (
         <Routes>
@@ -93,6 +99,19 @@ const App = () => {
               )
             }
           />
+          <Route
+            path="/feed/feedId"
+            element={
+              cardModal && (
+                <Modal
+                  onClose={handleCloseModal}
+                  className="pt-10 pl-10 pb-15 pr-10"
+                >
+                  <BurgerCardExpanded />
+                </Modal>
+              )
+            }
+          ></Route>
         </Routes>
       )}
     </>
