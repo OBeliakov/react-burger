@@ -4,6 +4,9 @@ import { useSelector } from "../hooks/hooks";
 
 export const OrderReport = () => {
   const orders = useSelector((store) => store.feedReducer.ordersList);
+  const total = useSelector((store) => store.feedReducer.total);
+  const totalToday = useSelector((store) => store.feedReducer.totalToday);
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -48,10 +51,10 @@ export const OrderReport = () => {
       <h2 className="text text_type_main-medium mb-6">
         Выполнено за все время:
       </h2>
-      <p className="text text_type_digits-large mb-15">28 752</p>
+      <p className="text text_type_digits-large mb-15">{total}</p>
 
       <h2 className="text text_type_main-medium mb-6">Выполнено за сегодня:</h2>
-      <p className="text text_type_digits-large">138</p>
+      <p className="text text_type_digits-large">{totalToday}</p>
     </div>
   );
 };

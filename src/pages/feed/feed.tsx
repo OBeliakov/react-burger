@@ -18,7 +18,7 @@ export const FeedPage = () => {
     return () => {
       dispatch({
         type: FEED_DISCONNECT,
-        payload: "wss://norma.nomoreparties.space/orders/all",
+        payload: "disconnect",
       });
     };
   });

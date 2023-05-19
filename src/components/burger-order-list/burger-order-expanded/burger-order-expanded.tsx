@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./burger-order-expanded.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "../../hooks/hooks";
-import { TIngredient } from "../../../utils/types/types";
+import { TFeedOrder, TIngredient } from "../../../utils/types/types";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { addIngredients } from "../../../services/utils";
 
-export const BurgerCardExpanded = () => {
-  const currentOrder = useSelector((store) => store.feedReducer.currentOrder);
+export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
+  const currentOrder = props.order;
 
   const ingredientsData = useSelector(
     (store) => store.ingredientsReducer.ingredientsData

@@ -2,12 +2,18 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "../../services/store";
 import { TAppActions } from "../../services/actions";
 import {
-  WS_OPEN,
-  WS_CLOSE,
-  WS_ERROR,
-  WS_MESSAGE,
+  FEED_OPEN,
+  FEED_CLOSE,
+  FEED_ERROR,
+  FEED_MESSAGE,
   FEED_CONNECT,
+  FEED_ORDER_OPEN,
+  FEED_ORDER_CLOSE,
+  FEED_ORDER_ERROR,
+  FEED_ORDER_MESSAGE,
   FEED_ORDER_CONNECT,
+  FEED_DISCONNECT,
+  FEED_ORDER_DISCONNECT,
 } from "../../services/constants";
 
 export type AppThunk<TReturnType = void> = ThunkAction<
@@ -99,13 +105,22 @@ export type TIngredientsResponse = {
   data: TIngredient[];
 };
 
-export type TWSStoreActions = {
-  wsInit: typeof FEED_CONNECT;
-  wsInitOrder: typeof FEED_ORDER_CONNECT;
-  onOpen: typeof WS_OPEN;
-  onClose: typeof WS_CLOSE;
-  onError: typeof WS_ERROR;
-  onMessage: typeof WS_MESSAGE;
+export type TFeedStoreActions = {
+  onInit: typeof FEED_CONNECT;
+  onOpen: typeof FEED_OPEN;
+  onClose: typeof FEED_CLOSE;
+  onError: typeof FEED_ERROR;
+  onMessage: typeof FEED_MESSAGE;
+  onDisconnect: typeof FEED_DISCONNECT;
+};
+
+export type TFeedOrderStoreActions = {
+  onInit: typeof FEED_ORDER_CONNECT;
+  onOpen: typeof FEED_ORDER_OPEN;
+  onClose: typeof FEED_ORDER_CLOSE;
+  onError: typeof FEED_ORDER_ERROR;
+  onMessage: typeof FEED_ORDER_MESSAGE;
+  onDisconnect: typeof FEED_ORDER_DISCONNECT;
 };
 
 export type TFeed = {

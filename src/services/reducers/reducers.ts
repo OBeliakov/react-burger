@@ -4,6 +4,7 @@ import { orderReducer } from "./orderReducer";
 import { ingredientsReducer } from "./ingredientsReducer";
 import { modalReducer } from "./modalReducer";
 import { feedReducer } from "./feedReducer";
+import { feedOrderReducer } from "./feedOrderReducer";
 
 export const rootReducer = combineReducers({
   formReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   ingredientsReducer,
   modalReducer,
   feedReducer,
+  feedOrderReducer,
 });

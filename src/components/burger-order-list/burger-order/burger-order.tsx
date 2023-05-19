@@ -19,15 +19,6 @@ const BurgerOrderCard = ({ order }: { order: TFeedOrder }) => {
     ingredientsData,
     ingredients
   );
-  //   const orderIngredients: TIngredient[] = [];
-
-  //   ingredientsData.forEach((item: TIngredient) => {
-  //     ingredients.forEach((id) => {
-  //       if (item._id === id) {
-  //         orderIngredients.push(item);
-  //       }
-  //     });
-  //   });
 
   const totalPrice = orderIngredients.reduce(
     (acc: number, ingredient: TIngredient) => {

@@ -1,14 +1,12 @@
 import {
   FEED_CONNECT,
   FEED_DISCONNECT,
-  WS_CONNECTING,
-  WS_OPEN,
-  WS_CLOSE,
-  WS_MESSAGE,
-  WS_ERROR,
-  CURRENT_ORDER,
-  FEED_ORDER_CONNECT,
-  FEED_ORDER_DISCONNECT,
+  FEED_CONNECTING,
+  FEED_OPEN,
+  FEED_CLOSE,
+  FEED_MESSAGE,
+  FEED_ERROR,
+  FEED_CURRENT_ORDER,
 } from "../constants";
 
 import { TFeed, TFeedOrder } from "../../utils/types/types";
@@ -23,40 +21,30 @@ type TDisconnectAction = {
   payload: string;
 };
 
-type TConnectOrderAction = {
-  readonly type: typeof FEED_ORDER_CONNECT;
-  payload: string;
-};
-
-type TDisconnectOrderAction = {
-  readonly type: typeof FEED_ORDER_DISCONNECT;
-  payload: string;
-};
-
 type TWsConnectingAction = {
-  readonly type: typeof WS_CONNECTING;
+  readonly type: typeof FEED_CONNECTING;
 };
 
 type TWsOpen = {
-  readonly type: typeof WS_OPEN;
+  readonly type: typeof FEED_OPEN;
 };
 
 type TWsClose = {
-  readonly type: typeof WS_CLOSE;
+  readonly type: typeof FEED_CLOSE;
 };
 
 type TWsMessage = {
-  readonly type: typeof WS_MESSAGE;
+  readonly type: typeof FEED_MESSAGE;
   payload: TFeed;
 };
 
 type TWsError = {
-  readonly type: typeof WS_ERROR;
+  readonly type: typeof FEED_ERROR;
   payload: string;
 };
 
 type TWsOrder = {
-  readonly type: typeof CURRENT_ORDER;
+  readonly type: typeof FEED_CURRENT_ORDER;
   payload: TFeedOrder;
 };
 
@@ -68,6 +56,4 @@ export type TWsActions =
   | TWsClose
   | TWsMessage
   | TWsError
-  | TWsOrder
-  | TConnectOrderAction
-  | TDisconnectOrderAction;
+  | TWsOrder;

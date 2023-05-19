@@ -19,10 +19,7 @@ import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { API_BASE } from "../../services/constants";
 import { UnAuthorized, Authorized } from "../protected-route";
-import {
-  SET_ACTIVE_INGREDIENT,
-  CLOSE_MODAL,
-} from "../../services/constants";
+import { SET_ACTIVE_INGREDIENT, CLOSE_MODAL } from "../../services/constants";
 import { useDispatch, useSelector } from "../hooks/hooks";
 import { BurgerCardExpanded } from "../burger-order-list/burger-order-expanded/burger-order-expanded";
 
@@ -32,7 +29,17 @@ const App = () => {
   const ingredientsModal = useSelector(
     (store) => store.modalReducer.ingredientsModal
   );
+
   const cardModal = useSelector((store) => store.modalReducer.cardModal);
+  const cardOrderModal = useSelector(
+    (store) => store.modalReducer.cardOrderModal
+  );
+  const currentFeedOrder = useSelector(
+    (store) => store.feedReducer.currentOrder
+  );
+  const currentOrder = useSelector(
+    (store) => store.feedOrderReducer.currentOrder
+  );
 
   const handleCloseModal = () => {
     dispatch({ type: CLOSE_MODAL });
@@ -77,14 +84,22 @@ const App = () => {
           path="/profile/orders"
           element={<Authorized component={<OrderPage />} />}
         />
-
+        <Route
+          path="/profile/orders/:id"
+          element={
+            <Authorized component={<OrderCardPage order={currentOrder} />} />
+          }
+        />
         <Route
           path="/ingredients/:ingredientId"
           element={<IngredientsDetails />}
         />
         <Route path="*" element={<NotFoundPage />}></Route>
         <Route path="/feed" element={<FeedPage />}></Route>
-        <Route path="/feed/:id" element={<OrderCardPage />}></Route>
+        <Route
+          path="/feed/:id"
+          element={<OrderCardPage order={currentFeedOrder} />}
+        ></Route>
       </Routes>
       {background && (
         <Routes>
@@ -110,11 +125,26 @@ const App = () => {
                   onClose={handleCloseModal}
                   className="pt-10 pl-10 pb-15 pr-10"
                 >
-                  <BurgerCardExpanded />
+                  <BurgerCardExpanded order={currentFeedOrder} />
                 </Modal>
               )
             }
           ></Route>
+          <Route
+            path="/profile/orders/:id"
+            element={
+              cardOrderModal && (
+                <Modal
+                  onClose={handleCloseModal}
+                  className="pt-10 pl-10 pb-15 pr-10"
+                >
+                  <Authorized
+                    component={<BurgerCardExpanded order={currentOrder} />}
+                  />
+                </Modal>
+              )
+            }
+          />
         </Routes>
       )}
     </>
