@@ -1,6 +1,14 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../../services/store";
 import { TAppActions } from "../../services/actions";
+import {
+  WS_OPEN,
+  WS_CLOSE,
+  WS_ERROR,
+  WS_MESSAGE,
+  FEED_CONNECT,
+  FEED_ORDER_CONNECT,
+} from "../../services/constants";
 
 export type AppThunk<TReturnType = void> = ThunkAction<
   TReturnType,
@@ -63,7 +71,10 @@ export type TLoginResponse = TRegisterResponse;
 
 export type TUserResponse = TRegisterResponse;
 
-export type TOrderDate = { createdAt: string; updatedAt: string };
+export type TOrderDate = {
+  createdAt: string | number | Date;
+  updatedAt: string | number | Date;
+};
 
 export type TOwner = TUserForm & TOrderDate;
 
@@ -86,4 +97,30 @@ export type TOrderResponse = {
 export type TIngredientsResponse = {
   success: boolean;
   data: TIngredient[];
+};
+
+export type TWSStoreActions = {
+  wsInit: typeof FEED_CONNECT;
+  wsInitOrder: typeof FEED_ORDER_CONNECT;
+  onOpen: typeof WS_OPEN;
+  onClose: typeof WS_CLOSE;
+  onError: typeof WS_ERROR;
+  onMessage: typeof WS_MESSAGE;
+};
+
+export type TFeed = {
+  success: boolean;
+  orders: TFeedOrder[];
+  total: number;
+  totalToday: number;
+};
+
+export type TFeedOrder = {
+  _id: string;
+  ingredients: string[];
+  status: string;
+  name: string;
+  createdAt: string | number | Date;
+  updatedAt: string;
+  number: number;
 };

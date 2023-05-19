@@ -19,7 +19,10 @@ import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { API_BASE } from "../../services/constants";
 import { UnAuthorized, Authorized } from "../protected-route";
-import { SET_ACTIVE_INGREDIENT, CLOSE_MODAL } from "../../services/constants";
+import {
+  SET_ACTIVE_INGREDIENT,
+  CLOSE_MODAL,
+} from "../../services/constants";
 import { useDispatch, useSelector } from "../hooks/hooks";
 import { BurgerCardExpanded } from "../burger-order-list/burger-order-expanded/burger-order-expanded";
 
@@ -81,7 +84,7 @@ const App = () => {
         />
         <Route path="*" element={<NotFoundPage />}></Route>
         <Route path="/feed" element={<FeedPage />}></Route>
-        <Route path="/feed/feedId" element={<OrderCardPage />}></Route>
+        <Route path="/feed/:id" element={<OrderCardPage />}></Route>
       </Routes>
       {background && (
         <Routes>
@@ -100,7 +103,7 @@ const App = () => {
             }
           />
           <Route
-            path="/feed/feedId"
+            path="/feed/:id"
             element={
               cardModal && (
                 <Modal
