@@ -5,6 +5,8 @@
   padding: 0;
   margin-left: 0;
   padding-left: 0;
+  width: 100%;
+  max-width: 844px;
 }
 
 .order_list a {

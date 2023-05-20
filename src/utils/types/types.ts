@@ -139,3 +139,5 @@ export type TFeedOrder = {
   updatedAt: string;
   number: number;
 };
+
+export type TFeedOrderResponse = Pick<TFeed, "success" | "orders">;

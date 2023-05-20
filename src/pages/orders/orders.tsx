@@ -24,7 +24,7 @@ export const OrderPage = () => {
         payload: "disconnect",
       });
     };
-  });
+  }, []);
 
   const orders = useSelector((store) => store.feedOrderReducer.ordersList);
 

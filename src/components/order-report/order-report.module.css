@@ -17,3 +17,8 @@
 .text {
   color: #00cccc;
 }
+
+.list_container {
+  display: flex;
+  gap: 20px;
+}

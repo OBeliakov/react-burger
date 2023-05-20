@@ -44,7 +44,7 @@ const BurgerOrderList = (props: TProps): JSX.Element | null => {
               key={item._id}
             >
               <Link
-                to={`/${props.to}/${item._id}`}
+                to={`/${props.to}/${item.number}`}
                 state={{ background: location }}
               >
                 <BurgerOrder order={item} />

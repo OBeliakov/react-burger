@@ -8,6 +8,9 @@ import {
   FEED_MESSAGE,
   FEED_ERROR,
   FEED_CURRENT_ORDER,
+  GET_ORDER,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
 } from "../constants";
 
 type TWsState = {
@@ -16,6 +19,9 @@ type TWsState = {
   currentOrder: null | TFeedOrder;
   total: number | null;
   totalToday: number | null;
+  loading: boolean;
+  error: boolean;
+  orderDetails: TFeedOrder | null;
 };
 
 export const feedState: TWsState = {
@@ -24,6 +30,9 @@ export const feedState: TWsState = {
   currentOrder: null,
   total: null,
   totalToday: null,
+  loading: false,
+  error: false,
+  orderDetails: null,
 };
 
 export const feedReducer = (
@@ -65,6 +74,24 @@ export const feedReducer = (
         ...state,
         currentOrder: action.payload,
       };
+    case GET_ORDER:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case GET_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        orderDetails: action.payload,
+      };
+    case GET_ORDER_FAILED:
+      return {
+        ...state,
+        error: true
+      }
     default:
       return state;
   }

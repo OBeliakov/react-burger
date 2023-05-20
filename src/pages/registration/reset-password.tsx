@@ -29,7 +29,7 @@ export const ResetPasswordPage = () => {
         replace: true,
       });
     }
-  });
+  }, []);
 
   const _resetPwdUrl = `${API_BASE}/password-reset/reset`;
 

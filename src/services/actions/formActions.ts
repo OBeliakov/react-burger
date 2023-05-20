@@ -186,7 +186,7 @@ export const logOut = (url: string): AppThunk => {
   };
 };
 
-export const getUser = (): AppThunk => {
+export const getUser = (): AppThunk<Promise<unknown>> => {
   return async function (dispatch: AppDispatch) {
     getUserRequest(`${API_BASE}/auth/user`)
       .then((data) => {
@@ -202,7 +202,7 @@ export const getUser = (): AppThunk => {
 };
 
 export const checkUserAuth = (): AppThunk => {
-  return async function (dispatch: any) {
+  return async function (dispatch) {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
         .catch(() => {

@@ -21,7 +21,7 @@ export const FeedPage = () => {
         payload: "disconnect",
       });
     };
-  });
+  }, []);
 
   return (
     <div className={styles.page_container}>

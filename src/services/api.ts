@@ -10,6 +10,7 @@ import {
   TUserForm,
   TOrderResponse,
   TIngredientsResponse,
+  TFeedOrderResponse,
 } from "../utils/types/types";
 import { checkResponse } from "./utils";
 import { fetchWithRefresh } from "./auth";
@@ -125,4 +126,11 @@ export const submitOrderRequest = async (
       ingredients: idArray,
     }),
   }).then(checkResponse<TOrderResponse>);
+};
+
+export const getOrderRequest = async (
+  url: string,
+  id: string
+): Promise<TFeedOrderResponse> => {
+  return await fetch(`${url}/${id}`).then(checkResponse<TFeedOrderResponse>);
 };

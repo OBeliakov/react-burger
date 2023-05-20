@@ -86,9 +86,7 @@ const App = () => {
         />
         <Route
           path="/profile/orders/:id"
-          element={
-            <Authorized component={<OrderCardPage order={currentOrder} />} />
-          }
+          element={<Authorized component={<OrderCardPage />} />}
         />
         <Route
           path="/ingredients/:ingredientId"
@@ -96,10 +94,7 @@ const App = () => {
         />
         <Route path="*" element={<NotFoundPage />}></Route>
         <Route path="/feed" element={<FeedPage />}></Route>
-        <Route
-          path="/feed/:id"
-          element={<OrderCardPage order={currentFeedOrder} />}
-        ></Route>
+        <Route path="/feed/:id" element={<OrderCardPage />}></Route>
       </Routes>
       {background && (
         <Routes>

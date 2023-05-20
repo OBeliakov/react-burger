@@ -7,7 +7,7 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { addIngredients } from "../../../services/utils";
 
 export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
-  const currentOrder = props.order;
+  const currentOpened = props.order;
 
   const ingredientsData = useSelector(
     (store) => store.ingredientsReducer.ingredientsData
@@ -15,7 +15,7 @@ export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
 
   const orderIngredients = addIngredients<TIngredient, string>(
     ingredientsData,
-    currentOrder?.ingredients!
+    currentOpened?.ingredients!
   );
 
   const totalPrice = orderIngredients.reduce(
@@ -30,11 +30,11 @@ export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
       <p
         className={`mb-10 text text_type_digits-default ${styles.order_number}`}
       >
-        #{currentOrder?.number}
+        #{currentOpened?.number}
       </p>
-      <h2 className="mb-3 text text_type_main-medium">{currentOrder?.name}</h2>
+      <h2 className="mb-3 text text_type_main-medium">{currentOpened?.name}</h2>
       <p className={`mb-15 text text_type_main-default ${styles.status}`}>
-        {currentOrder?.status === "done" ? "Выполнен" : null}
+        {currentOpened?.status === "done" ? "Выполнен" : null}
       </p>
       <p className="mb-6 text text_type_main-medium">Состав:</p>
       <ul className={`${styles.list} mb-10 custom-scroll`}>
@@ -55,7 +55,7 @@ export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
       </ul>
       <div className={styles.info_column}>
         <span className="text text_type_main-default text_color_inactive">
-          {<FormattedDate date={new Date(currentOrder?.createdAt!)} />}
+          {<FormattedDate date={new Date(currentOpened?.createdAt!)} />}
         </span>
         <span className={styles.price}>
           <span className="text text_type_digits-default">{totalPrice}</span>
