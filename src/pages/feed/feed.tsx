@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import BurgerOrderList from "../../components/burger-order-list/burger-order-list";
 import styles from "./feed.module.css";
 import { OrderReport } from "../../components/order-report/order-report";
-import { useSelector } from "../../components/hooks/hooks";
+import { useSelector, useDispatch } from "../../components/hooks/hooks";
 import { FEED_CONNECT, FEED_DISCONNECT } from "../../services/constants";
-import { useDispatch } from "react-redux";
 
 export const FeedPage = () => {
   const orders = useSelector((store) => store.feedReducer.ordersList);

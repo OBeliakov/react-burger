@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { getIngredients } from "../../services/actions/ingredientsActions";
 import { checkUserAuth } from "../../services/actions/formActions";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import {
   ConstructorPage,
   SignInPage,
@@ -41,9 +41,12 @@ const App = () => {
     (store) => store.feedOrderReducer.currentOrder
   );
 
+  const navigate = useNavigate();
+
   const handleCloseModal = () => {
     dispatch({ type: CLOSE_MODAL });
     dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: null });
+    navigate(-1);
   };
 
   useEffect(() => {

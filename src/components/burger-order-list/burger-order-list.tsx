@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import BurgerOrder from "./burger-order/burger-order";
 import styles from "./burger-order-list.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../hooks/hooks";
 import {
   OPEN_CARD_MODAL,
   FEED_CURRENT_ORDER,

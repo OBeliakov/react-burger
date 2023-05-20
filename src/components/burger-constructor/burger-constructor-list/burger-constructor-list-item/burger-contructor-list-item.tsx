@@ -7,7 +7,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { REMOVE_INGREDIENT } from "../../../../services/constants";
 import { useDispatch, useSelector } from "../../../hooks/hooks";
-
 import { TConstructorIngredient } from "../../../../utils/types/types";
 
 type TConstructorItemProps = {

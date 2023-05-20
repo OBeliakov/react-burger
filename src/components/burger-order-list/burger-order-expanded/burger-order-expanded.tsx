@@ -25,6 +25,18 @@ export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
     0
   );
 
+  const accObject: Record<string, number> = {};
+
+  currentOpened?.ingredients.forEach((item) => {
+    if (accObject[item] === undefined) {
+      accObject[item] = 1;
+    } else {
+      accObject[item]++;
+    }
+  });
+
+  const set = [...new Set(orderIngredients)];
+
   return (
     <div className={styles.container}>
       <p
@@ -38,7 +50,7 @@ export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
       </p>
       <p className="mb-6 text text_type_main-medium">Состав:</p>
       <ul className={`${styles.list} mb-10 custom-scroll`}>
-        {orderIngredients.map(({ name, price, image }, index): JSX.Element => {
+        {set.map(({ name, price, image, _id }, index): JSX.Element => {
           return (
             <li key={index} className={`${styles.item} mb-4`}>
               <img src={image} alt="" />
@@ -46,7 +58,9 @@ export const BurgerCardExpanded = (props: { order: TFeedOrder | null }) => {
                 {name}
               </p>
               <p className={styles.price}>
-                <span className="text text_type_digits-default">{price}</span>
+                <span className="text text_type_digits-default">
+                  {accObject[_id]} x {price}
+                </span>
                 <CurrencyIcon type="primary" />
               </p>
             </li>
