@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "./hooks/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import Preloader from "../images/Gear-0.2s-200px.svg";
 import styles from "./protected-route.module.css";
@@ -13,13 +13,7 @@ export const ProtectedRoute = ({
   unAuthorized = false,
   component,
 }: TProtectedRoute) => {
-  const isAuthChecked = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    (store) => store.formReducer.isAuthChecked
-  );
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  const isAuthChecked = useSelector((store) => store.formReducer.isAuthChecked);
   const user = useSelector((store) => store.formReducer.userInfo);
   const location = useLocation();
 

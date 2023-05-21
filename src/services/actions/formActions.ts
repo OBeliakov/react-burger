@@ -1,4 +1,19 @@
-import { API_BASE } from "../constants";
+import {
+  API_BASE,
+  RESET_FORM_FAILED,
+  RESET_FORM_SUCCESS,
+  UPDATE_FORM_FAILED,
+  UPDATE_FORM_SUCCESS,
+  REGISTER_FORM_SUCCESS,
+  REGISTER_FORM_FAILED,
+  LOGIN_FORM_SUCCESS,
+  LOGIN_FORM_FAILED,
+  LOGOUT_FORM_SUCCESS,
+  LOGOUT_FORM_FAILED,
+  SET_USER_SUCCESS,
+  SET_USER_FAILED,
+  AUTH_CHECK,
+} from "../constants";
 import {
   passwordResetRequest,
   passwordUpdateRequest,
@@ -9,27 +24,87 @@ import {
   updateUserRequest,
 } from "../../services/api";
 import {
+  AppDispatch,
+  AppThunk,
   TFormValues,
   TResetForm,
   TSignInForm,
   TUserForm,
 } from "../../utils/types/types";
-export const RESET_FORM_FAILED = "RESET_FORM_FAILED";
-export const RESET_FORM_SUCCESS = "RESET_FORM_SUCCESS";
-export const UPDATE_FORM_FAILED = "UPDATE_FORM_FAILED";
-export const UPDATE_FORM_SUCCESS = "UPDATE_FORM_SUCCESS";
-export const REGISTER_FORM_SUCCESS = "REGISTER_FORM_SUCCESS";
-export const REGISTER_FORM_FAILED = "REGISTER_FORM_FAILED";
-export const LOGIN_FORM_SUCCESS = "LOGIN_FORM_SUCCESS";
-export const LOGIN_FORM_FAILED = "LOGIN_FORM_FAILED";
-export const LOGOUT_FORM_SUCCESS = "LOGOUT_FORM_SUCCESS";
-export const LOGOUT_FORM_FAILED = "LOGOUT_FORM_FAILED";
-export const SET_USER_SUCCESS = "SET_USER_SUCCESS";
-export const SET_USER_FAILED = "SET_USER_FAILED";
-export const AUTH_CHECK = "AUTH_CHECK";
 
-export const passwordReset = (url: string, email: string) => {
-  return async function (dispatch: any) {
+type TResetFormFailed = {
+  readonly type: typeof RESET_FORM_FAILED;
+};
+
+type TResetFormSuccess = {
+  readonly type: typeof RESET_FORM_SUCCESS;
+};
+
+type TUpdateFormSuccess = {
+  readonly type: typeof UPDATE_FORM_SUCCESS;
+};
+
+type TUpdateFormFailed = {
+  readonly type: typeof UPDATE_FORM_FAILED;
+};
+
+type TRegisterFormSuccess = {
+  readonly type: typeof REGISTER_FORM_SUCCESS;
+  readonly payload: TUserForm;
+};
+
+type TRegisterFormFailed = {
+  readonly type: typeof REGISTER_FORM_FAILED;
+};
+
+type TLoginFormSuccess = {
+  readonly type: typeof LOGIN_FORM_SUCCESS;
+  readonly payload: TUserForm;
+};
+
+type TLoginFormFailed = {
+  readonly type: typeof LOGIN_FORM_FAILED;
+};
+
+type TSetUserFailed = {
+  readonly type: typeof SET_USER_FAILED;
+};
+
+type TSetUSerSuccess = {
+  readonly type: typeof SET_USER_SUCCESS;
+  readonly payload: TUserForm | null;
+};
+
+type TAuthCheck = {
+  readonly type: typeof AUTH_CHECK;
+  readonly payload: boolean;
+};
+
+type TLogoutFormSuccess = {
+  readonly type: typeof LOGOUT_FORM_SUCCESS;
+};
+
+type TLogoutFormFailed = {
+  readonly type: typeof LOGOUT_FORM_FAILED;
+};
+
+export type TFormActions =
+  | TResetFormFailed
+  | TResetFormSuccess
+  | TUpdateFormSuccess
+  | TUpdateFormFailed
+  | TRegisterFormSuccess
+  | TRegisterFormFailed
+  | TLoginFormSuccess
+  | TLoginFormFailed
+  | TSetUserFailed
+  | TSetUSerSuccess
+  | TAuthCheck
+  | TLogoutFormSuccess
+  | TLogoutFormFailed;
+
+export const passwordReset = (url: string, email: string): AppThunk => {
+  return async function (dispatch) {
     passwordResetRequest(url, email)
       .then(() => {
         dispatch({
@@ -42,8 +117,8 @@ export const passwordReset = (url: string, email: string) => {
   };
 };
 
-export const passwordUpdate = (url: string, form: TResetForm) => {
-  return function (dispatch: any) {
+export const passwordUpdate = (url: string, form: TResetForm): AppThunk => {
+  return function (dispatch) {
     passwordUpdateRequest(url, form)
       .then(() => {
         dispatch({
@@ -56,8 +131,8 @@ export const passwordUpdate = (url: string, form: TResetForm) => {
   };
 };
 
-export const registerUser = (url: string, form: TFormValues) => {
-  return async function (dispatch: any) {
+export const registerUser = (url: string, form: TFormValues): AppThunk => {
+  return async function (dispatch) {
     registerUserRequest(url, form)
       .then((data) => {
         dispatch({
@@ -75,8 +150,8 @@ export const registerUser = (url: string, form: TFormValues) => {
   };
 };
 
-export const loginUser = (url: string, form: TSignInForm) => {
-  return async function (dispatch: any) {
+export const loginUser = (url: string, form: TSignInForm): AppThunk => {
+  return async function (dispatch) {
     loginUserRequest(url, form)
       .then((data) => {
         dispatch({
@@ -94,8 +169,8 @@ export const loginUser = (url: string, form: TSignInForm) => {
   };
 };
 
-export const logOut = (url: string) => {
-  return function (dispatch: any) {
+export const logOut = (url: string): AppThunk => {
+  return function (dispatch) {
     logOutRequest(url)
       .then(() => {
         dispatch({
@@ -111,8 +186,8 @@ export const logOut = (url: string) => {
   };
 };
 
-export const getUser = () => {
-  return async function (dispatch: any) {
+export const getUser = (): AppThunk<Promise<unknown>> => {
+  return async function (dispatch: AppDispatch) {
     getUserRequest(`${API_BASE}/auth/user`)
       .then((data) => {
         dispatch({
@@ -126,8 +201,8 @@ export const getUser = () => {
   };
 };
 
-export const checkUserAuth = () => {
-  return (dispatch: any) => {
+export const checkUserAuth = (): AppThunk => {
+  return async function (dispatch) {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
         .catch(() => {
@@ -144,8 +219,8 @@ export const checkUserAuth = () => {
   };
 };
 
-export const updateUserData = (url: string, form: TUserForm) => {
-  return async function (dispatch: any) {
+export const updateUserData = (url: string, form: TUserForm): AppThunk => {
+  return async function (dispatch) {
     updateUserRequest(`${API_BASE}/auth/user`, form)
       .then((data) => {
         dispatch({

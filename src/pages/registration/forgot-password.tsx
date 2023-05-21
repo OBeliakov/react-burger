@@ -6,7 +6,7 @@ import {
 import styles from "./registration.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { passwordReset } from "../../services/actions/formActions";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../components/hooks/hooks";
 import { API_BASE } from "../../services/constants";
 import { TEmail } from "../../utils/types/types";
 
@@ -25,8 +25,6 @@ export const ForgotPasswordPage = () => {
 
   const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(passwordReset(_forgotPwdUrl, formValues.email));
     navigate("/reset-password", { state: { from: location } });
   };

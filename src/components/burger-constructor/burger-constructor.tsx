@@ -2,13 +2,12 @@ import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import OrderingInfo from "./ordering-info/ordering-info";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../hooks/hooks";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import burgerConstructor from "./burger-constructor.module.css";
 import { useDrop } from "react-dnd";
-import { SET_ACTIVE_INGREDIENT } from "../../services/actions/ingredientsActions";
-import { CLOSE_MODAL } from "../../services/actions/modalActions";
+import { SET_ACTIVE_INGREDIENT, CLOSE_MODAL } from "../../services/constants";
 
 import {
   TConstructorIngredient,
@@ -18,8 +17,6 @@ import {
 
 const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
   const constructorIngredients = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredientsReducer.constructorIngredients
   );
 
@@ -27,13 +24,11 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
 
   const handleCloseModal = () => {
     dispatch({ type: CLOSE_MODAL });
-    dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: {} });
+    dispatch({ type: SET_ACTIVE_INGREDIENT, currentIngredient: null });
   };
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
   const orderModal = useSelector((store) => store.modalReducer.orderModal);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
   const bunData = useSelector((store) => store.ingredientsReducer.bun);
 
   const bunsPrice = bunData ? bunData.price * 2 : 0;
@@ -44,7 +39,6 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
       0
     ) + bunsPrice;
 
-  const { image, name, price } = bunData || {};
   const [{ isHover }, dropRef] = useDrop({
     accept: "bun",
     drop(item: TIngredient) {
@@ -69,6 +63,8 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
 
     const type = addValueFromDir(direction, "top", "bottom");
     if (bunData) {
+      const { image, name, price } = bunData;
+
       return (
         <div
           className={`${

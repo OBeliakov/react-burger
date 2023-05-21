@@ -1,23 +1,104 @@
 import { getIngredientsRequest } from "../api";
+import {
+  AppThunk,
+  TConstructorIngredient,
+  TIngredient,
+} from "../../utils/types/types";
+import {
+  ADD_INGREDIENT,
+  REMOVE_INGREDIENT,
+  GET_INGREDIENTS,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_FAILED,
+  SET_ACTIVE_INGREDIENT,
+  SET_CURRENT_TAB,
+  ADD_BUN,
+  INCREASE_INGREDIENT,
+  DRAG_CONSTRUCTOR_INGREDIENTS,
+  DRAG_BUN_INGREDIENT,
+  SORT_INGREDIENTS_ON_DRAG,
+  CLEAR_CONSTRUCTOR,
+} from "../constants";
 
-export const ADD_INGREDIENT = "ADD_INGREDIENT";
-export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
-export const GET_INGREDIENTS = "GET_INGREDIENTS";
-export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
-export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
-export const SET_ACTIVE_INGREDIENT = "SET_ACTIVE_INGREDIENT";
-export const SET_CURRENT_TAB = "SET_CURRENT_TAB";
-export const ADD_BUN = "ADD_BUN";
-export const INCREASE_INGREDIENT = "INCREASE_INGREDIENT";
-export const DRAG_CONSTRUCTOR_INGREDIENTS = "DRAG_CONSTRUCTOR_INGREDIENTS";
-export const DRAG_BUN_INGREDIENT = "DRAG_BUN_INGREDIENT";
-export const SORT_INGREDIENTS_ON_DRAG = "SORT_INGREDIENTS_ON_DRAG";
-export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
+type TAddIngredient = {
+  readonly type: typeof ADD_INGREDIENT;
+  readonly payload: TConstructorIngredient[];
+};
 
-export function getIngredients(url: string) {
-  return function (dispatch: any) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+type TRemoveIngredient = {
+  readonly type: typeof REMOVE_INGREDIENT;
+  readonly payload: TConstructorIngredient[];
+};
+
+type TGetIngredients = {
+  readonly type: typeof GET_INGREDIENTS;
+};
+
+type TGetIngredientsSuccess = {
+  readonly type: typeof GET_INGREDIENTS_SUCCESS;
+  readonly ingredientsData: TIngredient[] | [];
+};
+
+type TGetIngredientsFailed = {
+  readonly type: typeof GET_INGREDIENTS_FAILED;
+};
+
+type TSetActiveIngredient = {
+  readonly type: typeof SET_ACTIVE_INGREDIENT;
+  readonly currentIngredient: TIngredient | null;
+};
+
+type TSetCurrentTab = {
+  readonly type: typeof SET_CURRENT_TAB;
+  readonly payload: string;
+};
+
+type TAddBun = {
+  readonly type: typeof ADD_BUN;
+  readonly payload: TIngredient;
+};
+
+type TIncreaseIngredient = {
+  readonly type: typeof INCREASE_INGREDIENT;
+  readonly id: string;
+};
+
+type TDragIngredients = {
+  readonly type: typeof DRAG_CONSTRUCTOR_INGREDIENTS;
+  readonly item: TConstructorIngredient;
+};
+
+type TDragBun = {
+  readonly type: typeof DRAG_BUN_INGREDIENT;
+  readonly payload: TIngredient;
+};
+
+type TSortIngredientsOnDrag = {
+  readonly type: typeof SORT_INGREDIENTS_ON_DRAG;
+  readonly payload: TConstructorIngredient[];
+};
+
+type TClearConstructor = {
+  readonly type: typeof CLEAR_CONSTRUCTOR;
+};
+
+export type TIngredientsActions =
+  | TAddIngredient
+  | TRemoveIngredient
+  | TGetIngredients
+  | TGetIngredientsSuccess
+  | TGetIngredientsFailed
+  | TSetActiveIngredient
+  | TSetCurrentTab
+  | TAddBun
+  | TIncreaseIngredient
+  | TDragIngredients
+  | TDragBun
+  | TSortIngredientsOnDrag
+  | TClearConstructor;
+
+export function getIngredients(url: string): AppThunk {
+  return function (dispatch) {
     dispatch({
       type: GET_INGREDIENTS,
     });
@@ -25,15 +106,11 @@ export function getIngredients(url: string) {
       .then((res) => {
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           ingredientsData: res.data,
         });
       })
       .catch(() => {
         dispatch({
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           type: GET_INGREDIENTS_FAILED,
         });
       });

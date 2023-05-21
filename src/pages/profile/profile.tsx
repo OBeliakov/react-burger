@@ -5,21 +5,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./profile.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../components/hooks/hooks";
 import { updateUserData } from "../../services/actions/formActions";
 import { API_BASE } from "../../services/constants";
 import NavigationMenu from "../../components/navigation-menu/navigation-menu";
 import { TFormValues } from "../../utils/types/types";
 
 export const ProfilePage = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const user = useSelector((store) => store.formReducer.userInfo);
   const dispatch = useDispatch();
 
   const [formValues, setFormValues] = useState<TFormValues>({
-    name: user.name,
-    email: user.email,
+    name: user ? user.name : "",
+    email: user ? user.email : "",
     password: "",
   });
 
@@ -31,18 +29,18 @@ export const ProfilePage = () => {
 
   const changeUserData = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(updateUserData(_updateUserUrl, formValues));
   };
 
   const handleReset = () => {
-    setFormValues({
-      ...formValues,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-    });
+    if (user) {
+      setFormValues({
+        ...formValues,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      });
+    }
   };
 
   return (
@@ -79,22 +77,23 @@ export const ProfilePage = () => {
           onChange={changeInputValue}
         />
         <div className={styles.buttons}>
-          {(formValues.name !== user.name ||
-            formValues.email !== user.email) && (
-            <>
-              <Button
-                htmlType="button"
-                type="secondary"
-                size="medium"
-                onClick={handleReset}
-              >
-                Отмена
-              </Button>
-              <Button htmlType="submit" type="primary" size="medium">
-                Сохранить
-              </Button>
-            </>
-          )}
+          {user &&
+            (formValues.name !== user.name ||
+              formValues.email !== user.email) && (
+              <>
+                <Button
+                  htmlType="button"
+                  type="secondary"
+                  size="medium"
+                  onClick={handleReset}
+                >
+                  Отмена
+                </Button>
+                <Button htmlType="submit" type="primary" size="medium">
+                  Сохранить
+                </Button>
+              </>
+            )}
         </div>
       </form>
     </div>

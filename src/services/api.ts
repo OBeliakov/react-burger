@@ -1,6 +1,5 @@
 import {
   TFormValues,
-  TIngredient,
   TLoginResponse,
   TLogoutResponse,
   TRegisterResponse,
@@ -9,16 +8,17 @@ import {
   TSignInForm,
   TUserResponse,
   TUserForm,
-  TConstructorIngredient,
   TOrderResponse,
+  TIngredientsResponse,
+  TFeedOrderResponse,
 } from "../utils/types/types";
 import { checkResponse } from "./utils";
 import { fetchWithRefresh } from "./auth";
 
 export const getIngredientsRequest = async (
   url: string
-): Promise<TIngredient[]> => {
-  return await fetch(url).then(checkResponse<TIngredient[]>);
+): Promise<TIngredientsResponse> => {
+  return await fetch(url).then(checkResponse<TIngredientsResponse>);
 };
 
 export const passwordResetRequest = async (
@@ -113,7 +113,7 @@ export const updateUserRequest = async (
 
 export const submitOrderRequest = async (
   url: string,
-  idArray: TConstructorIngredient[]
+  idArray: string[]
 ): Promise<TOrderResponse> => {
   return await fetch(url, {
     method: "POST",
@@ -126,4 +126,11 @@ export const submitOrderRequest = async (
       ingredients: idArray,
     }),
   }).then(checkResponse<TOrderResponse>);
+};
+
+export const getOrderRequest = async (
+  url: string,
+  id: string
+): Promise<TFeedOrderResponse> => {
+  return await fetch(`${url}/${id}`).then(checkResponse<TFeedOrderResponse>);
 };

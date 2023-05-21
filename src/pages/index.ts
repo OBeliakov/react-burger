@@ -7,15 +7,19 @@ import { SignInPage } from "./registration/sign-in";
 import { ProfilePage } from "./profile";
 import { NotFoundPage } from "./not-found-page";
 import { OrderPage } from "./orders";
+import { FeedPage } from "./feed";
+import { OrderCardPage } from "./order-card-page";
 
 export {
-    ConstructorPage,
-    IngredientDetailsPage,
-    RegisterPage,
-    ResetPasswordPage,
-    ForgotPasswordPage,
-    SignInPage,
-    ProfilePage,
-    NotFoundPage,
-    OrderPage,
+  ConstructorPage,
+  IngredientDetailsPage,
+  RegisterPage,
+  ResetPasswordPage,
+  ForgotPasswordPage,
+  SignInPage,
+  ProfilePage,
+  NotFoundPage,
+  OrderPage,
+  FeedPage,
+  OrderCardPage
 };

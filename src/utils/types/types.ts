@@ -1,3 +1,32 @@
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../../services/store";
+import { TAppActions } from "../../services/actions";
+import {
+  FEED_OPEN,
+  FEED_CLOSE,
+  FEED_ERROR,
+  FEED_MESSAGE,
+  FEED_CONNECT,
+  FEED_ORDER_OPEN,
+  FEED_ORDER_CLOSE,
+  FEED_ORDER_ERROR,
+  FEED_ORDER_MESSAGE,
+  FEED_ORDER_CONNECT,
+  FEED_DISCONNECT,
+  FEED_ORDER_DISCONNECT,
+} from "../../services/constants";
+
+export type AppThunk<TReturnType = void> = ThunkAction<
+  TReturnType,
+  RootState,
+  unknown,
+  TAppActions
+>;
+
+export type AppDispatch<TReturnType = void> = (
+  action: TAppActions | AppThunk<TReturnType>
+) => TReturnType;
+
 export type TIngredient = {
   calories: number;
   carbohydrates: number;
@@ -22,7 +51,7 @@ export type TDropType = {
 export type TFormValues = {
   name: string;
   email: string;
-  password: string;
+  password?: string;
 };
 
 export type TEmail = Pick<TFormValues, "email">;
@@ -48,7 +77,10 @@ export type TLoginResponse = TRegisterResponse;
 
 export type TUserResponse = TRegisterResponse;
 
-export type TOrderDate = { createdAt: string; updatedAt: string };
+export type TOrderDate = {
+  createdAt: string | number | Date;
+  updatedAt: string | number | Date;
+};
 
 export type TOwner = TUserForm & TOrderDate;
 
@@ -67,3 +99,45 @@ export type TOrderResponse = {
   name: string;
   order: TOrder;
 };
+
+export type TIngredientsResponse = {
+  success: boolean;
+  data: TIngredient[];
+};
+
+export type TFeedStoreActions = {
+  onInit: typeof FEED_CONNECT;
+  onOpen: typeof FEED_OPEN;
+  onClose: typeof FEED_CLOSE;
+  onError: typeof FEED_ERROR;
+  onMessage: typeof FEED_MESSAGE;
+  onDisconnect: typeof FEED_DISCONNECT;
+};
+
+export type TFeedOrderStoreActions = {
+  onInit: typeof FEED_ORDER_CONNECT;
+  onOpen: typeof FEED_ORDER_OPEN;
+  onClose: typeof FEED_ORDER_CLOSE;
+  onError: typeof FEED_ORDER_ERROR;
+  onMessage: typeof FEED_ORDER_MESSAGE;
+  onDisconnect: typeof FEED_ORDER_DISCONNECT;
+};
+
+export type TFeed = {
+  success: boolean;
+  orders: TFeedOrder[];
+  total: number;
+  totalToday: number;
+};
+
+export type TFeedOrder = {
+  _id: string;
+  ingredients: string[];
+  status: string;
+  name: string;
+  createdAt: string | number | Date;
+  updatedAt: string;
+  number: number;
+};
+
+export type TFeedOrderResponse = Pick<TFeed, "success" | "orders">;

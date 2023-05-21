@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import TabList from "./tab-list/tab-list";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
 import burgerIngredients from "./burger-ingredients.module.css";
-import { useDispatch } from "react-redux";
-import { SET_CURRENT_TAB } from "../../services/actions/ingredientsActions";
+import { useDispatch } from "../hooks/hooks";
+import { SET_CURRENT_TAB } from "../../services/constants";
 
 type TIngredientOpts = {
   type: string;
