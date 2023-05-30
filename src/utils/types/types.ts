@@ -42,7 +42,7 @@ export type TIngredient = {
   _id: string;
 };
 
-export type TConstructorIngredient = TIngredient & { key: string };
+export type TConstructorIngredient = TIngredient & { key: string; qty: number };
 
 export type TDropType = {
   onDrop: (item: TIngredient) => void;

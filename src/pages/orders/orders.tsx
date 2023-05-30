@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import {
   FEED_ORDER_CONNECT,
   FEED_ORDER_DISCONNECT,
+  WS_BASE,
 } from "../../services/constants";
 
 export const OrderPage = () => {
@@ -16,7 +17,7 @@ export const OrderPage = () => {
     const token = pureToken?.split(" ")[1];
     dispatch({
       type: FEED_ORDER_CONNECT,
-      payload: `wss://norma.nomoreparties.space/orders?token=${token}`,
+      payload: `${WS_BASE}/orders?token=${token}`,
     });
     return () => {
       dispatch({

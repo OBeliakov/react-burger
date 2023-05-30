@@ -3,7 +3,7 @@ import BurgerOrderList from "../../components/burger-order-list/burger-order-lis
 import styles from "./feed.module.css";
 import { OrderReport } from "../../components/order-report/order-report";
 import { useSelector, useDispatch } from "../../components/hooks/hooks";
-import { FEED_CONNECT, FEED_DISCONNECT } from "../../services/constants";
+import { FEED_CONNECT, FEED_DISCONNECT, WS_BASE } from "../../services/constants";
 
 export const FeedPage = () => {
   const orders = useSelector((store) => store.feedReducer.ordersList);
@@ -12,7 +12,7 @@ export const FeedPage = () => {
   useEffect(() => {
     dispatch({
       type: FEED_CONNECT,
-      payload: "wss://norma.nomoreparties.space/orders/all",
+      payload: `${WS_BASE}/orders/all`,
     });
     return () => {
       dispatch({

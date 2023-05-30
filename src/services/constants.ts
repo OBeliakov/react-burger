@@ -1,4 +1,5 @@
 export const API_BASE = "https://norma.nomoreparties.space/api";
+export const WS_BASE = "wss://norma.nomoreparties.space";
 
 export const RESET_FORM_FAILED: "RESET_FORM_FAILED" = "RESET_FORM_FAILED";
 export const RESET_FORM_SUCCESS: "RESET_FORM_SUCCESS" = "RESET_FORM_SUCCESS";
@@ -70,5 +71,5 @@ export const FEED_ORDER_CURRENT_ORDER: "FEED_ORDER_CURRENT_ORDER" =
   "FEED_ORDER_CURRENT_ORDER";
 
 export const GET_ORDER: "GET_ORDER" = "GET_ORDER";
-export const GET_ORDER_SUCCESS: "GET_ORDER_SUCCESS" = "GET_ORDER_SUCCESS"
-export const GET_ORDER_FAILED: "GET_ORDER_FAILED" = "GET_ORDER_FAILED"
+export const GET_ORDER_SUCCESS: "GET_ORDER_SUCCESS" = "GET_ORDER_SUCCESS";
+export const GET_ORDER_FAILED: "GET_ORDER_FAILED" = "GET_ORDER_FAILED";
