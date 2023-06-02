@@ -108,7 +108,7 @@ const BurgerConstructorListItem = ({
         text={name}
         price={price}
         thumbnail={image}
-        extraClass="ml-3"
+        extraClass="constructor-ingredient ml-3"
         handleClose={() => removeElement(item, index)}
       />
     </div>

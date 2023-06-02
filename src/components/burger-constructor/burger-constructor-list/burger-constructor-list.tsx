@@ -35,7 +35,7 @@ const BurgerConstructorList = ({ onDrop }: TDropType) => {
   };
 
   const elements = (
-    <>
+    <div data-cy="constructor list">
       {constructorIngredients.length ? (
         <ul
           ref={dropRef}
@@ -73,7 +73,7 @@ const BurgerConstructorList = ({ onDrop }: TDropType) => {
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
 
   return elements;

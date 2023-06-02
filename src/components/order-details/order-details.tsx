@@ -12,14 +12,14 @@ const OrderDetails = () => {
       {order ? (
         <>
           <p className="text text_type_digits-large pb-8">{order.number}</p>
-          <p className="text text_type_main-medium pb-15">
+          <p data-cy="order text" className="text text_type_main-medium pb-15">
             идентификатор заказа
           </p>
         </>
       ) : (
         <>
           <img src={Preloader} alt="preloader" />
-          <p className="text text_type_main-medium pb-15">
+          <p data-cy="order load" className="text text_type_main-medium pb-15">
             Оформляем ваш заказ...
           </p>
         </>

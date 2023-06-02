@@ -31,7 +31,7 @@ const IngredientDetails = (): JSX.Element | null => {
             src={image}
             alt={name}
           />
-          <h3 className="pt-4 pb-8 text text_type_main-medium">{name}</h3>
+          <h3 data-cy="ingredient title" className="pt-4 pb-8 text text_type_main-medium">{name}</h3>
           <ul className={`${ingredientDetailsStyle.nutrients_list}`}>
             <li className="mr-5">
               <p className="text text_type_main-default text_color_inactive">
