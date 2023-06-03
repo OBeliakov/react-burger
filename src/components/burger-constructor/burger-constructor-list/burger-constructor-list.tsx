@@ -35,9 +35,10 @@ const BurgerConstructorList = ({ onDrop }: TDropType) => {
   };
 
   const elements = (
-    <div data-cy="constructor list">
+    <div>
       {constructorIngredients.length ? (
         <ul
+          data-cy="constructor list"
           ref={dropRef}
           className={`${burgerConstructorList.list}  custom-scroll ${
             isOver ? burgerConstructorList.hovered_block : ""
@@ -59,6 +60,7 @@ const BurgerConstructorList = ({ onDrop }: TDropType) => {
         </ul>
       ) : (
         <ul
+          data-cy="constructor list"
           className={`${burgerConstructorList.list} ${burgerConstructorList.list_empty}`}
           ref={dropRef}
         >
