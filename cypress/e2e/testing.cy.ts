@@ -41,12 +41,12 @@ describe("Intitalization of Burger app and constructor functionality", () => {
     cy.get("[data-cy='Биокотлета из марсианской Магнолии']").trigger(
       "dragstart"
     );
-    cy.get("[data-cy='constructor list']").trigger("drop");
+    cy.get("[data-cy='constructor']").trigger("drop");
     cy.get("[data-cy='Биокотлета из марсианской Магнолии counter']").should(
       "have.text",
       "1"
     );
-    cy.get("[data-cy='constructor list'] .constructor-ingredient").contains(
+    cy.get("[data-cy='constructor'] .constructor-ingredient").contains(
       "Биокотлета из марсианской Магнолии"
     );
     cy.get("[data-cy='order info'] .order-button").click();

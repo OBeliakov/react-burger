@@ -8,6 +8,8 @@ import OrderDetails from "../order-details/order-details";
 import burgerConstructor from "./burger-constructor.module.css";
 import { useDrop } from "react-dnd";
 import { SET_ACTIVE_INGREDIENT, CLOSE_MODAL } from "../../services/constants";
+import { ADD_BUN, ADD_INGREDIENT } from "../../services/constants";
+import { v4 as uuid } from "uuid";
 
 import {
   TConstructorIngredient,
@@ -40,9 +42,19 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
     ) + bunsPrice;
 
   const [{ isHover }, dropRef] = useDrop({
-    accept: "bun",
+    accept: ["main", "sauce", "bun"],
     drop(item: TIngredient) {
-      onDrop(item);
+      if (item.type === "bun") {
+        dispatch({
+          type: ADD_BUN,
+          payload: { ...item, qty: ++item.qty },
+        });
+      } else {
+        dispatch({
+          type: ADD_INGREDIENT,
+          payload: [...constructorIngredients, { ...item, key: uuid() }],
+        });
+      }
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -66,13 +78,7 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
       const { image, name, price } = bunData;
 
       return (
-        <div
-          className={`${
-            isHover
-              ? `${burgerConstructor.hovered_block} ${burgerConstructor.bun_container}`
-              : ""
-          } `}
-        >
+        <div className={`${` ${burgerConstructor.bun_container}`} `}>
           <ConstructorElement
             type={type}
             isLocked={true}
@@ -86,20 +92,22 @@ const BurgerConstructor = ({ onDrop }: TDropType): JSX.Element => {
     }
 
     return (
-      <div
-        className={`${burgerConstructor.empty} constructor-element mr-2  ${
-          isHover ? `${burgerConstructor.hovered_block}` : ""
-        } `}
-      >
+      <div className={`${burgerConstructor.empty} constructor-element mr-2 `}>
         Положите булку сюда
       </div>
     );
   };
   return (
-    <div ref={dropRef} data-cy="constructor" className="ml-20 mt-25">
-      {renderBun(bunData, "верх")}
-      <BurgerConstructorList onDrop={onDrop} />
-      {renderBun(bunData, "низ")}
+    <div className={`ml-20 mt-25`}>
+      <div
+        ref={dropRef}
+        data-cy="constructor"
+        className={isHover ? burgerConstructor.hovered_block : ""}
+      >
+        {renderBun(bunData, "верх")}
+        <BurgerConstructorList onDrop={onDrop} />
+        {renderBun(bunData, "низ")}
+      </div>
       <OrderingInfo finalPrice={finalPrice} />
       {orderModal && (
         <Modal onClose={handleCloseModal} className="pt-15 pl-25 pb-30 pr-10">
