@@ -1,17 +1,17 @@
 describe("Intitalization of Burger app and constructor functionality", () => {
   beforeEach(() => {
-    cy.request({
-      method: "POST",
-      url: "https://norma.nomoreparties.space/api/auth/login",
-      body: {
-        email: "testmokaev@gmail.com",
-        password: "123",
-      },
-    }).then((res) => {
-      window.localStorage.setItem("accessToken", res.body.accessToken);
-    });
+    cy.intercept("GET", "api/auth/user", { fixture: "user.json" });
+    window.localStorage.setItem(
+      "refreshToken",
+      JSON.stringify("mock-refreshToken")
+    );
+    window.localStorage.setItem(
+      "accessToken",
+      JSON.stringify("mock-accessToken")
+    );
+
     cy.visit("localhost:3000/");
-    cy.intercept("GET", "http://norma.nomoreparties.space/api/ingredients", {
+    cy.intercept("GET", "/api/ingredients", {
       fixture: "ingredientsData",
     });
   });
