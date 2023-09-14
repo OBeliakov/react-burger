@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./components/app/app";
 import { configureStore } from "./services/store";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 const store = configureStore();
 const rootNode = document.querySelector("#root");
@@ -14,9 +14,9 @@ const root = ReactDOM.createRoot(rootNode);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>
 );

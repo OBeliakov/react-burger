@@ -46,9 +46,11 @@ const Modal = ({
         <ModalHeader>
           <>
             {modalTitle && (
-              <h2 className="text text_type_main-large">{modalTitle}</h2>
+              <h2 data-cy="title" className="text text_type_main-large">
+                {modalTitle}
+              </h2>
             )}
-            <button className={modalStyles.close_btn} onClick={onClose}>
+            <button data-cy="close" className={modalStyles.close_btn} onClick={onClose}>
               <CloseIcon type="primary" />
             </button>
           </>

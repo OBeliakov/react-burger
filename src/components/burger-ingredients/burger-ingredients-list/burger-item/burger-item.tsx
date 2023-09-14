@@ -59,8 +59,12 @@ const BurgerItem = ({ ingredient }: TIngredientProps): JSX.Element | null => {
       state={{ background: location }}
       className={burgerItem.link}
     >
-      <div ref={dragRef} className={`${burgerItem.card} mb-10 ml-3 mr-3`}>
-        {count}
+      <div
+        ref={dragRef}
+        data-cy={name}
+        className={`${burgerItem.card} mb-10 ml-3 mr-3`}
+      >
+        <span data-cy={`${name} counter`}>{count}</span>
         <img className="ml-4 mr-4" src={image} alt={name} />
         <p className={`${burgerItem.price} mt-1 mb-1`}>
           <span className="text text_type_digits-default mr-2">{price}</span>

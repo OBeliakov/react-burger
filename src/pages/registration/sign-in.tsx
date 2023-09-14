@@ -32,7 +32,7 @@ export const SignInPage = () => {
   const { email, password } = formValues;
   return (
     <>
-      <div className={styles.form_container}>
+      <div data-cy="login form" className={styles.form_container}>
         <h1 className="text text_type_main-medium">Вход</h1>
         <form action="" className={styles.form} onSubmit={submitForm}>
           <Input

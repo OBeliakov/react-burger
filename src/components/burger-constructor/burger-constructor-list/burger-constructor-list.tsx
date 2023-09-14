@@ -35,13 +35,11 @@ const BurgerConstructorList = ({ onDrop }: TDropType) => {
   };
 
   const elements = (
-    <>
+    <div>
       {constructorIngredients.length ? (
         <ul
           ref={dropRef}
-          className={`${burgerConstructorList.list}  custom-scroll ${
-            isOver ? burgerConstructorList.hovered_block : ""
-          }`}
+          className={`${burgerConstructorList.list}  custom-scroll`}
         >
           {constructorIngredients.map(
             (item: TConstructorIngredient, index: number) => {
@@ -63,17 +61,13 @@ const BurgerConstructorList = ({ onDrop }: TDropType) => {
           ref={dropRef}
         >
           <li
-            className={`${
-              burgerConstructorList.empty
-            } constructor-element mt-4 mr-2 ${
-              isOver ? burgerConstructorList.hovered_block : ""
-            }`}
+            className={`${burgerConstructorList.empty} constructor-element mt-4 mr-2 `}
           >
             Добавьте ингредиенты сюда
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
 
   return elements;

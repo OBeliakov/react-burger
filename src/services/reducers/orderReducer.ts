@@ -1,17 +1,15 @@
-import { TOrder, TOrderResponse } from "../../utils/types/types";
+import { TOrder } from "../../utils/types/types";
 import { TAppActions } from "../actions";
 import { POST_ORDER_INFO_SUCCESS, POST_ORDER_INFO_FAILED } from "../constants";
 
 type TOrderState = {
   order: TOrder | null;
   orderFailed: boolean;
-  data: TOrderResponse[];
 };
 
 export const orderState: TOrderState = {
   order: null,
   orderFailed: false,
-  data: [],
 };
 
 export const orderReducer = (
@@ -22,8 +20,7 @@ export const orderReducer = (
     case POST_ORDER_INFO_SUCCESS:
       return {
         ...state,
-        order: action.payload.order,
-        data: [...state.data, { ...action.payload }],
+        order: action.payload,
       };
     case POST_ORDER_INFO_FAILED:
       return {

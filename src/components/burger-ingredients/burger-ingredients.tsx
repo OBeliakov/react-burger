@@ -87,7 +87,12 @@ const BurgerIngredients = () => {
 
   return (
     <div>
-      <h2 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h2>
+      <h2
+        data-cy="constructor title"
+        className="text text_type_main-large mt-10 mb-5"
+      >
+        Соберите бургер
+      </h2>
       <TabList scrollByTabClick={scrollByTabClick} ref={tabRef} />
       <div
         ref={listRef}

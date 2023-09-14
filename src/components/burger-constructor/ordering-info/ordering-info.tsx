@@ -45,14 +45,14 @@ const OrderingInfo = ({ finalPrice }: { finalPrice: number }): JSX.Element => {
   };
 
   return (
-    <div className={`${orderingInfo.ordering_info} mt-10`}>
+    <div data-cy="order info" className={`${orderingInfo.ordering_info} mt-10`}>
       <span className="text text_type_digits-medium mr-2">{finalPrice}</span>
       <CurrencyIcon type="primary" />
       <Button
         htmlType="button"
         type="primary"
         size="large"
-        extraClass="ml-10 mr-3"
+        extraClass="ml-10 mr-3 order-button"
         onClick={makeOrder}
       >
         Оформить заказ
